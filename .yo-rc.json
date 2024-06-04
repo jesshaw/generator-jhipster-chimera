@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "additionalSubGenerators": "",
+    "baseName": "chimera",
+    "cli": true,
+    "entities": [],
+    "generators": {
+      "bootstrap-application-base": {
+        "command": false,
+        "priorities": ["preparing"],
+        "sbs": true,
+        "written": true
+      },
+      "client": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
+      },
+      "languages": {
+        "command": false,
+        "priorities": ["writing", "writingEntities", "postWritingEntities"],
+        "sbs": true,
+        "written": true
+      }
+    },
+    "jhipsterVersion": "8.3.0",
+    "localBlueprint": false,
+    "sampleWritten": true,
+    "subGenerators": ["bootstrap-application-base", "client", "languages"]
+  }
+}
