@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+        "label": "link generator",
+        "type": "shell",
+        "command": "cd D:/mywork/github/jesshaw/chimera-sample ; npm link generator-jhipster-chimera"
+        }
+    ]
+    }
