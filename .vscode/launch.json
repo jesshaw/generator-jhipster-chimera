@@ -1,24 +1,25 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-        "type": "node",
-        "request": "launch",
-        "name": "lxm chimera blueprint",
-        "preLaunchTask": "link generator",
-        "program": "C:/Program Files/nodejs/node_modules/generator-jhipster/dist/cli/jhipster.cjs",
-        "args": [        
-            "jdl",
-            "-d",
-            // "--skip-checks",
-            "--skip-git",
-            "--skip-cache",
-            "--skip-install",
-            "--blueprints", "chimera" ,        
-            "sample.jdl"
-        ],
-        "console": "integratedTerminal",
-        "cwd": "D:/mywork/github/jesshaw/chimera-sample/"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "lxm chimera blueprint",
+      "preLaunchTask": "link generator",
+      "program": "C:/Program Files/nodejs/node_modules/generator-jhipster/dist/cli/jhipster.cjs",
+      "args": [
+        "jdl",
+        "-d",
+        // "--skip-checks",
+        "--skip-git",
+        // "--skip-cache",
+        "--skip-install",
+        "--blueprints",
+        "chimera",
+        "crm.jdl"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "D:/mywork/github/jesshaw/lxm-crm/"
     }
+  ]
+}

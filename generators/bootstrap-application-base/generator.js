@@ -1,4 +1,5 @@
 import BaseApplicationGenerator from 'generator-jhipster/generators/base-application';
+import { configApp } from './appconfig.js';
 
 export default class extends BaseApplicationGenerator {
   constructor(args, opts, features) {
@@ -7,7 +8,7 @@ export default class extends BaseApplicationGenerator {
 
   get [BaseApplicationGenerator.PREPARING]() {
     return this.asPreparingTaskGroup({
-      async preparingTemplateTask() {},
+      ...configApp(),
     });
   }
 }

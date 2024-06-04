@@ -1,4 +1,5 @@
 import BaseApplicationGenerator from 'generator-jhipster/generators/base-application';
+import { commonFiles } from './files.js';
 
 export default class extends BaseApplicationGenerator {
   constructor(args, opts, features) {
@@ -9,9 +10,7 @@ export default class extends BaseApplicationGenerator {
     return this.asWritingTaskGroup({
       async writingTemplateTask({ application }) {
         await this.writeFiles({
-          sections: {
-            files: [{ templates: ['template-file-client'] }],
-          },
+          sections: commonFiles,
           context: application,
         });
       },

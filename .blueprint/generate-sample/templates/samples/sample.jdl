@@ -3,7 +3,10 @@ application {
     applicationType monolith
     cacheProvider no
     creationTimestamp 1632872179205
+    clientFramework react
     testFrameworks [cypress]
+    nativeLanguage zh-cn
+    languages [zh-cn,en]
   }
 
   entities Blog, Post, Tag
@@ -14,9 +17,13 @@ entity Blog {
   handle String required minlength(2)
 }
 
+/** 文章 */
 entity Post {
+  /** 标题 */
   title String required
+  /** 内容 */
   content TextBlob required
+  /** 日期 */
   date Instant required
 }
 
