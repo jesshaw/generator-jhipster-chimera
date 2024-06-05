@@ -2,17 +2,20 @@ export function configApp() {
   return {
     async configApp({ application }) {
       Object.assign(application, {
-        // hipster: 'jhipster_family_member_4',
+        hipster: 'chamera1-512',
         hipsterBugTrackerLink: 'https://github.com/jesshaw/generator-jhipster-chimera/issues?state=open',
         hipsterBugTrackerProductName: 'lxm chimera',
         hipsterHomePageProductName: 'lxm chimera',
         hipsterStackOverflowProductName: 'lxm chimera',
+        hipsterStackoverflowLink: '',
         hipsterName: 'lxm chimera GENERATOR',
         hipsterProductName: 'lxm chimera',
         hipsterProjectLink: 'https://github.com/jesshaw/generator-jhipster-chimera',
+        hipsterDocumentationLink: '',
         hipsterChatProductName: 'lxm chimera',
-        hipsterTwitterUsername: 'lxm chimera',
         hipsterChatLink: '',
+        hipsterTwitterUsername: 'lxm chimera',
+        hipsterTwitterLink: '',
       });
     },
   };

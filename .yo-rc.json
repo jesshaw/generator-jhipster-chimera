@@ -22,11 +22,17 @@
         "priorities": ["writing", "writingEntities", "postWritingEntities"],
         "sbs": true,
         "written": true
+      },
+      "react": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
       }
     },
     "jhipsterVersion": "8.3.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["bootstrap-application-base", "client", "languages"]
+    "subGenerators": ["bootstrap-application-base", "client", "languages", "react"]
   }
 }
