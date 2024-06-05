@@ -23,6 +23,12 @@
         "sbs": true,
         "written": true
       },
+      "liquibase": {
+        "command": false,
+        "priorities": ["writingEntities", "postWritingEntities"],
+        "sbs": true,
+        "written": true
+      },
       "react": {
         "command": false,
         "priorities": ["writing"],
@@ -33,6 +39,6 @@
     "jhipsterVersion": "8.3.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["bootstrap-application-base", "client", "languages", "react"]
+    "subGenerators": ["bootstrap-application-base", "client", "languages", "react", "liquibase"]
   }
 }
