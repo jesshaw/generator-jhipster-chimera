@@ -1,7 +1,6 @@
 {
   "name": "generator-jhipster-chimera",
   "version": "1.0.0",
-  "private": true,
   "description": "Description for Chimera",
   "keywords": [
     "yeoman-generator",

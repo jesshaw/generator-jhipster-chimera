@@ -20,6 +20,7 @@ describe('SubGenerator languages of chimera JHipster blueprint', () => {
     });
 
     it('should succeed', () => {
+      console.log(result.getStateSnapshot());
       expect(result.getStateSnapshot()).toMatchSnapshot();
     });
   });

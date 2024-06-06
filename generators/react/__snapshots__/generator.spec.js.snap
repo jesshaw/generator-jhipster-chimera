@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SubGenerator client of chimera JHipster blueprint > run > should succeed 1`] = `
+exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed 1`] = `
 {
   ".editorconfig": {
     "stateCleared": "modified",
@@ -503,13 +503,31 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
   "src/main/webapp/app/core/util/parse-links.service.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/entities/admin/authority/authority-delete-dialog.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/authority-detail.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/authority-reducer.spec.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/authority-update.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/entities/admin/authority/authority.model.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/authority.reducer.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/entities/admin/authority/authority.routes.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/entities/admin/authority/authority.test-samples.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/authority.tsx": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/entities/admin/authority/delete/authority-delete-dialog.component.html": {
@@ -528,6 +546,9 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
     "stateCleared": "modified",
   },
   "src/main/webapp/app/entities/admin/authority/detail/authority-detail.component.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/entities/admin/authority/index.tsx": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/entities/admin/authority/list/authority.component.html": {
@@ -741,6 +762,9 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/language/translation.module.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/model/admin/authority.model.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/pagination/index.ts": {

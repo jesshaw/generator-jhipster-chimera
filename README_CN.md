@@ -2,7 +2,8 @@
 
 [![NPM 版本][npm-image]][npm-url]
 [![产生器][github-generator-image]][github-generator-url]
-[![集成测试][github-integration-image]][github-integration-url]
+
+<!-- [![集成测试][github-integration-image]][github-integration-url] -->
 
 ## 介绍
 
@@ -248,3 +249,10 @@ npm run prettier-format & npm run test
 #### 最新版有什么参考示例？
 
 https://github.com/jhipster/generator-jhipster-micronaut
+
+[npm-image]: https://img.shields.io/npm/v/generator-jhipster-chimera.svg
+[npm-url]: https://npmjs.org/package/generator-jhipster-chimera
+[github-generator-image]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
+[github-generator-url]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml
+[github-integration-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml/badge.svg
+[github-integration-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml

@@ -1,5 +1,5 @@
-import { clientSrcTemplatesBlock } from 'generator-jhipster/generators/client/support';
 import { JAVA_WEBAPP_SOURCES_DIR } from 'generator-jhipster';
+import { startCase } from 'lodash-es';
 
 export const entityClientI18nFiles = {
   entityBaseFiles: [
@@ -26,7 +26,7 @@ export const clientI18nFiles = {
 
 export function writeLocalizationEntityFiles() {
   return {
-    async writeClientFiles({ application, entities }) {
+    async writeLocalizationEntityFiles({ application, entities }) {
       this.log('---------lxm writeLocalizationEntityFiles----------');
       if (application.skipClient) return;
       const entitiesToWriteTranslationFor = entities.filter(entity => !entity.skipClient && !entity.builtInUser);
@@ -70,7 +70,7 @@ export function writeLocalizationEntityFiles() {
 
 export function writeLocalizationEntityMenu() {
   return {
-    async addEntities({ application, entities, source }) {
+    async writeLocalizationEntityMenu({ application, entities, source }) {
       this.log('---------lxm writeLocalizationEntityMenu----------');
       if (application.skipClient) return;
       const languagesToApply = [...new Set([application.nativeLanguage, 'en'])];
@@ -93,7 +93,7 @@ export function writeLocalizationEntityMenu() {
 
 export function writeAppInfo() {
   return {
-    async write({ application }) {
+    async writeAppInfo({ application }) {
       if (application.skipClient) return;
       const languagesToApply = [...new Set([application.nativeLanguage, 'en'])];
       await Promise.all(

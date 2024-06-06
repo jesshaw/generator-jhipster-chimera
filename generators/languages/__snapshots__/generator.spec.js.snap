@@ -14,6 +14,9 @@ exports[`SubGenerator languages of chimera JHipster blueprint > run > should suc
   "src/main/webapp/i18n/en/adminAuthority.json": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/i18n/en/adminUserManagement.json": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/i18n/en/configuration.json": {
     "stateCleared": "modified",
   },
@@ -57,9 +60,6 @@ exports[`SubGenerator languages of chimera JHipster blueprint > run > should suc
     "stateCleared": "modified",
   },
   "src/test/resources/i18n/messages_en.properties": {
-    "stateCleared": "modified",
-  },
-  "template-file-languages": {
     "stateCleared": "modified",
   },
 }

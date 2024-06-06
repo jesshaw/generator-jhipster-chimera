@@ -13,7 +13,7 @@ export default class extends BaseApplicationGenerator {
 
   get [BaseApplicationGenerator.POST_WRITING_ENTITIES]() {
     return this.asPostWritingEntitiesTaskGroup({
-      async postWritingEntitiesTemplateTask(){},
+      async postWritingEntitiesTemplateTask() {},
       // async postWritingEntitiesTemplateTask({entities}) {
 
       // },
