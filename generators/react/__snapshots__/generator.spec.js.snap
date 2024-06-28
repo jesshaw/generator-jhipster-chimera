@@ -389,6 +389,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/app.constants.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/app.css": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/app.routes.ts": {
     "stateCleared": "modified",
   },
@@ -764,6 +767,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/shared/language/translation.module.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/shared/layout/header/header.css": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/shared/model/admin/authority.model.ts": {
     "stateCleared": "modified",
   },
@@ -885,6 +891,15 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/content/scss/vendor.scss": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/blue/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/blue/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/blue/theme.css": {
     "stateCleared": "modified",
   },
   "src/main/webapp/declarations.d.ts": {

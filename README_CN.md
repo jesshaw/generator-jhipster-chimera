@@ -152,6 +152,9 @@ npm test
 
 ## 格式化后运行测试
 npm run prettier-format & npm run test
+
+
+yarn run prettier-format & yarn run test
 ```
 
 ### Q&A

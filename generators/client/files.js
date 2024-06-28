@@ -9,4 +9,15 @@ export const commonFiles = {
       templates: ['logo.png', 'chamera1-512.png'],
     }),
   ],
+  common: [
+    {
+      ...clientSrcTemplatesBlock(),
+      transform: false,
+      templates: [
+        'content/theme/theme-light/blue/theme.css',
+        'content/theme/theme-light/blue/fonts/Inter-italic.var.woff2',
+        'content/theme/theme-light/blue/fonts/Inter-roman.var.woff2',
+      ],
+    },
+  ],
 };
