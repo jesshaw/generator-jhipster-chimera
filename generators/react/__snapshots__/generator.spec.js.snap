@@ -980,6 +980,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/test/resources/i18n/messages_en.properties": {
     "stateCleared": "modified",
   },
+  "tailwind.config.js": {
+    "stateCleared": "modified",
+  },
   "tsconfig.app.json": {
     "stateCleared": "modified",
   },

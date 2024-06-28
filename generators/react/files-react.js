@@ -1,6 +1,11 @@
-import { clientApplicationTemplatesBlock } from 'generator-jhipster/generators/client/support';
+import { clientRootTemplatesBlock, clientApplicationTemplatesBlock } from 'generator-jhipster/generators/client/support';
 
 export const files = {
+  common: [
+    clientRootTemplatesBlock({
+      templates: ['tailwind.config.js'],
+    }),
+  ],
   reactApp: [
     {
       ...clientApplicationTemplatesBlock(),
