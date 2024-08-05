@@ -1,24 +1,6 @@
-<%#
- Copyright 2013-2024 the original author or authors from the JHipster project.
-
- This file is part of the JHipster project, see https://www.jhipster.tech/
- for more information.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--%>
 import './header.css';
 
-import React, { useState<% if (enableI18nRTL) { %>, useEffect<% } %> } from 'react';
+import React, { useState<% if (enableI18nRTL) { %>, useEffect<% } %>, Dispatch, SetStateAction, MutableRefObject } from 'react';
 import { Translate<% if (enableTranslation) { %>, Storage<% } %> } from 'react-jhipster';
 import {
   Navbar,
@@ -38,6 +20,11 @@ import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
 <%_ } _%>
 
+import MyProfile from './my-profile';
+import ThemeSelector from '../theme/theme-selector';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { InputText } from 'primereact/inputtext';
+
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -47,11 +34,17 @@ export interface IHeaderProps {
 <%_ if (enableTranslation) { _%>
   currentLocale: string;
 <%_ } _%>
+  themeSelectorVisible: boolean;
+  setThemeSelectorVisible: Dispatch<SetStateAction<boolean>>;
+  layoutContainer: MutableRefObject<HTMLDivElement>;
 }
 
 
 const Header = (props: IHeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const breadItems = [{ label: 'Electronics' }];
+  const home = { icon: 'pi pi-home', url: '#' };
+
 <%_ if (enableI18nRTL) { _%>
   useEffect(() => document.querySelector('html').setAttribute('dir', isRTL(Storage.session.get('locale')) ? 'rtl' : 'ltr'));
 <%_ } _%>
@@ -71,22 +64,48 @@ const Header = (props: IHeaderProps) => {
 
   const renderDevRibbon = () => props.isInProduction === false ? (
     <div className="ribbon dev">
-      <a href="">
 <%_ if (enableTranslation) { _%>
         <Translate contentKey={`global.ribbon.${props.ribbonEnv}`} />
 <%_ } else { _%>
         Development
 <%_ } _%>
-      </a>
     </div>
   ) : null;
+
+  const divLayoutConatiner = props.layoutContainer;
+  const layoutStaticInactive = 'layout-static-inactive'; //静态未激活
+  const layoutMobileActive = 'layout-mobile-active'; //手机屏幕激活
+  const blockedScroll = 'blocked-scroll';
+  const handleMenu = () => {
+    if (divLayoutConatiner.current?.classList.contains(layoutStaticInactive)) {
+      divLayoutConatiner.current?.classList.remove(layoutStaticInactive);
+    } else {
+      divLayoutConatiner.current?.classList.add(layoutStaticInactive);
+    }
+
+    if (window.innerWidth < 992) {
+      divLayoutConatiner.current?.classList.add(layoutMobileActive);
+      document.body.classList.add(blockedScroll);
+    } else {
+      divLayoutConatiner.current?.classList.remove(layoutMobileActive);
+    }
+  };
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
 
   return (
-    <div id="app-header">
+    <div id="app-header" className="layout-topbar">
+      <div className="topbar-start">
+        <button type="button" className="topbar-menubutton p-link p-trigger" onClick={() => handleMenu()}>
+          <i className="pi pi-bars" />
+        </button>
+        <div className="topbar-breadcrumb">
+          <BreadCrumb model={breadItems} home={home} />
+        </div>
+      </div>
+
       {renderDevRibbon()}
       <LoadingBar className="loading-bar"/>
       <Navbar data-cy="navbar" <% if (clientThemeNone || !clientThemeLight) { %>dark<% } else { %>light<% } %> expand="md" fixed="top" className="<%_ if (clientThemeNone) { _%>jh-navbar<%_ } else { _%>bg-<%= clientThemeVariant %><%_ } _%>">
@@ -94,7 +113,7 @@ const Header = (props: IHeaderProps) => {
         <Brand />
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ms-auto" navbar>
-            <Home />
+            {props.isAuthenticated && <Home />}
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin &&
             <AdminMenu showOpenAPI={props.isOpenAPIEnabled} <% if (devDatabaseTypeH2Any) { %> showDatabase={!props.isInProduction} <%_ } _%> />}
@@ -105,6 +124,19 @@ const Header = (props: IHeaderProps) => {
           </Nav>
         </Collapse>
       </Navbar>
+
+      <div className="topbar-end">
+        <div className="topbar-search">
+          <i className="pi pi-search"></i>
+          <InputText placeholder="Search" className="h-8 pl-6" />
+        </div>
+        <ThemeSelector
+          currentLocale={props.currentLocale}
+          visible={props.themeSelectorVisible}
+          setVisible={props.setThemeSelectorVisible}
+        />
+        <MyProfile />
+      </div>
     </div>
   );
 };

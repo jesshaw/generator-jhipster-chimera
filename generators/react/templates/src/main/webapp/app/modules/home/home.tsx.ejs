@@ -16,7 +16,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -%>
-import './home.scss';
+import './home.css';
 
 <%_ if (authenticationTypeOauth2) { _%>
 import React, { useEffect } from 'react';
@@ -45,11 +45,11 @@ export const Home = () => {
 <%_ } _%>
 
   return (
-    <Row>
-      <Col md="3" className="pad">
+    <div className="grid grid-cols-12 gap-1">
+      <div className="col-span-12 md:col-span-3">
         <span className="hipster rounded" />
-      </Col>
-      <Col md="9">
+      </div>
+      <div className="col-span-12 md:col-span-9">
         <h1 className="display-4"><Translate contentKey="home.title">Welcome, <%= backendType %> Hipster!</Translate></h1>
         <p className="lead"><Translate contentKey="home.subtitle">This is your homepage</Translate></p>
         {
@@ -123,8 +123,8 @@ export const Home = () => {
           {' '}
           <a href="https://github.com/jesshaw/generator-jhipster-chimera" target="_blank" rel="noopener noreferrer">GitHub</a>!
         </p>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

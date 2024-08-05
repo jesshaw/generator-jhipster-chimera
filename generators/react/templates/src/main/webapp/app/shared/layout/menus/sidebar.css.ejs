@@ -1,0 +1,92 @@
+.sidebar-header {
+  @apply p-4;
+}
+.sidebar-header .brand-logo {
+  @apply flex items-end justify-center;
+}
+
+.sidebar-header .brand-logo .navbar-version {
+  @apply pb-1;
+}
+
+.sidebar-header .brand-icon {
+  @apply w-14;
+}
+
+.sidebar-header .brand-icon svg {
+  @apply fill-lxm-primary;
+}
+
+.layout-menu-container {
+  /* 需要在 100vh 和 93px 之间添加空格 */
+  max-height: calc(100vh - 93px);
+  @apply flex-1 overflow-y-auto pb-8;
+}
+
+.layout-menu {
+  @apply m-0 list-none p-0;
+}
+
+.layout-menu .layout-root-menuitem .layout-menuitem-root-text {
+  @apply pb-4 pl-8 pr-8 pt-4 text-sm font-bold uppercase text-lxm-primary;
+}
+.layout-static .layout-root-menuitem > a {
+  @apply hidden;
+}
+
+/* transition: max-height 0.5s ease-out; */
+.layout-root-menuitem .layout-menu li ul {
+  @apply max-h-0 overflow-hidden transition-all duration-500 ease-out;
+}
+
+/* transition: max-height 0.5s ease-in; */
+.layout-root-menuitem .layout-menu li.active-menuitem > ul {
+  @apply max-h-[1000px] transition-all duration-1000 ease-in;
+}
+
+.layout-menu ul li {
+  @apply list-item;
+}
+
+.layout-menu ul a {
+  @apply relative flex animate-flash cursor-pointer content-center pb-3 pl-8 pr-8 pt-3 text-lxm-text no-underline hover:bg-lxm-surface-hover;
+}
+
+.layout-menu a.active-route {
+  @apply font-bold;
+}
+
+.layout-menu .active-menuitem > a > .layout-submenu-toggler {
+  @apply rotate-180;
+}
+
+.layout-menu ul a .layout-menuitem-icon {
+  @apply mr-2 text-lxm-primary;
+}
+.layout-menu ul a .layout-submenu-toggler {
+  @apply ml-auto;
+}
+
+.layout-menu .layout-menuitem-text {
+  @apply text-lxm-text;
+}
+
+.layout-menu ul ul li a {
+  @apply pl-10;
+}
+
+.layout-menu ul ul li li a {
+  @apply pl-12;
+}
+.layout-menu ul ul li li li a {
+  @apply pl-14;
+}
+.layout-menu ul ul li li li li a {
+  @apply pl-16;
+}
+.layout-menu ul ul li li li li li a {
+  @apply pl-[4.5rem];
+}
+.layout-menu ul ul li li li li li li a {
+  @apply pl-20;
+}

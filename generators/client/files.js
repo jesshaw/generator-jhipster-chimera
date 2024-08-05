@@ -6,7 +6,15 @@ export const commonFiles = {
     clientSrcTemplatesBlock({
       transform: false,
       relativePath: 'content/images/',
-      templates: ['logo.png', 'chamera1-512.png'],
+      templates: [
+        'avatar/amyelsner.png',
+        'avatar/avatar-f-4.png',
+        'avatar/avatar-f-8.png',
+        'avatar/avatar-m-8.png',
+        'logo.png',
+        'logo.png',
+        'chamera1-512.png',
+      ],
     }),
   ],
   common: [

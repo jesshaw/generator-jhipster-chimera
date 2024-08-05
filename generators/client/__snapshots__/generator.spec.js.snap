@@ -785,6 +785,18 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
   "src/main/webapp/content/css/loading.css": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/content/images/avatar/amyelsner.png": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/images/avatar/avatar-f-4.png": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/images/avatar/avatar-f-8.png": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/images/avatar/avatar-m-8.png": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/content/images/chamera1-512.png": {
     "stateCleared": "modified",
   },
@@ -863,6 +875,87 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
   "src/main/webapp/content/scss/vendor.scss": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/content/theme/theme-dark/amber/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/amber/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/amber/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/blue/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/blue/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/blue/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/cyan/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/cyan/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/cyan/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/green/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/green/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/green/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/indigo/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/indigo/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/indigo/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/pink/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/pink/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/pink/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/purple/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/purple/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/purple/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/teal/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/teal/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-dark/teal/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/amber/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/amber/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/amber/theme.css": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/content/theme/theme-light/blue/fonts/Inter-italic.var.woff2": {
     "stateCleared": "modified",
   },
@@ -870,6 +963,60 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
     "stateCleared": "modified",
   },
   "src/main/webapp/content/theme/theme-light/blue/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/cyan/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/cyan/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/cyan/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/green/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/green/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/green/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/indigo/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/indigo/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/indigo/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/pink/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/pink/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/pink/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/purple/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/purple/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/purple/theme.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/teal/fonts/Inter-italic.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/teal/fonts/Inter-roman.var.woff2": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/content/theme/theme-light/teal/theme.css": {
     "stateCleared": "modified",
   },
   "src/main/webapp/declarations.d.ts": {

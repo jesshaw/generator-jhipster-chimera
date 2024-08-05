@@ -1,7 +1,121 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'primeicons/primeicons.css';
+/* @layer primereact; */
+@layer lxm-base,lxm-componets,lxm-utilities;
+
+@layer lxm-base {
+  @tailwind base;
+}
+
+@layer lxm-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+html,
+body {
+  @apply m-0 min-h-full bg-lxm-surface p-0 text-lxm-text;
+}
+
+.layout-container {
+  @apply min-h-screen;
+}
+
+.layout-static {
+}
+
+.layout-static .layout-sidebar {
+  @apply transition duration-300 ease-in-out;
+}
+
+.layout-static .layout-content-wrapper {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.layout-static-inactive .layout-sidebar {
+  @apply -translate-x-full;
+}
+
+.layout-static-inactive .layout-content-wrapper {
+  @apply ml-0;
+}
+
+.layout-mobile-active .layout-sidebar {
+  @apply translate-x-0;
+}
+
+.layout-sidebar {
+  @apply fixed left-0 top-0 z-[999] h-full w-72 translate-x-0 bg-lxm-surface max-lg:-translate-x-full;
+}
+
+.layout-content-wrapper {
+  @apply ml-72 p-4 max-lg:ml-0;
+}
 
 .app-container {
-  @apply pt-20;
+  @apply overflow-hidden;
+}
+
+/* 面包屑导航 */
+.topbar-breadcrumb {
+  @apply max-lg:hidden lg:visible;
+}
+.topbar-breadcrumb > nav {
+  @apply border-0 bg-white bg-opacity-0 p-0;
+}
+
+.content-breadcrumb {
+  @apply mb-8 pl-2 pr-2 max-lg:visible lg:hidden;
+}
+
+.content-breadcrumb > nav {
+  @apply border-0 bg-white bg-opacity-0 p-0;
+}
+
+/* 设置按钮 */
+.layout-config-button {
+  @apply fixed right-0 top-1/2 z-[999] block h-11 w-11 cursor-pointer rounded-bl-md rounded-tl-md border-0 bg-lxm-primary text-lxm-surface shadow-2xl transition hover:opacity-80;
+}
+
+.layout-config-button > i {
+  @apply text-3xl;
+}
+
+.layout-mobile-active .layout-mask {
+  @apply block;
+}
+
+.layout-mask {
+  @apply fixed left-0 top-0 z-[998] hidden h-full w-full bg-black opacity-40 transition-opacity duration-1000 ease-in-out;
+}
+
+/* 打开左边菜单时不能滚动 */
+.blocked-scroll {
+  overflow: hidden;
+}
+
+.brand-logo {
+  @apply hidden flex-row items-center gap-2;
+}
+
+.brand-logo .brand-icon {
+  @apply w-16;
+}
+.brand-logo .brand-title {
+  @apply text-2xl;
+}
+.brand-logo .navbar-version {
+  @apply text-xs font-extralight;
+}
+
+/* .card {
+  @apply bg-lxm-surface-card border-lxm-surface-border mb-8 rounded-xl border border-solid p-8 drop-shadow-sm;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+} */
+
+/* for login  */
+.modal-open > #root {
+  @apply hidden;
 }

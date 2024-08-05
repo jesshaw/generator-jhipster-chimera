@@ -1,0 +1,77 @@
+#app-header {
+  @apply relative mb-8 flex flex-row justify-between;
+}
+
+#app-header > .topbar-start {
+  @apply inline-flex items-center;
+}
+
+#app-header > .topbar-end {
+  @apply inline-flex items-center;
+}
+#app-header > .ribbon.dev {
+  @apply absolute right-0 top-0 z-[996] -mr-16 mt-12 w-64 rotate-45 bg-red-500 bg-opacity-75 text-center text-white;
+}
+
+#app-header > .ribbon.dev span {
+  @apply right-0 top-0;
+}
+
+#app-header > .jh-navbar {
+  @apply hidden;
+}
+
+#app-header > .jh-navbar > .container-fluid {
+  @apply flex flex-row items-center;
+}
+
+#app-header > .jh-navbar > .container-fluid > div {
+  @apply grow;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul {
+  @apply flex justify-end gap-2;
+}
+
+#app-header > .jh-navbar > .container-fluid > div a {
+  @apply flex items-center gap-1;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul .dropdown-menu {
+  @apply relative hidden;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul .dropdown-menu.show {
+  @apply absolute block;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul .dropdown-item {
+  @apply block;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul li:last-child > div {
+  @apply right-0 pr-4;
+}
+
+#app-header > .jh-navbar > .container-fluid > div ul li:last-child > div a {
+  @apply text-right;
+}
+
+#app-header .collapse {
+  @apply visible;
+}
+
+.topbar-menubutton {
+  @apply mr-4 inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-lxm-primary hover:text-lxm-surface;
+}
+
+.topbar-search {
+  @apply relative flex w-40 items-center sm:w-56;
+}
+
+.topbar-search > i {
+  @apply absolute items-center pl-3 text-xs;
+}
+.topbar-search > input {
+  @apply w-full rounded-full border border-lxm-surface-border pl-8 text-sm;
+}
