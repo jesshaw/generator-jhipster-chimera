@@ -1,9 +1,13 @@
 <%#
  Copyright 2024 the original author or authors from the chimera project.
+ corePlugins: { preflight: false } -- Disabled Tailwind CSS's base styles to use PrimeReact's base style.
 -%>
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/main/webapp/**/*.{js,ts,jsx,tsx,mdx}', './node_modules/primereact/**/*.{js,ts,jsx,tsx}'],
+module.exports = {  
+  corePlugins: {
+    preflight: false,
+  },
+  content: ['./src/main/webapp/**/*.{html,js,ts,jsx,tsx,mdx}', './node_modules/primereact/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {

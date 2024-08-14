@@ -602,6 +602,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/entities/entity.routes.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/entities/reducers.ts": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/entities/user/service/user.service.spec.ts": {
     "stateCleared": "modified",
   },
@@ -701,10 +704,31 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/login/login.service.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/modules/account/password-reset/init/password-reset-init.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/account/password-reset/init/password-reset-init.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/modules/home/home.css": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/modules/home/home.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/login/login-modal.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/login/login.css": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/login/login.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/login/logout.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/routes.tsx": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/alert/alert-error.component.html": {
@@ -782,6 +806,12 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/shared/language/translation.module.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/shared/layout/bg.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/layout/full-page-layout.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/shared/layout/header/header-components.tsx": {
     "stateCleared": "modified",
   },
@@ -834,6 +864,12 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/pagination/item-count.component.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/reducers/index.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/reducers/ui.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/shared.module.ts": {

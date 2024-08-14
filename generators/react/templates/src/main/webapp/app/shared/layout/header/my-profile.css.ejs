@@ -2,9 +2,25 @@
   @apply mx-auto flex flex-col md:mx-0;
 }
 .my-profile a {
-  @apply mb-3 flex cursor-pointer items-center rounded border border-solid border-lxm-surface-border p-3 transition duration-150 hover:bg-lxm-surface-hover;
+  @apply mb-3 flex cursor-pointer items-center rounded border border-solid border-lxm-surface-border p-3 no-underline transition duration-150 hover:bg-lxm-surface-hover;
 }
 
-.my-profile i {
-  @apply text-lxm-primary;
+.my-profile a > span > i {
+  @apply text-xl text-lxm-primary;
+}
+
+.my-profile a > div {
+  @apply ml-3 text-lxm-text;
+}
+
+.my-profile a > div > span {
+  @apply font-semibold;
+}
+
+.my-profile a > div > p {
+  @apply m-0 py-1 text-lxm-text-secondary;
+}
+
+.my-profile a > span:last-child {
+  @apply ml-auto;
 }

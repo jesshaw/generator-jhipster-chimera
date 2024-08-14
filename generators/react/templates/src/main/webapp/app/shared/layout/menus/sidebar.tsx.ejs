@@ -15,7 +15,6 @@ export interface IHeaderProps {
 }
 
 const Sidebar = (props: IHeaderProps) => {
-  console.log(props);
   const sidebarData = [
     {
       label: 'DASHBOARDS',

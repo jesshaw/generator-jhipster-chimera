@@ -5,24 +5,15 @@ import { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { RadioButton, RadioButtonChangeEvent } from 'primereact/radiobutton';
 import { useTheme } from './use-theme';
-import { LocaleMenu } from '../menus';
 import { Translate, Storage } from 'react-jhipster';
-import { useAppDispatch } from 'app/config/store';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { setUiSettingsStatus } from 'app/shared/reducers/ui';
 import { setLocale } from 'app/shared/reducers/locale';
-import { MegaMenu } from 'primereact/megamenu';
-import { MenuItem } from 'primereact/menuitem';
 import { LocaleDropdown } from '../menus/locale-dropdown';
 
-const ThemeSelector = ({
-  currentLocale,
-  visible,
-  setVisible,
-}: {
-  currentLocale: string;
-  visible: boolean;
-  setVisible: Dispatch<SetStateAction<boolean>>;
-}) => {
+const ThemeSelector = ({ currentLocale }: { currentLocale: string }) => {
   const { theme, handleChangeTheme } = useTheme();
+  const uiSettingsActivated = useAppSelector(state => state.ui.uiSettingsActivated);
 
   const themes = [
     {
@@ -95,9 +86,16 @@ const ThemeSelector = ({
 
   return (
     <div>
-      <Button icon="pi pi-palette" rounded text severity="secondary" aria-label="Bookmark" onClick={() => setVisible(true)} />
+      <Button
+        icon="pi pi-palette"
+        rounded
+        text
+        severity="secondary"
+        aria-label="Bookmark"
+        onClick={() => dispatch(setUiSettingsStatus(true))}
+      />
 
-      <Sidebar position="right" visible={visible} onHide={() => setVisible(false)}>
+      <Sidebar position="right" visible={uiSettingsActivated} onHide={() => dispatch(setUiSettingsStatus(false))}>
         <h5 className="my-6">
           <Translate contentKey="global.menu.language">Language</Translate>
         </h5>

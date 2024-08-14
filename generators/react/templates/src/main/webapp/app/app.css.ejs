@@ -43,12 +43,16 @@ body {
   @apply translate-x-0;
 }
 
+.layout-mobile-active .layout-content-wrapper {
+  @apply ml-0;
+}
+
 .layout-sidebar {
-  @apply fixed left-0 top-0 z-[999] h-full w-72 translate-x-0 bg-lxm-surface max-lg:-translate-x-full;
+  @apply fixed left-0 top-0 z-[999] h-full w-72 bg-lxm-surface max-md:-translate-x-full;
 }
 
 .layout-content-wrapper {
-  @apply ml-72 p-4 max-lg:ml-0;
+  @apply ml-72 p-4 max-md:ml-0;
 }
 
 .app-container {
@@ -73,7 +77,7 @@ body {
 
 /* 设置按钮 */
 .layout-config-button {
-  @apply fixed right-0 top-1/2 z-[999] block h-11 w-11 cursor-pointer rounded-bl-md rounded-tl-md border-0 bg-lxm-primary text-lxm-surface shadow-2xl transition hover:opacity-80;
+  @apply fixed right-0 top-1/2 z-[1999] block h-11 w-11 cursor-pointer rounded-bl-md rounded-tl-md border-0 bg-lxm-primary text-lxm-surface shadow-2xl transition hover:opacity-80;
 }
 
 .layout-config-button > i {
@@ -115,7 +119,23 @@ body {
   margin-bottom: 0;
 } */
 
-/* for login  */
-.modal-open > #root {
+/* for full page layout eg. login logout  */
+.full-page-layout .layout-sidebar {
   @apply hidden;
+}
+
+.full-page-layout #app-header {
+  @apply hidden;
+}
+
+.full-page-layout .content-breadcrumb {
+  @apply hidden;
+}
+
+.full-page-layout .footer {
+  @apply hidden;
+}
+
+.full-page-layout .layout-content-wrapper {
+  @apply ml-0;
 }

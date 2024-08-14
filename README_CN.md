@@ -259,3 +259,43 @@ https://github.com/jhipster/generator-jhipster-micronaut
 [github-generator-url]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml
 [github-integration-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml/badge.svg
 [github-integration-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml
+
+#### maven中如何修改为yarn客户端
+
+就算指定了客户端为yarn,也不会生产yarn管理的客户端，推荐手动指定,全文搜索npm替换为yarn，以下为部分示例如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <properties>
+    <yarn.version>v1.22.22</yarn.version>
+  </properties>
+  <profiles>
+    <profile>
+      <id>webapp</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>install-node-and-yarn</id>
+                <goals>
+                  <goal>install-node-and-yarn</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>yarn install</id>
+                <goals>
+                  <goal>yarn</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
+```

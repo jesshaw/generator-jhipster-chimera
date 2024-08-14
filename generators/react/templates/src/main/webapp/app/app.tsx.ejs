@@ -19,6 +19,7 @@ import AppRoutes from 'app/routes';
 import Sidebar from 'app/shared/layout/menus/sidebar';
 import { ThemeProvider } from 'app/shared/layout/theme/theme-context';
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { setMobileLayoutStatus, setUiSettingsStatus } from './shared/reducers/ui';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -39,14 +40,52 @@ export const App = () => {
   const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
   const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
 
-  const [themeSelectorVisible, setThemeSelectorVisible] = useState(false);
-  const layoutContainer = useRef<HTMLDivElement>(null);
+  const mobileLayoutActivated = useAppSelector(state => state.ui.mobileLayoutActivated);
+  const staticLayoutActivated = useAppSelector(state => state.ui.staticLayoutActivated);
+  const layoutStaticInactive = 'layout-static-inactive'; //静态未激活
+  const layoutMobileActive = 'layout-mobile-active'; //手机屏幕激活
   const blockedScroll = 'blocked-scroll';
-  const layoutMobileActive = 'layout-mobile-active';
-  const hideMenu = () => {
-    layoutContainer.current?.classList.remove(layoutMobileActive);
-    document.body.classList.remove(blockedScroll);
+  const layoutContainer = useRef<HTMLDivElement>(null);
+  const showStaticLayout = () => {
+    console.log('showStaticLayout');
+    if (window.innerWidth >= 768) {
+      console.log('>=992 showStaticLayout');
+      layoutContainer.current?.classList.remove(layoutStaticInactive);
+    }
   };
+
+  const hideStaticLayout = () => {
+    if (window.innerWidth >= 768) {
+      layoutContainer.current?.classList.add(layoutStaticInactive);
+    }
+  };
+
+  const showMobileLayout = () => {
+    if (window.innerWidth < 768) {
+      layoutContainer.current?.classList.add(layoutMobileActive);
+      document.body.classList.add(blockedScroll);
+    }
+  };
+
+  const hideMobileLayout = () => {
+    layoutContainer.current?.classList.remove(layoutMobileActive);
+  };
+
+  useEffect(() => {
+    if (staticLayoutActivated) {
+      showStaticLayout();
+    } else {
+      hideStaticLayout();
+    }
+  }, [staticLayoutActivated]);
+
+  useEffect(() => {
+    if (mobileLayoutActivated) {
+      showMobileLayout();
+    } else {
+      hideMobileLayout();
+    }
+  }, [mobileLayoutActivated]);
 
   const breadItems = [{ label: 'Electronics' }];
   const home = { icon: 'pi pi-home', url: '#' };
@@ -76,9 +115,6 @@ export const App = () => {
                 ribbonEnv={ribbonEnv}
                 isInProduction={isInProduction}
                 isOpenAPIEnabled={isOpenAPIEnabled}
-                themeSelectorVisible={themeSelectorVisible}
-                setThemeSelectorVisible={setThemeSelectorVisible}
-                layoutContainer={layoutContainer}
               />
             </ErrorBoundary>
             <div className="content-breadcrumb">
@@ -93,10 +129,10 @@ export const App = () => {
               <Footer/>
             </div>
           </div>
-          <button className="layout-config-button" type="button" onClick={() => setThemeSelectorVisible(true)}>
+          <button className="layout-config-button" type="button" onClick={() => dispatch(setUiSettingsStatus(true))}>
             <i className="pi pi-palette"></i>
           </button>
-          <div className="layout-mask" onClick={hideMenu}></div>
+          <div className="layout-mask" onClick={() => dispatch(setMobileLayoutStatus(false))}></div>
         </div>
       </ThemeProvider>
     </BrowserRouter>
