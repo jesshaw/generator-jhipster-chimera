@@ -4,117 +4,11 @@ import React from 'react';
 import Logo from '../logo';
 import SideMenu from './side-menu';
 import { Translate } from 'react-jhipster';
+import { getSidebarMenusData } from 'app/shared/reducers/ui';
+import { IHeaderProps } from '../header/header';
 
-export interface IHeaderProps {
-  isAuthenticated: boolean;
-  isAdmin: boolean;
-  ribbonEnv: string;
-  isInProduction: boolean;
-  isOpenAPIEnabled: boolean;
-  currentLocale: string;
-}
-
-const Sidebar = (props: IHeaderProps) => {
-  const sidebarData = [
-    {
-      label: 'DASHBOARDS',
-      labelKey: 'global.menu.dashboards.title',
-      expanded: true,
-      visable: props.isAuthenticated,
-      items: [
-        {
-          label: 'E-Commerce',
-          labelKey: 'global.menu.dashboards.ecommerce',
-          icon: 'pi pi-fw pi-home',
-          url: '/',
-        },
-        {
-          label: 'Banking',
-          labelKey: 'global.menu.dashboards.banking',
-          icon: 'pi pi-fw pi-image',
-          url: '#/users',
-        },
-      ],
-    },
-    {
-      label: 'Entites',
-      labelKey: 'global.menu.entities.main',
-      expanded: true,
-      visable: props.isAuthenticated,
-      items: [
-        {
-          label: 'employee',
-          labelKey: 'global.menu.entities.employee',
-          icon: 'pi pi-fw pi-home',
-          url: '/employee',
-        },
-        {
-          label: 'resource',
-          labelKey: 'global.menu.entities.resource',
-          icon: 'pi pi-fw pi-home',
-          url: '/resource',
-        },
-        {
-          label: 'leadInfo',
-          labelKey: 'global.menu.entities.leadInfo',
-          icon: 'pi pi-fw pi-home',
-          url: '/lead-info',
-        },
-      ],
-    },
-    {
-      label: 'Administration',
-      labelKey: 'global.menu.admin.main',
-      expanded: true,
-      visable: props.isAuthenticated && props.isAdmin,
-      items: [
-        {
-          label: 'User management',
-          labelKey: 'global.menu.admin.userManagement',
-          icon: 'pi pi-fw pi-home',
-          url: '/admin/user-management',
-        },
-        {
-          label: 'Metrics',
-          labelKey: 'global.menu.admin.metrics',
-          icon: 'pi pi-fw pi-image',
-          url: '/admin/metrics',
-        },
-        {
-          label: 'Health',
-          labelKey: 'global.menu.admin.health',
-          icon: 'pi pi-fw pi-image',
-          url: '/admin/health',
-        },
-        {
-          label: 'Configuration',
-          labelKey: 'global.menu.admin.configuration',
-          icon: 'pi pi-fw pi-image',
-          url: '/admin/configuration',
-        },
-        {
-          label: 'Logs',
-          labelKey: 'global.menu.admin.logs',
-          icon: 'pi pi-fw pi-image',
-          url: '/admin/logs',
-        },
-        {
-          label: 'API',
-          labelKey: 'global.menu.admin.apidocs',
-          icon: 'pi pi-fw pi-image',
-          url: '/admin/docs',
-          visable: props.isOpenAPIEnabled,
-        },
-        {
-          label: 'Database',
-          labelKey: 'global.menu.admin.database',
-          icon: 'pi pi-fw pi-image',
-          url: './h2-console/',
-          visable: !props.isInProduction,
-        },
-      ],
-    },
-  ];
+const Sidebar = (props: IHeaderProps) => {  
+  const sidebar = getSidebarMenusData(props);
 
   return (
     <div className="layout-sidebar">
@@ -130,7 +24,7 @@ const Sidebar = (props: IHeaderProps) => {
         </a>
       </div>
       <div className="layout-menu-container">
-        <SideMenu model={sidebarData} />
+        <SideMenu model={sidebar} />
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 import './app.css';
 import 'app/config/dayjs';
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Card } from 'reactstrap';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -20,6 +20,7 @@ import Sidebar from 'app/shared/layout/menus/sidebar';
 import { ThemeProvider } from 'app/shared/layout/theme/theme-context';
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { setMobileLayoutStatus, setUiSettingsStatus } from './shared/reducers/ui';
+import { toBreadItems } from 'app/shared/layout/menus/bread-item';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -39,6 +40,7 @@ export const App = () => {
   const ribbonEnv = useAppSelector(state => state.applicationProfile.ribbonEnv);
   const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
   const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
+  const breadItems = useAppSelector(state => state.ui.breadItems);
 
   const mobileLayoutActivated = useAppSelector(state => state.ui.mobileLayoutActivated);
   const staticLayoutActivated = useAppSelector(state => state.ui.staticLayoutActivated);
@@ -47,9 +49,7 @@ export const App = () => {
   const blockedScroll = 'blocked-scroll';
   const layoutContainer = useRef<HTMLDivElement>(null);
   const showStaticLayout = () => {
-    console.log('showStaticLayout');
     if (window.innerWidth >= 768) {
-      console.log('>=992 showStaticLayout');
       layoutContainer.current?.classList.remove(layoutStaticInactive);
     }
   };
@@ -87,9 +87,6 @@ export const App = () => {
     }
   }, [mobileLayoutActivated]);
 
-  const breadItems = [{ label: 'Electronics' }];
-  const home = { icon: 'pi pi-home', url: '#' };
-
   const paddingTop = '60px';
   return (
     <BrowserRouter basename={baseHref}>
@@ -104,7 +101,7 @@ export const App = () => {
             isOpenAPIEnabled={isOpenAPIEnabled}
           />
           <div className="layout-content-wrapper app-container">
-            <ToastContainer position="top-left" className="toastify-container" toastClassName="toastify-toast"/>
+            {/* <ToastContainer position="top-left" className="toastify-container" toastClassName="toastify-toast" /> */}
             <ErrorBoundary>
               <Header
                 isAuthenticated={isAuthenticated}
@@ -118,7 +115,7 @@ export const App = () => {
               />
             </ErrorBoundary>
             <div className="content-breadcrumb">
-              <BreadCrumb model={breadItems} home={home} />
+              <BreadCrumb model={toBreadItems(breadItems)} />
             </div>
             <div className="container-fluid view-container" id="app-view-container">
               <Card className="jh-card">

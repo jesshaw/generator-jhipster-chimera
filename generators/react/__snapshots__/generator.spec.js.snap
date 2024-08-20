@@ -425,6 +425,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/config/navigation.constants.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/config/notification-middleware.ts": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/config/pagination.constants.ts": {
     "stateCleared": "modified",
   },
@@ -704,10 +707,25 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/login/login.service.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/modules/account/password-reset/finish/password-reset-finish.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/modules/account/password-reset/init/password-reset-init.css": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/modules/account/password-reset/init/password-reset-init.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/account/password/password.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/account/register/register.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/account/settings/settings.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/user-management/user-management.tsx": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/modules/home/home.css": {
@@ -830,6 +848,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/shared/layout/logo.tsx": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/shared/layout/menus/bread-item.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/shared/layout/menus/locale-dropdown.tsx": {
     "stateCleared": "modified",
   },
@@ -849,6 +870,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/layout/theme/theme-selector.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/layout/theme/toast-manager.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/layout/theme/use-theme.ts": {

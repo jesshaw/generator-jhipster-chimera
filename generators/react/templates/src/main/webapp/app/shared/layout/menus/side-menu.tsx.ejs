@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { Translate } from 'react-jhipster';
 import { useLocation, Link } from 'react-router-dom';
-import { IHeaderProps } from './sidebar';
+import { IMenuItem } from 'app/shared/reducers/ui';
 
 // 递归菜单组件
 const MenuItem: React.FC<{
@@ -93,14 +93,5 @@ const SideMenu: React.FC<{ model: IMenuItem[] }> = ({ model }) => {
     </ul>
   );
 };
-
-export interface IMenuItem {
-  label: string;
-  labelKey?: string;
-  icon?: string;
-  url?: string;
-  items?: IMenuItem[];
-  visable?: boolean;
-}
 
 export default SideMenu;
