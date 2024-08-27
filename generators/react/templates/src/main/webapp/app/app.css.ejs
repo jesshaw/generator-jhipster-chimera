@@ -139,3 +139,56 @@ body {
 .full-page-layout .layout-content-wrapper {
   @apply ml-0;
 }
+
+.l-card {
+  @apply mb-8 rounded-xl border bg-lxm-surface-card p-8 shadow;
+}
+
+.l-card h5:first-child {
+  @apply mt-0;
+}
+
+.l-card h5 {
+  @apply text-xl;
+}
+
+.l-toolbar {
+  @apply mb-4;
+}
+
+.l-datatable-header {
+  @apply flex flex-wrap items-center justify-between gap-2;
+}
+
+.l-datatable-header h5 {
+  @apply m-0 text-xl;
+}
+
+.l-datatable-header .l-select-columns {
+  @apply sm:w-20rem max-sm:w-full;
+}
+
+/* for edit form */
+.l-form > div {
+  @apply mb-4 flex flex-col md:flex-row;
+}
+.l-form > div > label {
+  @apply mb-2 w-32 font-bold;
+}
+.l-form > div > div {
+  @apply grow;
+}
+.l-form > div > div > input {
+  @apply w-full;
+}
+.l-form > div > div > span {
+  @apply w-full;
+}
+
+/* .l-form > div > div > div {
+  @apply w-full;
+} */
+
+.l-form-footer button {
+  @apply mr-2;
+}

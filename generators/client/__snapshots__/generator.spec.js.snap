@@ -800,6 +800,9 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
   "src/main/webapp/content/images/chamera1-512.png": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/content/images/chamera1-512_head-192.png": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/content/images/jhipster_family_member_0.svg": {
     "stateCleared": "modified",
   },

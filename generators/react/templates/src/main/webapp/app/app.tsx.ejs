@@ -69,6 +69,7 @@ export const App = () => {
 
   const hideMobileLayout = () => {
     layoutContainer.current?.classList.remove(layoutMobileActive);
+    document.body.classList.remove(blockedScroll);
   };
 
   useEffect(() => {
@@ -118,11 +119,9 @@ export const App = () => {
               <BreadCrumb model={toBreadItems(breadItems)} />
             </div>
             <div className="container-fluid view-container" id="app-view-container">
-              <Card className="jh-card">
-                <ErrorBoundary>
-                  <AppRoutes/>
-                </ErrorBoundary>
-              </Card>
+              <ErrorBoundary>
+                <AppRoutes/>
+              </ErrorBoundary>
               <Footer/>
             </div>
           </div>

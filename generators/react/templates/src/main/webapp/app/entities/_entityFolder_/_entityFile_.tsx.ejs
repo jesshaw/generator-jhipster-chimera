@@ -1,0 +1,690 @@
+import React, { useState, useEffect, useRef } from 'react';
+<%_ if (paginationInfiniteScroll) { _%>
+import InfiniteScroll from 'react-infinite-scroll-component';
+<%_ } _%>
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+// import { Button, <% if (searchEngineAny) { %>Input, InputGroup, FormGroup, Form, Row, Col, <% } %>Table } from 'reactstrap';
+import { Toolbar } from 'primereact/toolbar';
+import { DataTable, DataTableStateEvent } from 'primereact/datatable';
+import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+<%_ if (searchEngineAny) { _%>
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
+import { InputText } from 'primereact/inputtext';
+<%_ } _%>
+import {
+<%_ if (anyFieldIsBlobDerived) { _%>
+  <%_ if (anyFieldHasFileBasedContentType) { _%>
+  openFile,
+  <%_ } _%>
+  byteSize,
+<%_ } _%>
+  Translate, translate, TranslatorContext
+  <% if (anyFieldIsDateDerived) { %>, TextFormat<% } %>
+<%_ if (paginationNo) { _%>
+  , getSortState
+<%_ } else { _%>
+  , getPaginationState
+  <%_ if (paginationPagination) { _%>
+  , JhiPagination, JhiItemCount
+  <%_ } _%>
+<%_ } _%>
+} from 'react-jhipster';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+<%_ if (anyFieldIsInstant || anyFieldIsZonedDateTime || anyFieldIsLocalDate) { _%>
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+<%_ } _%>
+import { ASC, DESC<%_ if (!paginationNo) { _%>, ITEMS_PER_PAGE<%_ } _%>, SORT } from 'app/shared/util/pagination.constants';
+<%_ if (paginationNo) { _%>
+import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
+<%_ } else { _%>
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+<%_ } _%>
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+<%_ if (anyFieldIsDuration) { _%>
+import { DurationFormat } from 'app/shared/DurationFormat';
+<%_ } _%>
+
+import {
+<%_ if (searchEngineAny) { _%>
+  searchEntities,
+<%_ } _%>
+  getEntities,
+<%_ if (paginationInfiniteScroll) { _%>
+  reset,
+<%_ } _%>
+ deleteEntity } from './<%= entityFileName %>.reducer';
+import { I<%= entityReactName %> } from 'app/shared/model/<%= entityFileName %>.model';
+
+export const <%= entityReactName %> = () => {
+  const dispatch = useAppDispatch();
+
+  const pageLocation = useLocation();
+<%_ if (!paginationInfiniteScroll) { _%>
+  const navigate = useNavigate();
+<%_ } _%>
+
+<%_ if (searchEngineAny) { _%>
+  const [search, setSearch] = useState('');
+<%_ } _%>
+<%_ if (paginationNo) { _%>
+  const [sortState, setSortState] = useState(overrideSortStateWithQueryParams(getSortState(pageLocation, '<%= primaryKey.name %>'), pageLocation.search));
+<%_ } else { _%>
+  const [paginationState, setPaginationState] = useState(overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, '<%= primaryKey.name %>'), pageLocation.search));
+<%_ } _%>
+<%_ if (paginationInfiniteScroll) { _%>
+  const [sorting, setSorting] = useState(false);
+<%_ } _%>
+
+  const <%= entityInstance %>List = useAppSelector(state => state.<%= entityReactState %>.entities);
+  const loading = useAppSelector(state => state.<%= entityReactState %>.loading);
+<%_ if (paginationPagination) { _%>
+  const totalItems = useAppSelector(state => state.<%= entityReactState %>.totalItems);
+<%_ } _%>
+<%_ if (paginationInfiniteScroll) { _%>
+  const links = useAppSelector(state => state.<%= entityReactState %>.links);
+  const updateSuccess = useAppSelector(state => state.<%= entityReactState %>.updateSuccess);
+<%_ } _%>
+
+  const getAllEntities = () => {
+<%_ if (searchEngineAny) { _%>
+    if (search) {
+      dispatch(
+        searchEntities({
+          query: search,
+  <%_ if (paginationNo) { _%>
+          sort: `${sortState.sort},${sortState.order}`
+  <%_ } else { _%>
+          page: paginationState.activePage - 1,
+          size: paginationState.itemsPerPage,
+          sort: `${paginationState.sort},${paginationState.order}`
+  <%_ } _%>
+        })
+      );
+    } else {
+      dispatch(
+        getEntities({
+  <%_ if (paginationNo) { _%>
+          sort: `${sortState.sort},${sortState.order}`,
+  <%_ } else { _%>
+          page: paginationState.activePage - 1,
+          size: paginationState.itemsPerPage,
+          sort: `${paginationState.sort},${paginationState.order}`,
+  <%_ } _%>
+        })
+      );
+    }
+<%_ } else { _%>
+      dispatch(
+        getEntities({
+  <%_ if (paginationNo) { _%>
+          sort: `${sortState.sort},${sortState.order}`,
+  <%_ } else { _%>
+          page: paginationState.activePage - 1,
+          size: paginationState.itemsPerPage,
+          sort: `${paginationState.sort},${paginationState.order}`,
+<%_ } _%>
+        })
+      );
+<%_ } _%>
+  };
+
+<%_ if (paginationInfiniteScroll) { _%>
+  const resetAll = () => {
+    dispatch(reset());
+    setPaginationState({
+      ...paginationState,
+      activePage: 1
+    });
+    dispatch(getEntities({}));
+  };
+<%_ } _%>
+
+<%_ if (paginationInfiniteScroll) { _%>
+  useEffect(() => {
+    resetAll();
+  }, []);
+<%_ } _%>
+
+<%_ if (searchEngineAny) { _%>
+  const startSearching = (e) => {
+    if (search) {
+  <%_ if (paginationInfiniteScroll) { _%>
+      dispatch(reset());
+  <%_ } _%>
+  <%_ if (paginationNo) { _%>
+      dispatch(searchEntities({
+        query: search,
+        sort: `${paginationState.sort},${paginationState.order}`,
+      }));
+  <%_ } else { _%>
+      setPaginationState({
+        ...paginationState,
+        activePage: 1
+      });
+      dispatch(
+        searchEntities({
+          query: search,
+          page: paginationState.activePage - 1,
+          size: paginationState.itemsPerPage,
+          sort: `${paginationState.sort},${paginationState.order}`,
+        })
+      );
+  <%_ } _%>
+    }
+    e.preventDefault();
+  };
+
+  const clear = () => {
+  <%_ if (paginationInfiniteScroll) { _%>
+    dispatch(reset());
+  <%_ } _%>
+    setSearch('');
+  <%_ if (!paginationNo) { _%>
+    setPaginationState({
+      ...paginationState,
+      activePage: 1
+    });
+  <%_ } _%>
+    dispatch(getEntities({}));
+  };
+
+  const handleSearch = event => setSearch(event.target.value);
+<%_ } _%>
+
+<%_ if (paginationInfiniteScroll) { _%>
+  useEffect(() => {
+    if (updateSuccess) {
+      resetAll();
+    }
+  }, [updateSuccess]);
+
+  useEffect(() => {
+    getAllEntities()
+  }, [paginationState.activePage]);
+
+  const handleLoadMore = () => {
+    if ((window as any).pageYOffset > 0) {
+      setPaginationState({
+        ...paginationState,
+        activePage: paginationState.activePage + 1
+      });
+    }
+  };
+<%_ } _%>
+
+<%_ if (paginationNo || paginationPagination) { _%>
+  const sortEntities = () => {
+    getAllEntities();
+  <%_ if (paginationNo) { _%>
+    const endURL = `?sort=${sortState.sort},${sortState.order}`;
+  <%_ } else { _%>
+    const endURL = `?page=${paginationState.activePage}&size=${paginationState.itemsPerPage}&sort=${paginationState.sort},${paginationState.order}`;
+  <%_ } _%>
+    if (pageLocation.search !== endURL) {
+      navigate(`${pageLocation.pathname}${endURL}`);
+    }
+  };
+<%_ } _%>
+
+  useEffect(() => {
+<%_ if (paginationInfiniteScroll) { _%>
+    if (sorting) {
+      getAllEntities();
+      setSorting(false);
+    }
+<%_ } else { _%>
+    sortEntities();
+<%_ } _%>
+  }, [<% if (paginationInfiniteScroll) { %>sorting<% } else if (paginationPagination) { %>paginationState.activePage, paginationState.itemsPerPage, paginationState.order, paginationState.sort<% } else { %>sortState.order, sortState.sort<% } %><%_ if (searchEngineAny) { _%>, search<% } %>]);
+
+<%_ if (paginationPagination) { _%>
+  useEffect(() => {
+    const params = new URLSearchParams(pageLocation.search);
+    const page = params.get('page');
+    const sort = params.get(SORT);
+    if (page && sort) {
+      const sortSplit = sort.split(',');
+      setPaginationState({
+        ...paginationState,
+        activePage: +page,
+        sort: sortSplit[0],
+        order: sortSplit[1]
+      });
+    }
+  }, [pageLocation.search]);
+<%_ } _%>
+
+  const onSort = (e: DataTableStateEvent) => {
+<%_ if (paginationInfiniteScroll) { _%>
+    dispatch(reset());
+    setPaginationState({
+      ...paginationState,
+      activePage: 1,
+      order: paginationState.order === ASC ? DESC : ASC,
+      sort: e.sortField
+    });
+    setSorting(true);
+<%_ } else if (paginationPagination) { _%>
+    setPaginationState({
+      ...paginationState,
+      order: paginationState.order === ASC ? DESC : ASC,
+      sort: e.sortField
+    });
+<%_ } else { _%>
+    setSortState({
+      ...sortState,
+      order: sortState.order === ASC ? DESC : ASC,
+      sort: e.sortField
+    });
+<%_ } _%>
+  };
+
+<%_ if (paginationPagination) { _%>
+  const onPage =  (e: DataTableStateEvent) => {
+    setPaginationState({
+      ...paginationState,
+      activePage: e.page + 1,
+      itemsPerPage: e.rows,
+    });
+  };
+<%_ } _%>
+
+  const handleSyncList = () => {
+<%_ if (paginationNo || paginationPagination) { _%>
+      sortEntities();
+<%_ } _%>
+<%_ if (paginationInfiniteScroll) { _%>
+      resetAll();
+<%_ } _%>
+  };
+  
+  let empty<%= entityClass %>: I<%= entityClass %> = {};
+
+  const [delete<%= entityClass %>Dialog, setDelete<%= entityClass %>Dialog] = useState<boolean>(false);
+  const [<%= entityInstance %>, set<%= entityClass %>] = useState<I<%= entityClass %>>(empty<%= entityClass %>);
+  const updateSuccess = useAppSelector(state => state.<%= entityInstance %>.updateSuccess);
+
+  const hideDelete<%= entityClass %>Dialog = () => {
+    setDelete<%= entityClass %>Dialog(false);
+  };
+
+  const dt = useRef<DataTable<I<%= entityClass %>[]>>(null);
+
+  const startToolbarTemplate = () => {
+    return (
+      <div className="flex flex-wrap gap-2">
+        <Button
+          label={translate('entity.action.refresh')}
+          icon={`pi ${loading ? 'pi-spin' : ''} pi-refresh`}
+          onClick={handleSyncList}
+          disabled={loading}
+        />
+<%_ if (!readOnly) { _%>
+        <Button
+          label={translate('entity.action.new')}
+          icon="pi pi-plus"
+          severity="success"
+          onClick={() => navigate('/<%= entityPage %>/new')}
+        />
+<%_ } _%>
+      </div>
+    );
+  };
+
+  const endToolbarTemplate = () => {
+    return (
+      <>
+        <Button label={translate('entity.action.export')} icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
+      </>
+    );
+  };
+
+  const exportCSV = () => {
+    dt.current?.exportCSV();
+  };
+
+  const confirmDelete<%= entityClass %> = (<%= entityInstance %>: I<%= entityClass %>) => {
+    set<%= entityClass %>(<%= entityInstance %>);
+    setDelete<%= entityClass %>Dialog(true);
+  };
+
+  const delete<%= entityClass %> = () => {
+    dispatch(deleteEntity(<%= entityInstance %>.id));
+  };
+
+  useEffect(() => {
+    if (updateSuccess && delete<%= entityClass %>Dialog) {
+      setDelete<%= entityClass %>Dialog(false);
+      sortEntities();
+      set<%= entityClass %>(empty<%= entityClass %>);
+    }
+  }, [updateSuccess]);
+
+  const delete<%= entityClass %>DialogFooter = (
+    <>
+      <Button label={translate('entity.action.cancel')} icon="pi pi-times" outlined onClick={hideDelete<%= entityClass %>Dialog} />
+      <Button label={translate('entity.action.delete')} icon="pi pi-check" severity="danger" onClick={delete<%= entityClass %>} />
+    </>
+  );
+  
+  const allColumns = [
+<%_ for (field of fields) {
+  const fieldType = field.fieldType;
+  const fieldName = field.fieldName;
+  const fieldIsEnum = field.fieldIsEnum;
+_%>
+    {
+      field: "<%= field.fieldName %>",
+      headerKey: "<%= `${i18nKeyPrefix}.${field.fieldName}` %>",
+      sortable: true,
+  <%_ if (fieldName !== primaryKey.name) { _%>
+    <%_ if (field.fieldTypeBoolean) { _%>
+      body: rowData => { 
+        return <>{rowData.<%= field.fieldName %> ? 'true' : 'false'}</>;
+      },
+    <%_ } else if (field.fieldTypeTimed) { _%>
+      body: rowData => {
+        return rowData.<%= fieldName %> && <TextFormat type="date" value={rowData.<%= fieldName %>} format={APP_DATE_FORMAT} />;
+      },
+    <%_ } else if (field.fieldTypeDuration) { _%>
+      body: rowData => {
+        return rowData.<%= fieldName %> && <DurationFormat value={rowData.<%= fieldName %>} />;
+      },
+    <%_ } else if (field.fieldTypeLocalDate) { _%>
+      body: rowData => {
+        return rowData.<%= fieldName %> && <TextFormat type="date" value={rowData.<%= fieldName %>} format={APP_LOCAL_DATE_FORMAT} />;
+      },
+    <%_ } else if (fieldIsEnum && enableTranslation) { _%>
+      body: rowData => {
+        return <Translate contentKey={`<%= frontendAppName %>.<%= fieldType %>.${<%= entityInstance %>.<%= fieldName %>}`} />;
+      },
+    <%_ } else if (field.fieldTypeBinary) { _%>
+      <%_
+        // blobFields
+        if (!field.blobContentTypeText) {
+      _%>
+      body: rowData => {
+        return rowData.<%= fieldName %> && 
+        <div>
+          {rowData.<%= fieldName %>ContentType &&
+            <a onClick={openFile(rowData.<%= fieldName %>ContentType, rowData.<%= fieldName %>)}>
+            <%_ if (field.blobContentTypeImage) { _%>
+              <img src={`data:${rowData.<%= fieldName %>ContentType};base64,${rowData.<%= fieldName %>}`} style={{ maxHeight: '30px' }} />
+            <%_ } else { _%> 
+              <Translate contentKey="entity.action.open">Open</Translate>
+            <%_ } _%>
+            </a>
+          }
+          <span>{rowData.<%= fieldName %>ContentType}, {byteSize(rowData.<%= fieldName %>)}</span>
+        </div>
+      },
+      <%_ } _%>
+    <%_ } _%>
+  <%_ } _%>
+  },
+<%_ } _%>
+<%_ for (relationship of relationships) {
+  const otherEntity = relationship.otherEntity;
+  const relationshipFieldName = relationship.relationshipFieldName;
+  const relationshipFieldNamePlural = relationship.relationshipFieldNamePlural;
+  const otherEntityPkName = relationship.otherEntity.primaryKey && relationship.otherEntity.primaryKey.name || 'id';
+  const otherEntityField = relationship.otherEntityField; _%>
+  <%_ if (relationship.persistableRelationship && (paginationNo || !relationship.collection)) { _%>
+      {
+        field: '<%= relationshipFieldName + "." + otherEntityField %>',
+        headerKey: '<%= `${i18nKeyPrefix}.${relationshipFieldName}` %>',
+    <%_ if (relationship.otherEntityUser) { _%>      
+      <%_ if (relationship.relationshipManyToMany) { _%>
+        body: rowData => {
+          return <>{
+            rowData.<%= relationshipFieldNamePlural %>) && (
+              rowData.<%= relationshipFieldNamePlural %>.map(
+                (val, j) =>
+                <span key={j}>{val.<%= otherEntityField %>}{(j === rowData.<%= relationshipFieldNamePlural %>.length - 1) ? '' : ', '}</span>
+              )
+            )
+          }</>;
+        },         
+      <%_ } else { _%>
+        body: rowData => {
+          return <>{rowData.<%= relationshipFieldName %> ? rowData.<%= relationshipFieldName + "." + otherEntityField %>  : ''}</>;
+        },
+      <%_ } _%>    
+    <%_ } else { _%>      
+      <%_ if (relationship.relationshipManyToMany) { _%>
+        body: rowData => {
+          return (
+            rowData.<%= relationshipFieldNamePlural %>
+            && rowData.<%= relationshipFieldNamePlural %>.map((val, j) =>
+            <span key={j}>
+             <Button text label={val.<%= otherEntityField %>}
+               onClick={() => navigate(`/<%= otherEntity.entityPage %>/${val.<%= otherEntity.primaryKey.name %>}`)} />
+             {(j === rowData.<%= relationshipFieldNamePlural %>.length - 1) ? '' : ', '}
+            </span>)
+          );
+        },      
+      <%_ } else { _%>
+        body: rowData => {
+          return (
+            rowData.<%= relationshipFieldName %> 
+            && <Button text label={rowData.<%= relationshipFieldName + "." + otherEntityField %>}
+                 onClick={() => navigate(`/<%= otherEntity.entityPage %>/${rowData.<%= relationshipFieldName %>.<%= otherEntityPkName %>}`)} />
+          );
+        },      
+      <%_ } _%>
+    <%_ } _%>
+  <%_ } _%>
+      },
+<%_ } _%>  
+      {
+        field: 'lOperate',
+        headerKey: 'entity.cloumn.operation',
+        exportable: false,
+        style: { minWidth: '12rem' },
+        body: rowData => {
+          return <>
+              <Button
+                icon="pi pi-eye"
+                tooltip={translate('entity.action.view')}
+                tooltipOptions={{ position: 'top' }}
+                rounded
+                outlined
+                className="mr-2"
+                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}`)}
+              />
+<%_ if (!readOnly) { _%>
+              <Button
+                icon="pi pi-pencil"
+                tooltip={translate('entity.action.edit')}
+                tooltipOptions={{ position: 'top' }}
+                rounded
+                outlined
+                className="mr-2"
+                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}/edit`)}
+              />
+              <Button
+                icon="pi pi-trash"
+                tooltip={translate('entity.action.delete')}
+                tooltipOptions={{ position: 'top' }}
+                rounded
+                outlined
+                severity="danger"
+                onClick={() => confirmDelete<%= entityClass %>(rowData)}
+              />
+<%_ } _%>
+          </>;
+        },
+      },
+  ];
+
+  //localStorage key used to store display columns
+  const entityColumnsKey = 'lxmcrmApp.leadInfo.cloumns';
+
+  const getDefaultSelectedColumns = () => {
+    let storageColumns = localStorage.getItem(entityColumnsKey);
+    console.log(storageColumns);
+    let defaultSelectedColumns;
+    if (storageColumns !== null) {
+      defaultSelectedColumns = JSON.parse(storageColumns);
+    } else {
+      let top5AndOperateColumns = allColumns.slice(0, 5);
+      top5AndOperateColumns.push(allColumns.find(item => item.field === 'lOperate'));
+      defaultSelectedColumns = top5AndOperateColumns.map(item => ({
+        header: translate(item.headerKey),
+        headerKey: item.headerKey,
+        field: item.field,
+      }));
+    }
+    return defaultSelectedColumns;
+  };
+
+  const [selectedColumns, setSelectedColumns] = useState(getDefaultSelectedColumns());
+
+  const columnOptions = allColumns.map(item => ({
+    header: translate(item.headerKey),
+    headerKey: item.headerKey,
+    field: item.field,
+  }));
+
+  useEffect(() => {
+    let _selectedColumns = [...selectedColumns];
+    _selectedColumns.forEach(item => (item.header = translate(item.headerKey)));
+    // console.log(_selectedColumns);
+    setSelectedColumns(_selectedColumns);
+  }, [TranslatorContext.context.locale]);
+  
+  const onColumnToggle = (event: MultiSelectChangeEvent) => {
+    let _selectedColumns = [...selectedColumns];
+    const selectedOption = event.selectedOption;
+    if (Array.isArray(selectedOption)) {
+      if (_selectedColumns.length < columnOptions.length) {
+        _selectedColumns = columnOptions;
+      } else {
+        _selectedColumns = [];
+      }
+    } else {
+      const existingIndex = _selectedColumns.findIndex(existingCol => existingCol.field === selectedOption.field);
+      if (existingIndex !== -1) {
+        _selectedColumns.splice(existingIndex, 1);
+      } else {
+        _selectedColumns.push(columnOptions.find(item => item.field === selectedOption.field));
+      }
+    }
+  
+    setSelectedColumns(_selectedColumns);
+    localStorage.setItem(entityColumnsKey, JSON.stringify(_selectedColumns));
+  };
+
+  
+
+  const header = (
+    <div className="l-datatable-header">
+      <h5>
+        <Translate contentKey="<%= i18nKeyPrefix %>.home.title"><%= entityClassPluralHumanized %></Translate>
+      </h5>
+<%_ if (searchEngineAny) { _%>
+      <IconField iconPosition="left">
+        <InputIcon className="pi pi-search" />
+        <InputText type="search" placeholder="Search..."  />
+      </IconField>
+<%_ } _%>
+      <MultiSelect
+        value={selectedColumns}
+        options={columnOptions}
+        optionLabel="header"
+        filter
+        onChange={onColumnToggle}
+        className="l-select-columns"
+        placeholder={translate('entity.cloumn.placeholder')}
+        display="chip"
+      />
+    </div>
+  );  
+
+  const dynamicColumns = selectedColumns
+    .filter(selectedCol => allColumns.some(col => col.field === selectedCol.field))
+    .map(selectedCol => {
+      const column = allColumns.find(col => col.field === selectedCol.field);
+      return (
+        <Column
+          key={column?.field}
+          field={column?.field}
+          header={translate(column?.headerKey)}
+          body={column?.body ? column.body : undefined}
+          sortable={column?.sortable}
+          exportable={column?.exportable}
+          style={column?.style}
+        />
+      );
+    });
+
+  return (
+    <>
+      <div className="l-card">
+        <Toolbar className="l-toolbar" start={startToolbarTemplate} end={endToolbarTemplate}></Toolbar>
+        <DataTable
+          ref={dt}
+          value={<%= entityInstance %>List}
+          dataKey="<%= primaryKey.name %>"          
+          selectionMode="single"
+          header={header}
+          emptyMessage={translate('<%= i18nKeyPrefix %>.home.notFound')}
+<%_ if (paginationInfiniteScroll) { _%>
+          onSort={onSort} //sort by backend
+          sortField={sortState.sort}
+          sortOrder={sortState.order === ASC ? -1 : 1}
+<%_ } else if (paginationPagination) { _%>
+          onSort={onSort} //sort by backend
+          sortField={paginationState.sort}
+          sortOrder={paginationState.order === ASC ? -1 : 1}
+          onPage={onPage} //sort by backend
+          lazy          
+          loading={loading}
+          paginator
+          first={(paginationState.activePage - 1) * paginationState.itemsPerPage} //current page start index
+          rows={paginationState.itemsPerPage}
+          totalRecords={totalItems}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate={translate('global.item-count')}
+<%_ } else { _%>
+          // sort by frontend          
+          paginator
+          rows={10}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate={translate('global.item-count')}
+<%_ } _%>
+        >
+          {dynamicColumns}
+        </DataTable>
+      </div>
+
+      <Dialog
+        visible={delete<%= entityClass %>Dialog}
+        style={{ width: '32rem' }}
+        breakpoints={{ '960px': '75vw', '641px': '90vw' }}
+        header={translate('entity.delete.title')}
+        modal
+        footer={delete<%= entityClass %>DialogFooter}
+        onHide={hideDelete<%= entityClass %>Dialog}
+      >
+        <div className="confirmation-content">
+          <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
+          {<%= entityInstance %> && (
+            <Translate contentKey="<%= i18nKeyPrefix %>.delete.question" interpolate={{ id: <%= entityInstance %>.id }}>
+              Are you sure you want to delete this <%= entityClass %>?
+            </Translate>
+          )}
+        </div>
+      </Dialog>
+    </>
+  );
+};
+
+export default <%= entityReactName %>;

@@ -1,0 +1,295 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+// import { Button, Row, Col, FormText, <% if (anyFieldHasDocumentation) { %>UncontrolledTooltip,<% } %> } from 'reactstrap';
+import {
+  isNumber,
+  Translate,
+  translate,
+  ValidatedField,
+  ValidatedForm,
+  <% if (anyFieldHasFileBasedContentType) { %> ValidatedBlobField,<% } %>
+} from 'react-jhipster';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputNumber } from 'primereact/inputnumber';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
+import { Calendar } from 'primereact/calendar';
+import { InputSwitch } from 'primereact/inputswitch';
+import { Tooltip } from 'primereact/tooltip';
+import dayjs from 'dayjs';
+
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+<%_ if (relationships.filter(e => e.relationshipManyToMany) !== undefined) { _%>
+import { mapIdList } from 'app/shared/util/entity-utils';
+<%_ } _%>
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+
+<%_
+let otherEntityActions = new Set();
+
+for (const otherEntity of otherEntitiesWithPersistableRelationship) {
+    otherEntityActions.add({
+      action: `get${otherEntity.entityNamePlural}`,
+      instance: otherEntity.entityInstancePlural,
+      entity: otherEntity.entityAngularName,
+      reducer: otherEntity.builtInUser ? `userManagement.${otherEntity.entityInstancePlural}` : `${otherEntity.entityReactState}.entities`,
+    });
+  if (otherEntity.builtInUser) {
+_%>
+import { I<%= otherEntity.entityAngularName %> } from 'app/shared/model/user.model';
+    <%_ if (authenticationTypeOauth2) { _%>
+import { getUsers } from 'app/shared/reducers/user-management';
+    <%_ } else { _%>
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
+    <%_ } _%>
+  <%_ } else { _%>
+    <%_ if (otherEntity.entityAngularName !== entityReactName) { _%>
+import { I<%= otherEntity.entityAngularName %> } from 'app/shared/model/<%= otherEntity.entityModelFileName %>.model';
+    <%_ } _%>
+import { getEntities as get<%= otherEntity.entityNamePlural %> } from 'app/entities/<%= otherEntity.entityFolderName %>/<%= otherEntity.entityFileName %>.reducer';
+  <%_ } _%>
+<%_ } _%>
+import { I<%= entityReactName %> } from 'app/shared/model/<%= entityModelFileName %>.model';
+<%_ const enumImports = this.generateEntityClientEnumImports(fields); _%>
+<%_ enumImports.forEach( (importedPath, importedType) => { _%>
+import { <%- importedType %> } from '<%- importedPath %>';
+<%_ }); _%>
+import {
+  getEntity,
+  updateEntity,
+  createEntity,
+  reset
+} from './<%= entityFileName %>.reducer';
+
+
+
+export const <%= entityReactName %>Update = () => {
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const { id } = useParams<'id'>();
+  const isNew = id === undefined;
+
+
+  <%_ otherEntityActions.forEach(val => { _%>
+  const <%= val.instance %> = useAppSelector(state => state.<%= val.reducer %>);
+  <%_ }) _%>
+  const <%= entityInstance %>Entity = useAppSelector(state => state.<%= entityReactState %>.entity);  
+  const [<%= entityInstance %>, set<%= entityReactName %>] = useState<I<%= entityReactName %>>({});
+  const loading = useAppSelector(state => state.<%= entityReactState %>.loading);
+  const updating = useAppSelector(state => state.<%= entityReactState %>.updating);
+  const updateSuccess = useAppSelector(state => state.<%= entityReactState %>.updateSuccess);
+  <%_ enumImports.forEach( (importedPath, importedType) => { _%>
+  const <%- this._.lowerFirst(importedType) %>Values = Object.keys(<%- importedType %>);
+  <%_ }); _%>
+
+  const handleClose = () => {
+    navigate('/<%= entityPage %>'<%_ if (paginationPagination) { _%> + location.search<%_ } _%>);
+  }
+
+  useEffect(() => {
+<%_ if (paginationInfiniteScroll) { _%>
+    if (!isNew) {
+      dispatch(getEntity(id));
+    }
+<%_ } else { _%>
+    if (isNew) {
+      dispatch(reset());
+    } else {
+      dispatch(getEntity(id));
+    }
+<%_ } _%>
+
+<%_ otherEntityActions.forEach(val => { _%>
+    dispatch(<%= val.action %>({}));
+<%_ }) _%>
+  }, []);
+
+  
+  useEffect(() => {
+    if (!loading && !isNew) {
+      set<%= entityReactName %>(<%= entityInstance %>Entity);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (updateSuccess) {
+      handleClose();
+    }
+  }, [updateSuccess]);
+
+  // eslint-disable-next-line complexity
+  const saveEntity = () => {
+    if (isNew) {
+      dispatch(createEntity(<%= entityInstance %>));
+    } else {
+      dispatch(updateEntity(<%= entityInstance %>));
+    }
+  };
+
+  const onChange = (name: string, val: any, list?: Array<{ id: any }>): void => {
+    let _<%= entityInstance %> = { ...<%= entityInstance %> };
+    if (list == null || list.length <= 0) {
+      // @ts-ignore
+      _<%= entityInstance %>[name] = val;
+    } else {
+      // @ts-ignore
+      _<%= entityInstance %>[name] = list.find(it => it.id === val);
+    }
+    set<%= entityReactName %>(_<%= entityInstance %>);
+  };
+
+  return (
+    <div className="l-card">
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <h5>
+            <Translate contentKey="<%= i18nKeyPrefix %>.home.createOrEditLabel">Create or edit a <%= entityClass %></Translate>
+          </h5>
+
+          <div className="l-form">
+            {!isNew && (
+              <div>
+                <label htmlFor="<%= entityFileName %>-<%= primaryKey.fields[0].fieldName %>">
+                  <Translate contentKey="<%= primaryKey.fields[0].fieldTranslationKey %>" />
+                </label>
+                <div>
+                  <InputNumber name="<%= primaryKey.fields[0].fieldName %>" id="<%= entityFileName %>-<%= primaryKey.fields[0].fieldName %>" 
+                    value={<%= entityInstance %>.<%= primaryKey.fields[0].fieldName %>} disabled />
+                </div>
+              </div>
+            )}
+<%_ for (field of fields.filter(field => !field.id)) {
+    const fieldType = field.fieldType;
+    const fieldName = field.fieldName;
+    const fieldNameHumanized = field.fieldNameHumanized; _%>
+              <div>
+                <label htmlFor="<%= entityFileName %>-<%= fieldName %>">
+  <%_ if (enableTranslation) { _%>
+                  <Translate contentKey="<%= field.fieldTranslationKey %>" />
+  <%_ } else { _%>
+                  <%= fieldNameHumanized %>
+  <%_ } _%>                
+                </label>
+              <div>
+                <
+  <%_ if (field.fieldTypeBoolean) { _%>
+                InputSwitch 
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  checked={<%= entityInstance %>.<%= fieldName %>}
+                  onChange={e => onChange('<%= fieldName %>', e.value)}
+  <%_ } else if (field.fieldTypeTimed) { _%>
+                Calendar 
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate()}
+                  onChange={e => onChange('<%= fieldName %>', e.value)}
+                  showTime
+                  hourFormat="24"
+  <%_ } else if (field.fieldTypeLocalDate) { _%>
+                Calendar 
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate()}
+                  onChange={e => onChange('<%= fieldName %>', e.value)}
+  <%_ } else if (field.fieldIsEnum) { _%>
+                InputText
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={<%= entityInstance %>.<%= fieldName %>}
+                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
+                  required
+                  autoFocus
+                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+  <%_ } else if (field.fieldTypeNumeric) { _%>
+                InputNumber // fieldTypeBinary 未实现
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={<%= entityInstance %>.<%= fieldName %>}
+                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
+                  required
+                  autoFocus
+                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+  <%_ } else if (field.fieldTypeBinary) { _%>
+                InputText // fieldTypeBinary 未实现
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={<%= entityInstance %>.<%= fieldName %>}
+                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
+                  required
+                  autoFocus
+                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+  <%_ } else { _%>
+                InputText
+                  id="<%= entityFileName %>-<%= fieldName %>"
+                  name="<%= fieldName %>"
+                  value={<%= entityInstance %>.<%= fieldName %>}
+                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
+                  required
+                  autoFocus
+                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+  <%_ } _%>
+                  data-pr-position="top" data-pr-at="left+5 top-5"
+  <%_ if (field.documentation && enableTranslation) { _%>
+                  data-pr-tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}
+  <%_ } else { _%>
+                  data-pr-tooltip="<%= field.documentation %>"
+  <%_ } _%>     
+                />
+                <Tooltip target="#<%= entityFileName %>-<%= fieldName %>" />
+              </div>
+            </div>
+<%_ } _%>
+
+<%_ for (const rel of persistableRelationships) {
+    const otherEntityPkName = rel.otherEntity.primaryKey && rel.otherEntity.primaryKey.name || 'id';
+    const otherEntityNamePlural = rel.otherEntityNamePlural;
+    const relationshipName = rel.relationshipName;
+    const relationshipNameHumanized = rel.relationshipNameHumanized;
+    const relationshipFieldName = rel.relationshipFieldName;
+    const relationshipFieldNamePlural = rel.relationshipFieldNamePlural;
+    const otherEntityField = rel.otherEntityField;
+    const relationshipRequired = rel.relationshipRequired;
+    const translationKey = `${i18nKeyPrefix}.${relationshipName}`; _%>
+  <%_ if (!rel.collection) { _%>
+            <div>              
+              <label htmlFor="<%= entityFileName %>-<%= relationshipName %>">
+    <%_ if (enableTranslation) { _%>
+                  <Translate contentKey="<%= translationKey %>" />
+    <%_ } else { _%>
+                  <%= relationshipNameHumanized %>
+    <%_ } _%> 
+                </label>
+              <div>
+                <Dropdown
+                  id="<%= entityFileName %>-<%= relationshipName %>"
+                  name="<%= relationshipFieldName %>"
+                  value={<%= entityInstance %>?.<%= relationshipName %>?.<%= otherEntityPkName %>}
+                  onChange={e => onChange('<%= relationshipFieldName %>', e.value, <%= otherEntityNamePlural %>)}
+                  options={<%= otherEntityNamePlural %>}
+                  optionValue="<%= otherEntityPkName %>"
+                  optionLabel="<%= otherEntityField %>"
+                  showClear
+                />
+              </div>
+            </div>
+  <%_ } _%>
+<%_ } _%>
+          </div>
+
+          <div className="l-form-footer">
+            <Button label={translate('entity.action.back')} icon="pi pi-arrow-left" outlined onClick={() => navigate(-1)} />
+            <Button label={translate('entity.action.save')} icon="pi pi-save" onClick={saveEntity} disabled={updating} />
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default <%= entityReactName %>Update;

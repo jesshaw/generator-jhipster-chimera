@@ -14,6 +14,7 @@ export const commonFiles = {
         'logo.png',
         'logo.png',
         'chamera1-512.png',
+        'chamera1-512_head-192.png',
       ],
     }),
   ],

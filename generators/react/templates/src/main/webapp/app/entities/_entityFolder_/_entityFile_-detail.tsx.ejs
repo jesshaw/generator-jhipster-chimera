@@ -1,0 +1,152 @@
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+// import { Button, <% if (anyFieldHasDocumentation) { %>UncontrolledTooltip, <% } %>Row, Col } from 'reactstrap';
+import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
+import {
+  Translate, translate, 
+<%_ if (anyFieldIsBlobDerived) { _%>
+  <%_ if (anyFieldHasFileBasedContentType) { _%>
+  openFile,
+  <%_ } _%>
+  byteSize,
+<%_ } _%>
+<%_ if (anyFieldIsDateDerived) { _%>
+  TextFormat
+<%_ } _%>
+} from 'react-jhipster';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+<%_ if (anyFieldIsDateDerived) { _%>
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+<%_ } _%>
+<%_ if (anyFieldIsDuration) { _%>
+import { DurationFormat } from 'app/shared/DurationFormat';
+<%_ } _%>
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+
+import { getEntity } from './<%= entityFileName %>.reducer';
+
+export const <%= entityReactName %>Detail = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { id } = useParams<'id'>();
+
+  useEffect(() => {
+    dispatch(getEntity(id));
+  }, []);
+
+  const <%= entityInstance %>Entity = useAppSelector(state => state.<%= entityReactState %>.entity);
+  
+  return (
+    <div className="l-card">
+      <h5>        
+        <Translate contentKey="<%= i18nKeyPrefix %>.detail.title"><%= entityClass %></Translate>
+      </h5>
+      <div className="l-form">
+<%_ for (field of fields) {
+  const fieldName = field.fieldName;
+  const fieldNameHumanized = field.fieldNameHumanized;
+_%>      
+        <div>
+          <label id="<%= fieldName %>" data-pr-position="top" data-pr-at="left+5 top-5"
+  <%_ if (field.documentation && enableTranslation) { _%>
+            data-pr-tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}>
+  <%_ } else { _%>
+            data-pr-tooltip="<%= field.documentation %>">
+  <%_ } _%>
+              <Translate contentKey="<%= field.fieldTranslationKey %>">
+                <%= fieldNameHumanized %>
+              </Translate>
+          </label>
+          <Tooltip target="#<%= fieldName %>" />
+          <div>
+  <%_ if (field.fieldTypeBoolean) { _%>
+              {<%= entityInstance %>Entity.<%= fieldName %> ? 'true' : 'false'}
+  <%_ } else if (field.fieldTypeTimed) { _%>
+              {<%= entityInstance %>Entity.<%= fieldName %> ? <TextFormat value={<%= entityInstance %>Entity.<%= fieldName %>} type="date" format={APP_DATE_FORMAT} />: null}
+  <%_ } else if (field.fieldTypeDuration) { _%>
+              {<%= entityInstance %>Entity.<%= fieldName %> ? <DurationFormat value={<%= entityInstance %>Entity.<%= fieldName %>} />: null} ({<%= entityInstance %>Entity.<%= fieldName %>})
+  <%_ } else if (field.fieldTypeLocalDate) { _%>
+              {<%= entityInstance %>Entity.<%= fieldName %> ? <TextFormat value={<%= entityInstance %>Entity.<%= fieldName %>} type="date" format={APP_LOCAL_DATE_FORMAT} />: null}
+  <%_ } else if (field.fieldTypeBinary) { _%>
+    <%_ if (!field.blobContentTypeText) { _%>
+                {<%= entityInstance %>Entity.<%= fieldName %> ? (
+                  <div>
+                    {<%= entityInstance %>Entity.<%= fieldName %>ContentType ? (
+                      <a onClick={openFile(<%= entityInstance %>Entity.<%= fieldName %>ContentType, <%= entityInstance %>Entity.<%= fieldName %>)}>
+        <%_ if (field.blobContentTypeImage) { _%>
+                        <img src={`data:${<%= entityInstance %>Entity.<%= fieldName %>ContentType};base64,${<%= entityInstance %>Entity.<%= fieldName %>}`} style={{ maxHeight: '30px' }} />
+        <%_ } else { _%>
+                        <Translate contentKey="entity.action.open">Open</Translate>&nbsp;
+        <%_ } _%>
+                      </a>
+                    ) : null}
+                    <span>{<%= entityInstance %>Entity.<%= fieldName %>ContentType}, {byteSize(<%= entityInstance %>Entity.<%= fieldName %>)}</span>
+                  </div>
+                ) : null}
+    <%_ } else { _%>
+                {<%= entityInstance %>Entity.<%= field.fieldName %>}
+    <%_ } _%>
+  <%_ } else { _%>
+            {<%= entityInstance %>Entity.<%= field.fieldName %>}
+  <%_ } _%>
+            </div>
+        </div>
+<%_ } _%>
+<%_ for (relationship of relationships) {
+    const relationshipName = relationship.relationshipName;
+    const relationshipFieldName = relationship.relationshipFieldName;
+    const relationshipFieldNamePlural = relationship.relationshipFieldNamePlural;
+    const relationshipNameHumanized = relationship.relationshipNameHumanized;
+    const otherEntityPkName = relationship.otherEntity.primaryKey && relationship.otherEntity.primaryKey.name || 'id';
+    const otherEntityField = relationship.otherEntityField; _%>
+  <%_ if (relationship.persistableRelationship) { _%>
+        <div>
+          <label>
+            <Translate contentKey="<%= i18nKeyPrefix %>.<%= relationshipName %>">
+              <%= relationshipNameHumanized %>
+            </Translate>
+          </label>        
+          <div>
+    <%_ if (relationship.otherEntityUser) { _%>
+      <%_ if (relationship.relationshipManyToMany) { _%>
+    {
+      (<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>) ?
+          (<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>.map((val, i) =>
+            <span key={val.<%= otherEntityPkName %>}><a>{val.<%= otherEntityField %>}</a>{(<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %> && i === <%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>.length - 1) ? '' : ', '}</span>
+          )
+      ) : null
+    }
+      <%_ } else { _%>
+            {(<%= entityInstance + "Entity." + relationshipFieldName %>) ? <%= entityInstance + "Entity." + relationshipFieldName + "." + otherEntityField %> : ''}
+      <%_ } _%>
+    <%_ } else { _%>
+      <%_ if (relationship.relationshipManyToMany) { _%>
+    {
+        (<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>) ?
+            (<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>.map((val, i) =>
+            <span key={val.<%= otherEntityPkName %>}><a>{val.<%= otherEntityField %>}</a>{(<%= entityInstance %>Entity.<%= relationshipFieldNamePlural %> && i === <%= entityInstance %>Entity.<%= relationshipFieldNamePlural %>.length - 1) ? '' : ', '}</span>
+            )
+        ) : null
+    }
+      <%_ } else { _%>
+            {(<%= entityInstance + "Entity." + relationshipFieldName %>) ? <%= entityInstance + "Entity." + relationshipFieldName + "." + otherEntityField %> : ''}
+      <%_ } _%>
+    <%_ } _%>
+          </div>
+        </div>
+  <%_ } _%>
+<%_ } _%>
+      </div>
+
+      <div className="l-form-footer">
+        <Button label={translate('entity.action.back')} icon="pi pi-arrow-left" outlined onClick={() => navigate(-1)} />
+        <Button label={translate('entity.action.edit')} icon="pi pi-save" onClick={() => navigate(`/<%= entityPage %>/${<%= entityInstance %>Entity.<%= primaryKey.name %>}/edit`)} />
+      </div>
+    </div>
+  );
+};
+
+export default <%= entityReactName %>Detail;
