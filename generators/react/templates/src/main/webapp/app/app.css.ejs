@@ -165,18 +165,19 @@ body {
 }
 
 .l-datatable-header .l-select-columns {
-  @apply sm:w-20rem max-sm:w-full;
+  @apply max-sm:w-full sm:w-96;
 }
 
 /* for edit form */
+
 .l-form > div {
   @apply mb-4 flex flex-col md:flex-row;
 }
 .l-form > div > label {
-  @apply mb-2 w-32 font-bold;
+  @apply mb-2 mr-2 w-56 font-bold;
 }
 .l-form > div > div {
-  @apply grow;
+  @apply grow justify-start;
 }
 .l-form > div > div > input {
   @apply w-full;

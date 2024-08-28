@@ -55,3 +55,8 @@ export const files = {
     },
   ],
 };
+
+export const unwantedFiles = {
+  files: ['app/app.scss'],
+  entityFiles: ['app/entities/_entityFolder_/_entityFile_-delete-dialog.tsx'],
+};
