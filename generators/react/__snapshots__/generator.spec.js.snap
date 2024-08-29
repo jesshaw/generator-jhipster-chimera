@@ -1208,6 +1208,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/i18n/en/password.json": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/i18n/en/primeReact.json": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/i18n/en/register.json": {
     "stateCleared": "modified",
   },

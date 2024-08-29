@@ -16,7 +16,7 @@ import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 import { InputSwitch } from 'primereact/inputswitch';
-import { Tooltip } from 'primereact/tooltip';
+import { InputTextarea } from 'primereact/inputtextarea';
 import dayjs from 'dayjs';
 
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -187,7 +187,7 @@ export const <%= entityReactName %>Update = () => {
                 Calendar 
                   id="<%= entityFileName %>-<%= fieldName %>"
                   name="<%= fieldName %>"
-                  value={dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate()}
+                  value={<%= entityInstance %>.<%= fieldName %> ? dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate() : null}
                   onChange={e => onChange('<%= fieldName %>', e.value)}
                   showTime
                   hourFormat="24"
@@ -195,7 +195,7 @@ export const <%= entityReactName %>Update = () => {
                 Calendar 
                   id="<%= entityFileName %>-<%= fieldName %>"
                   name="<%= fieldName %>"
-                  value={dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate()}
+                  value={<%= entityInstance %>.<%= fieldName %> ? dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate() : null}
                   onChange={e => onChange('<%= fieldName %>', e.value)}
   <%_ } else if (field.fieldIsEnum) { _%>
                 InputText
@@ -207,7 +207,7 @@ export const <%= entityReactName %>Update = () => {
                   autoFocus
                   className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
   <%_ } else if (field.fieldTypeNumeric) { _%>
-                InputNumber // fieldTypeBinary 未实现
+                InputNumber
                   id="<%= entityFileName %>-<%= fieldName %>"
                   name="<%= fieldName %>"
                   value={<%= entityInstance %>.<%= fieldName %>}
@@ -216,7 +216,7 @@ export const <%= entityReactName %>Update = () => {
                   autoFocus
                   className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
   <%_ } else if (field.fieldTypeBinary) { _%>
-                InputText // fieldTypeBinary 未实现
+                InputTextarea
                   id="<%= entityFileName %>-<%= fieldName %>"
                   name="<%= fieldName %>"
                   value={<%= entityInstance %>.<%= fieldName %>}
@@ -224,6 +224,7 @@ export const <%= entityReactName %>Update = () => {
                   required
                   autoFocus
                   className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+                  rows={5}
   <%_ } else { _%>
                 InputText
                   id="<%= entityFileName %>-<%= fieldName %>"
@@ -234,14 +235,13 @@ export const <%= entityReactName %>Update = () => {
                   autoFocus
                   className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
   <%_ } _%>
-                  data-pr-position="top" data-pr-at="left+5 top-5"
+                  tooltipOptions={{ position: 'top' }}
   <%_ if (field.documentation && enableTranslation) { _%>
-                  data-pr-tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}
+                  tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}
   <%_ } else { _%>
-                  data-pr-tooltip="<%= field.documentation %>"
+                  tooltip="<%= field.documentation %>"
   <%_ } _%>     
                 />
-                <Tooltip target="#<%= entityFileName %>-<%= fieldName %>" />
               </div>
             </div>
 <%_ } _%>
