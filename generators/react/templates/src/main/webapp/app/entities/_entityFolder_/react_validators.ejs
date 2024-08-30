@@ -1,6 +1,6 @@
 <%# Returns a string of all react validators required for the input field. -%>
 <%_ if (field.fieldValidate === true) { _%>
-    validate={{
+      rules={{
 <%_ if (field.fieldValidationRequired && !field.fieldTypeBoolean) { _%>
       required: { value: true, message: translate('entity.validation.required') },
 <%_ } _%>

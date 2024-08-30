@@ -5,18 +5,21 @@ import {
   isNumber,
   Translate,
   translate,
+  TranslatorContext,
   ValidatedField,
   ValidatedForm,
   <% if (anyFieldHasFileBasedContentType) { %> ValidatedBlobField,<% } %>
 } from 'react-jhipster';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useForm, Controller } from 'react-hook-form';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 import { InputSwitch } from 'primereact/inputswitch';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { classNames } from 'primereact/utils';
 import dayjs from 'dayjs';
 
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -50,7 +53,7 @@ import { I<%= otherEntity.entityAngularName %> } from 'app/shared/model/<%= othe
 import { getEntities as get<%= otherEntity.entityNamePlural %> } from 'app/entities/<%= otherEntity.entityFolderName %>/<%= otherEntity.entityFileName %>.reducer';
   <%_ } _%>
 <%_ } _%>
-import { I<%= entityReactName %> } from 'app/shared/model/<%= entityModelFileName %>.model';
+import { I<%= entityReactName %>,defaultValue } from 'app/shared/model/<%= entityModelFileName %>.model';
 <%_ const enumImports = this.generateEntityClientEnumImports(fields); _%>
 <%_ enumImports.forEach( (importedPath, importedType) => { _%>
 import { <%- importedType %> } from '<%- importedPath %>';
@@ -59,7 +62,7 @@ import {
   getEntity,
   updateEntity,
   createEntity,
-  reset
+  reset as resetEntity
 } from './<%= entityFileName %>.reducer';
 
 
@@ -76,8 +79,7 @@ export const <%= entityReactName %>Update = () => {
   <%_ otherEntityActions.forEach(val => { _%>
   const <%= val.instance %> = useAppSelector(state => state.<%= val.reducer %>);
   <%_ }) _%>
-  const <%= entityInstance %>Entity = useAppSelector(state => state.<%= entityReactState %>.entity);  
-  const [<%= entityInstance %>, set<%= entityReactName %>] = useState<I<%= entityReactName %>>({});
+  const <%= entityInstance %>Entity = useAppSelector(state => state.<%= entityReactState %>.entity);
   const loading = useAppSelector(state => state.<%= entityReactState %>.loading);
   const updating = useAppSelector(state => state.<%= entityReactState %>.updating);
   const updateSuccess = useAppSelector(state => state.<%= entityReactState %>.updateSuccess);
@@ -96,7 +98,7 @@ export const <%= entityReactName %>Update = () => {
     }
 <%_ } else { _%>
     if (isNew) {
-      dispatch(reset());
+      dispatch(resetEntity());
     } else {
       dispatch(getEntity(id));
     }
@@ -107,39 +109,45 @@ export const <%= entityReactName %>Update = () => {
 <%_ }) _%>
   }, []);
 
-  
-  useEffect(() => {
-    if (!loading && !isNew) {
-      set<%= entityReactName %>(<%= entityInstance %>Entity);
-    }
-  }, [loading]);
-
   useEffect(() => {
     if (updateSuccess) {
       handleClose();
     }
   }, [updateSuccess]);
 
-  // eslint-disable-next-line complexity
-  const saveEntity = () => {
-    if (isNew) {
-      dispatch(createEntity(<%= entityInstance %>));
-    } else {
-      dispatch(updateEntity(<%= entityInstance %>));
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    trigger,
+  } = useForm({
+    defaultValues: defaultValue,
+  });
+
+  useEffect(() => {
+    if (<%= entityInstance %>Entity) {
+      // aync data update the form
+      reset(<%= entityInstance %>Entity);
     }
+  }, [<%= entityInstance %>Entity, reset, TranslatorContext.context.locale]);
+
+  const onSubmit = data => {
+    // console.log('submit data:', data);
+    if (isNew) {
+      dispatch(createEntity(data));
+    } else {
+      dispatch(updateEntity(data));
+    }
+
+    reset();
+  };
+  
+  const getFormErrorMessage = name => {
+    return errors[name] && <small className="p-error">{errors[name].message}</small>;
   };
 
-  const onChange = (name: string, val: any, list?: Array<{ id: any }>): void => {
-    let _<%= entityInstance %> = { ...<%= entityInstance %> };
-    if (list == null || list.length <= 0) {
-      // @ts-ignore
-      _<%= entityInstance %>[name] = val;
-    } else {
-      // @ts-ignore
-      _<%= entityInstance %>[name] = list.find(it => it.id === val);
-    }
-    set<%= entityReactName %>(_<%= entityInstance %>);
-  };
+  
 
   return (
     <div className="l-card">
@@ -151,99 +159,116 @@ export const <%= entityReactName %>Update = () => {
             <Translate contentKey="<%= i18nKeyPrefix %>.home.createOrEditLabel">Create or edit a <%= entityClass %></Translate>
           </h5>
 
-          <div className="l-form">
-            {!isNew && (
-              <div>
-                <label htmlFor="<%= entityFileName %>-<%= primaryKey.fields[0].fieldName %>">
-                  <Translate contentKey="<%= primaryKey.fields[0].fieldTranslationKey %>" />
-                </label>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div className="l-form">
+              {!isNew && (
                 <div>
-                  <InputNumber name="<%= primaryKey.fields[0].fieldName %>" id="<%= entityFileName %>-<%= primaryKey.fields[0].fieldName %>" 
-                    value={<%= entityInstance %>.<%= primaryKey.fields[0].fieldName %>} disabled />
+                  <label htmlFor="<%= primaryKey.fields[0].fieldName %>">
+                    <Translate contentKey="<%= primaryKey.fields[0].fieldTranslationKey %>" />
+                  </label>
+                  <div>
+                    <Controller                      
+                      control={control}
+                      name="<%= primaryKey.fields[0].fieldName %>"
+                      render={({ field }) => 
+                        <InputNumber id={field.name} onChange={e => field.onChange(e.value)} value={field.value} disabled />
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 <%_ for (field of fields.filter(field => !field.id)) {
     const fieldType = field.fieldType;
     const fieldName = field.fieldName;
     const fieldNameHumanized = field.fieldNameHumanized; _%>
-              <div>
-                <label htmlFor="<%= entityFileName %>-<%= fieldName %>">
+                <div>
+                  <label htmlFor="<%= fieldName %>">
   <%_ if (enableTranslation) { _%>
-                  <Translate contentKey="<%= field.fieldTranslationKey %>" />
+                    <Translate contentKey="<%= field.fieldTranslationKey %>" />
   <%_ } else { _%>
-                  <%= fieldNameHumanized %>
+                    <%= fieldNameHumanized %>
   <%_ } _%>                
-                </label>
-              <div>
-                <
+                  </label>
+                <div>
+                  <Controller
+                    control={control}
+                    name="<%= fieldName %>"
   <%_ if (field.fieldTypeBoolean) { _%>
-                InputSwitch 
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  checked={<%= entityInstance %>.<%= fieldName %>}
-                  onChange={e => onChange('<%= fieldName %>', e.value)}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                      <InputSwitch
+                        id={field.name}
+                        onChange={e => field.onChange(e.value)}
+                        checked={field.value}
   <%_ } else if (field.fieldTypeTimed) { _%>
-                Calendar 
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %> ? dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate() : null}
-                  onChange={e => onChange('<%= fieldName %>', e.value)}
-                  showTime
-                  hourFormat="24"
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                      <Calendar
+                        id={field.name} 
+                        onChange={e => field.onChange(e.value)}                        
+                        value={field.value ? dayjs(convertDateTimeFromServer(field.value)).toDate() : null}                        
+                        hourFormat="24"
+                        showTime
+                        showIcon
   <%_ } else if (field.fieldTypeLocalDate) { _%>
-                Calendar 
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %> ? dayjs(convertDateTimeFromServer(<%= entityInstance %>.<%= fieldName %>)).toDate() : null}
-                  onChange={e => onChange('<%= fieldName %>', e.value)}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                      <Calendar
+                        id={field.name} 
+                        onChange={e => field.onChange(e.value)}                        
+                        value={field.value ? dayjs(convertDateTimeFromServer(field.value)).toDate() : null}
+                        dateFormat="yy-mm-dd"
+                        mask="9999-99-99"
+                        showIcon
   <%_ } else if (field.fieldIsEnum) { _%>
-                InputText
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %>}
-                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
-                  required
-                  autoFocus
-                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => ( 
+                      <InputText //no implete fieldIsEnum
+                        id={field.name}
+                        {...field}
+                        value={field.value ? field.value : ''}
   <%_ } else if (field.fieldTypeNumeric) { _%>
-                InputNumber
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %>}
-                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
-                  required
-                  autoFocus
-                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                      <InputNumber
+                        id={field.name} 
+                        onChange={e => field.onChange(e.value)} 
+                        value={field.value}
   <%_ } else if (field.fieldTypeBinary) { _%>
-                InputTextarea
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %>}
-                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
-                  required
-                  autoFocus
-                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
-                  rows={5}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                     <InputTextarea
+                        id={field.name}
+                        {...field}
+                        value={field.value ? field.value : ''}
+                        rows={5}
   <%_ } else { _%>
-                InputText
-                  id="<%= entityFileName %>-<%= fieldName %>"
-                  name="<%= fieldName %>"
-                  value={<%= entityInstance %>.<%= fieldName %>}
-                  onChange={e => onChange('<%= fieldName %>', e.target.value)}
-                  required
-                  autoFocus
-                  className={!<%= entityInstance %>.<%= fieldName %> ? 'p-invalid' : ''}
+                    <%- include('react_validators'); %>
+                    render={({ field, fieldState }) => (
+                      <InputText
+                        id={field.name}
+                        {...field}
+                        value={field.value ? field.value : ''}
   <%_ } _%>
-                  tooltipOptions={{ position: 'top' }}
+                        onBlur={() => {
+                          trigger('<%= fieldName %>');
+                        }}
+                        className={classNames({
+                          'p-invalid': fieldState.invalid,
+                        })}
+                        tooltipOptions={{ position: 'top' }}
   <%_ if (field.documentation && enableTranslation) { _%>
-                  tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}
+                        tooltip={translate('<%= i18nKeyPrefix %>.help.<%= fieldName %>')}
   <%_ } else { _%>
-                  tooltip="<%= field.documentation %>"
+                        tooltip="<%= field.documentation %>"
   <%_ } _%>     
-                />
+                      />
+                    )}
+                  />
+                  {getFormErrorMessage('<%= fieldName %>')}
+                </div>
               </div>
-            </div>
 <%_ } _%>
 
 <%_ for (const rel of persistableRelationships) {
@@ -257,35 +282,98 @@ export const <%= entityReactName %>Update = () => {
     const relationshipRequired = rel.relationshipRequired;
     const translationKey = `${i18nKeyPrefix}.${relationshipName}`; _%>
   <%_ if (!rel.collection) { _%>
-            <div>              
-              <label htmlFor="<%= entityFileName %>-<%= relationshipName %>">
+              <div>              
+                <label htmlFor="<%= relationshipFieldName %>">
     <%_ if (enableTranslation) { _%>
                   <Translate contentKey="<%= translationKey %>" />
     <%_ } else { _%>
                   <%= relationshipNameHumanized %>
     <%_ } _%> 
                 </label>
-              <div>
-                <Dropdown
-                  id="<%= entityFileName %>-<%= relationshipName %>"
-                  name="<%= relationshipFieldName %>"
-                  value={<%= entityInstance %>?.<%= relationshipName %>?.<%= otherEntityPkName %>}
-                  onChange={e => onChange('<%= relationshipFieldName %>', e.value, <%= otherEntityNamePlural %>)}
-                  options={<%= otherEntityNamePlural %>}
-                  optionValue="<%= otherEntityPkName %>"
-                  optionLabel="<%= otherEntityField %>"
-                  showClear
-                />
+                <div>
+                  <Controller
+                    control={control}
+                    name="<%= relationshipFieldName  %>"
+    <%_ if (relationshipRequired) { _%>
+                    rules={{required: { value: true, message: translate('entity.validation.required')}}
+    <%_ } _%>
+                    render={({ field, fieldState }) => (
+                      <Dropdown
+                          id={field.name}
+                          value={field?.value?.<%= otherEntityPkName %>}
+                          onChange={e => field.onChange(<%= otherEntityNamePlural %>.find(it => it.<%= otherEntityPkName %> === e.value))}                          
+                          options={<%= otherEntityNamePlural %>}
+                          optionValue="<%= otherEntityPkName %>"
+                          optionLabel="<%= otherEntityField %>"
+                          showClear                      
+                          onBlur={() => {
+                            trigger('<%= relationshipFieldName %>');
+                          }}
+                          className={classNames({
+                            'p-invalid': fieldState.invalid,
+                          })}
+                          tooltipOptions={{ position: 'top' }}                  
+  <%_ if (enableTranslation) { _%>
+                          tooltip={translate('<%= i18nKeyPrefix %>.help.<%= relationshipName %>')}
+  <%_ } else { _%>
+                          tooltip="<%= field.documentation %>"
+  <%_ } _%>
+                      />
+                    )}
+                  />
+                </div>
               </div>
-            </div>
+  <%_ } else { _%>    
+              <div>              
+                <label htmlFor="<%= relationshipFieldName %>">
+    <%_ if (enableTranslation) { _%>
+                  <Translate contentKey="<%= translationKey %>" />
+    <%_ } else { _%>
+                  <%= relationshipNameHumanized %>
+    <%_ } _%> 
+                </label>
+                <div>
+                  <Controller
+                    control={control}
+                    name="<%= relationshipFieldName  %>"
+    <%_ if (relationshipRequired) { _%>
+                    rules={{required: { value: true, message: translate('entity.validation.required')}}
+    <%_ } _%>
+                    render={({ field, fieldState }) => (
+                      <MultiSelect  // to do implementation of multi-list functionality
+                          id={field.name}
+                          value={field?.value?.id}
+                          onChange={e => field.onChange(<%= otherEntityNamePlural %>.find(it => it.id === e.value))}                          
+                          options={<%= otherEntityNamePlural %>}
+                          optionValue="<%= otherEntityPkName %>"
+                          optionLabel="<%= otherEntityField %>"
+                          showClear                        
+                          onBlur={() => {
+                            trigger('<%= relationshipFieldName %>');
+                          }}
+                          className={classNames({
+                            'p-invalid': fieldState.invalid,
+                          })}
+                          tooltipOptions={{ position: 'top' }}                  
+  <%_ if (enableTranslation) { _%>
+                          tooltip={translate('<%= i18nKeyPrefix %>.help.<%= relationshipName %>')}
+  <%_ } else { _%>
+                          tooltip="<%= field.documentation %>"
+  <%_ } _%>
+                      />
+                    )}
+                  />
+                </div>
+              </div>
   <%_ } _%>
 <%_ } _%>
-          </div>
+            </div>
 
-          <div className="l-form-footer">
-            <Button label={translate('entity.action.back')} icon="pi pi-arrow-left" outlined onClick={() => navigate(-1)} />
-            <Button label={translate('entity.action.save')} icon="pi pi-save" onClick={saveEntity} disabled={updating} />
-          </div>
+            <div className="l-form-footer">
+              <Button type="button" label={translate('entity.action.back')} icon="pi pi-arrow-left" outlined onClick={() => navigate(-1)} />
+              <Button type="submit" label={translate('entity.action.save')} icon="pi pi-save" disabled={updating} />
+            </div>
+          </form>
         </>
       )}
     </div>

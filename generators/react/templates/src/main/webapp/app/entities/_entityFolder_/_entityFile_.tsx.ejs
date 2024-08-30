@@ -506,7 +506,13 @@ _%>
                 rounded
                 outlined
                 className="mr-2"
-                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}/edit`)}
+<%_ if (paginationInfiniteScroll) { _%>
+                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}/edit?sort=${paginationState.sort},${paginationState.order}`)}
+<%_ } else if (paginationPagination) { _%>
+                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}/edit?page=${paginationState.activePage}&size=${paginationState.itemsPerPage}&sort=${paginationState.sort},${paginationState.order}`)}
+<%_ } else { _%>
+                onClick={() => navigate(`/<%= entityPage %>/${rowData.<%= primaryKey.name %>}/edit?sort=${sortState.sort},${sortState.order}`)}
+<%_ } _%>
               />
               <Button
                 icon="pi pi-trash"
@@ -524,7 +530,7 @@ _%>
   ];
 
   //localStorage key used to store display columns
-  const entityColumnsKey = 'lxmcrmApp.leadInfo.cloumns';
+  const entityColumnsKey = 'lxmcrmApp.<%= entityInstance %>.cloumns';
 
   const getDefaultSelectedColumns = () => {
     let storageColumns = localStorage.getItem(entityColumnsKey);
@@ -533,9 +539,9 @@ _%>
     if (storageColumns !== null) {
       defaultSelectedColumns = JSON.parse(storageColumns);
     } else {
-      let top5AndOperateColumns = allColumns.slice(0, 5);
-      top5AndOperateColumns.push(allColumns.find(item => item.field === 'lOperate'));
-      defaultSelectedColumns = top5AndOperateColumns.map(item => ({
+      let willBeDisplayedColumns = allColumns.length <= 6 ? allColumns.slice(0, allColumns.length - 2) : allColumns.slice(0, 5);
+      willBeDisplayedColumns.push(allColumns[allColumns.length - 1]); // push last operation comlumn
+      defaultSelectedColumns = willBeDisplayedColumns.map(item => ({
         header: translate(item.headerKey),
         headerKey: item.headerKey,
         field: item.field,
@@ -654,12 +660,9 @@ _%>
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           currentPageReportTemplate={translate('global.item-count')}
 <%_ } else { _%>
-          // sort by frontend          
-          paginator
-          rows={10}
-          rowsPerPageOptions={[5, 10, 20, 50]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate={translate('global.item-count')}
+          onSort={onSort} //sort by backend
+          sortField={sortState.sort}
+          sortOrder={sortState.order === ASC ? -1 : 1}
 <%_ } _%>
         >
           {dynamicColumns}
