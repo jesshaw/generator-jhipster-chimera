@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { EntitiesMenuData } from 'app/entities/entities-menu-data';
 
 export interface IMenuItem {
   label?: string;
@@ -21,6 +22,7 @@ const initialState = {
 export type UIState = Readonly<typeof initialState>;
 
 export const MenuItemsData = {
+  ...EntitiesMenuData,
   homeMenuItem: { icon: 'pi pi-home', labelKey: 'global.menu.home', url: '/' }, // label为空不显示文本显示图片
   dashboardMenuItem: { label: 'DASHBOARDS', labelKey: 'global.menu.dashboards.title' },
   ecommerceMenuItem: { label: 'E-Commerce', labelKey: 'global.menu.dashboards.ecommerce', url: '/' },
@@ -41,11 +43,6 @@ export const MenuItemsData = {
   logsMenuItem: { label: 'Logs', labelKey: 'global.menu.admin.logs', url: '/admin/logs' },
   apidocsMenuItem: { label: 'API', labelKey: 'global.menu.admin.apidocs', url: '/admin/docs' },
   databaseMenuItem: { label: 'Database', labelKey: 'global.menu.admin.database', url: './h2-console/' }, //new blank open
-
-  entitesMenuItem: { label: 'Entites', labelKey: 'global.menu.entities.main' },
-  employeeMenuItem: { label: 'employee', labelKey: 'global.menu.entities.employee', url: '/employee' },
-  resourceMenuItem: { label: 'resource', labelKey: 'global.menu.entities.resource', url: '/resource' },
-  leadinfoMenuItem: { label: 'leadInfo', labelKey: 'global.menu.entities.leadInfo', url: '/lead-info' },
 };
 
 export const getSidebarMenusData = (props: IHeaderProps) => {
@@ -79,7 +76,7 @@ export const getSidebarMenusData = (props: IHeaderProps) => {
           icon: 'pi pi-fw pi-home',
         },
         {
-          ...MenuItemsData.leadinfoMenuItem,
+          ...MenuItemsData.leadInfoMenuItem,
           icon: 'pi pi-fw pi-home',
         },
       ],

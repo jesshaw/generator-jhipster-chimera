@@ -15,6 +15,7 @@ export const files = {
         'app.css',
         'app.tsx',
         'config/notification-middleware.ts',
+        'entities/entities-menu-data.ts',
         'entities/reducers.ts',
         'index.tsx',
         'modules/account/password/password.tsx',
@@ -57,6 +58,6 @@ export const files = {
 };
 
 export const unwantedFiles = {
-  files: ['app/app.scss'],
+  files: ['app/app.scss', 'app/modules/administration/user-management/user-management-delete-dialog.tsx'],
   entityFiles: ['app/entities/_entityFolder_/_entityFile_-delete-dialog.tsx'],
 };

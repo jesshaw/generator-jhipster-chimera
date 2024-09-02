@@ -32,7 +32,7 @@
 <%_ } -%>
 <% for (const relationship of relationships) { -%>
             ,
-            "<%= relationship.relationshipName %>": "<%= relationship.documentation %>"
+            "<%= relationship.relationshipName %>": "<%= !!relationship.documentation ? relationship.documentation : relationship.fieldNameHumanized %>"
 <%_ } -%>
 <%_ const fieldsWithDoc = fields.filter(field => field.documentation); -%>
 <%_ if (fieldsWithDoc.length > 0) { -%>
@@ -40,11 +40,11 @@
             ,
             "help": {
   <%_ for (const field of fieldsWithDoc) { _%>
-                "<%= field.fieldName %>": "<%= field.documentation %>"<% if (field !== lastField) { %>,<% } %>
+                "<%= field.fieldName %>": "<%= !!field.documentation ? field.documentation : field.fieldNameHumanized %>"<% if (field !== lastField) { %>,<% } %>
   <%_ } _%>
   <% for (const relationship of relationships) { -%>
                 ,
-                "<%= relationship.relationshipName %>": "<%= relationship.documentation %>"
+                "<%= relationship.relationshipName %>": "<%= !!relationship.documentation ? relationship.documentation : relationship.fieldNameHumanized %>"
   <%_ } -%>
             }
 <%_ } _%>

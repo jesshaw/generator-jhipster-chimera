@@ -253,6 +253,8 @@ yarn run prettier-format & yarn run test
 
 https://github.com/jhipster/generator-jhipster-micronaut
 
+https://github.com/jhipster/jhipster-dotnetcore/blob/main/generators/blazor/generator.js#L35
+
 [npm-image]: https://img.shields.io/npm/v/generator-jhipster-chimera.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-chimera
 [github-generator-image]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg

@@ -599,6 +599,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/entities/admin/authority/update/authority-update.component.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/entities/entities-menu-data.ts": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/entities/entity-navbar-items.ts": {
     "stateCleared": "modified",
   },

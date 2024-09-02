@@ -59,6 +59,7 @@ import {
 <%_ } _%>
  deleteEntity } from './<%= entityFileName %>.reducer';
 import { I<%= entityReactName %> } from 'app/shared/model/<%= entityFileName %>.model';
+import { MenuItemsData, setBreadItems } from 'app/shared/reducers/ui';
 
 export const <%= entityReactName %> = () => {
   const dispatch = useAppDispatch();
@@ -79,6 +80,10 @@ export const <%= entityReactName %> = () => {
 <%_ if (paginationInfiniteScroll) { _%>
   const [sorting, setSorting] = useState(false);
 <%_ } _%>
+
+  useEffect(() => {
+    dispatch(setBreadItems([MenuItemsData.homeMenuItem, MenuItemsData.entitesMenuItem, MenuItemsData.<%= entityInstance %>MenuItem]));
+  }, []);
 
   const <%= entityInstance %>List = useAppSelector(state => state.<%= entityReactState %>.entities);
   const loading = useAppSelector(state => state.<%= entityReactState %>.loading);
@@ -246,12 +251,14 @@ export const <%= entityReactName %> = () => {
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
     const page = params.get('page');
+    const size = params.get('size');
     const sort = params.get(SORT);
     if (page && sort) {
       const sortSplit = sort.split(',');
       setPaginationState({
         ...paginationState,
         activePage: +page,
+        itemsPerPage: parseInt(size),
         sort: sortSplit[0],
         order: sortSplit[1]
       });
