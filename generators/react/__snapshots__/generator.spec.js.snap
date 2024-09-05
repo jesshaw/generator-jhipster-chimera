@@ -404,6 +404,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/config/authority.constants.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/config/constants.ts": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/config/datepicker-adapter.ts": {
     "stateCleared": "modified",
   },
@@ -432,6 +435,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/app/config/translation.config.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/config/translation.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/config/uib-pagination.config.ts": {
@@ -728,6 +734,63 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/modules/account/settings/settings.tsx": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/modules/administration/configuration/configuration.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/docs/docs.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/health/health-modal.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/health/health.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/logs/logs.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/cacheMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/datasourceMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/endpointsRequestsMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/garbageCollectorMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/httpRequestMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/jvmMemory.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/jvmThreads.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/metrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/systemMetrics.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/thread-item.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/metrics/threads-modal.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/user-management/index.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/user-management/user-management-detail.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/administration/user-management/user-management-update.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/modules/administration/user-management/user-management.tsx": {
     "stateCleared": "modified",
   },
@@ -924,6 +987,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/sort/sort.service.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/util/entity-utils.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/bootstrap.ts": {

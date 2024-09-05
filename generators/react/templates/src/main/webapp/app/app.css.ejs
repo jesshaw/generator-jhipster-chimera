@@ -197,3 +197,27 @@ body {
 .l-form-footer button {
   @apply mr-2;
 }
+
+.l-table {
+  @apply w-full table-auto border-collapse;
+}
+
+.l-table tr {
+  @apply even:bg-lxm-surface;
+}
+
+.l-table tr > th {
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  @apply border-lxm-surface-border bg-lxm-surface p-4 text-left;
+}
+
+.l-table tr > td {
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  @apply border-lxm-surface-border p-4;
+}
+
+.l-metrics > div {
+  @apply mb-4;
+}

@@ -69,15 +69,15 @@ export const getSidebarMenusData = (props: IHeaderProps) => {
       items: [
         {
           ...MenuItemsData.employeeMenuItem,
-          icon: 'pi pi-fw pi-home',
+          icon: 'pi pi-fw pi-user',
         },
         {
           ...MenuItemsData.resourceMenuItem,
-          icon: 'pi pi-fw pi-home',
+          icon: 'pi pi-fw pi-verified',
         },
         {
           ...MenuItemsData.leadInfoMenuItem,
-          icon: 'pi pi-fw pi-home',
+          icon: 'pi pi-fw pi-comment',
         },
       ],
     },
@@ -88,32 +88,32 @@ export const getSidebarMenusData = (props: IHeaderProps) => {
       items: [
         {
           ...MenuItemsData.userManagementMenuItem,
-          icon: 'pi pi-fw pi-home',
+          icon: 'pi pi-fw pi-users',
         },
         {
           ...MenuItemsData.metricsMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-gauge',
         },
         {
           ...MenuItemsData.healthMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-heart',
         },
         {
           ...MenuItemsData.configurationMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-cog',
         },
         {
           ...MenuItemsData.logsMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-list',
         },
         {
           ...MenuItemsData.apidocsMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-book',
           visable: props.isOpenAPIEnabled,
         },
         {
           ...MenuItemsData.databaseMenuItem,
-          icon: 'pi pi-fw pi-image',
+          icon: 'pi pi-fw pi-database',
           visable: !props.isInProduction,
         },
       ],
