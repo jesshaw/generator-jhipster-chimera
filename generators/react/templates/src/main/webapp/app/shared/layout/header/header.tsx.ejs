@@ -115,8 +115,10 @@ const Header = (props: IHeaderProps) => {
 
       <div className="topbar-end">
         <div className="topbar-search">
-          <i className="pi pi-search"></i>
-          <InputText placeholder="Search" className="h-8 pl-6" />
+          <span className="p-input-icon-left">
+            <i className="pi pi-search"></i>
+            <InputText placeholder="Search" />
+          </span>
         </div>
         <ThemeSelector currentLocale={props.currentLocale} />
         <MyProfile />

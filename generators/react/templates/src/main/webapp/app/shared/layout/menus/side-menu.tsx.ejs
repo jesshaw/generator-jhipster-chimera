@@ -2,14 +2,22 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { Translate } from 'react-jhipster';
 import { useLocation, Link } from 'react-router-dom';
-import { IMenuItem } from 'app/shared/reducers/ui';
+import { IMenuItem, setMobileLayoutStatus } from 'app/shared/reducers/ui';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-// 递归菜单组件
 const MenuItem: React.FC<{
   item: IMenuItem;
   index: number;
   level?: number;
 }> = ({ item, index, level = 0 }) => {
+  const mobileLayoutActivated = useAppSelector(state => state.ui.mobileLayoutActivated);
+  const dispatch = useAppDispatch();
+  const hideMobileLayout = () => {
+    if (mobileLayoutActivated) {
+      dispatch(setMobileLayoutStatus(!mobileLayoutActivated));
+    }
+  };
+
   const liMenuItem = useRef<HTMLLIElement>(null);
   const activeMenuitemClasName = 'active-menuitem';
   const handleToggle = () => {
@@ -48,7 +56,7 @@ const MenuItem: React.FC<{
               </span>
             </a>
           ) : (
-            <Link to={item.url} className={`${isPathIncluded(item.url) ? 'active-route' : ''}`}>
+            <Link to={item.url} onClick={hideMobileLayout} className={`${isPathIncluded(item.url) ? 'active-route' : ''}`}>
               {item.icon && <i className={`layout-menuitem-icon ${item.icon}`}></i>}
               <span className="layout-menuitem-text">
                 {item.labelKey ? <Translate contentKey={item.labelKey}>{item.label}</Translate> : item.label}
