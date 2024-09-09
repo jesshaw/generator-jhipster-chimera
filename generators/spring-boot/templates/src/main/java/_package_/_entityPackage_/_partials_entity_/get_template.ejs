@@ -1,0 +1,13 @@
+<%  const optionalOrMono = (reactive) ? 'Mono' : 'Optional';
+    const instanceType = `${optionalOrMono}<${restClass}>`;
+    const instanceName = restInstance;
+    const mapper = `${entityInstance}Mapper`;
+    const entityToDtoReference = `${mapper}::toDto`;
+    const returnPrefix = returnDirectly ? 'return' : `${instanceType} ${instanceName} =`;
+%>
+<%_ if (!viaService) { _%>
+        <%- returnPrefix %> <%= entityInstance %>Repository.<% if (implementsEagerLoadApis) { %>findOneWithEagerRelationships(id)<% } else { %>findById(id)<% } %><% if (!dtoMapstruct) { %>;<% } else { %>
+            .map(<%= entityToDtoReference %>);<% } %>
+<%_ } else { _%>
+        <%- returnPrefix %> <%= entityInstance %>Service.findOne(id);
+<%_ } _%>

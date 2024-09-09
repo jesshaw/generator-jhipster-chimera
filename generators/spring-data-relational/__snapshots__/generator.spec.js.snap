@@ -1,0 +1,90 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SubGenerator spring-data-relational of chimera JHipster blueprint > run > should succeed 1`] = `
+{
+  ".yo-rc.json": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/GeneratedByJHipster.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/config/DatabaseConfiguration.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/config/LiquibaseConfiguration.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/config/package-info.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/domain/Authority.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/domain/package-info.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/package-info.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/repository/AuthorityRepository.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/java/com/mycompany/myapp/repository/package-info.java": {
+    "stateCleared": "modified",
+  },
+  "src/main/resources/config/liquibase/changelog/00000000000000_initial_schema.xml": {
+    "stateCleared": "modified",
+  },
+  "src/main/resources/config/liquibase/data/authority.csv": {
+    "stateCleared": "modified",
+  },
+  "src/main/resources/config/liquibase/data/user.csv": {
+    "stateCleared": "modified",
+  },
+  "src/main/resources/config/liquibase/data/user_authority.csv": {
+    "stateCleared": "modified",
+  },
+  "src/main/resources/config/liquibase/master.xml": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/config/EmbeddedSQL.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/config/PostgreSqlTestContainer.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/config/SqlTestContainer.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/config/SqlTestContainersSpringContextCustomizerFactory.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/config/timezone/HibernateTimeZoneIT.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/domain/AssertUtils.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/domain/AuthorityAsserts.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/domain/AuthorityTest.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/domain/AuthorityTestSamples.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/repository/timezone/DateTimeWrapper.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/java/com/mycompany/myapp/repository/timezone/DateTimeWrapperRepository.java": {
+    "stateCleared": "modified",
+  },
+  "src/test/resources/config/application-testdev.yml": {
+    "stateCleared": "modified",
+  },
+  "src/test/resources/config/application-testprod.yml": {
+    "stateCleared": "modified",
+  },
+}
+`;

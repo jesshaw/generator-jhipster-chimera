@@ -34,6 +34,18 @@
         "priorities": ["writing"],
         "sbs": true,
         "written": true
+      },
+      "spring-boot": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
+      },
+      "spring-data-relational": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
       }
     },
     "jhipsterVersion": "8.3.0",

@@ -1,0 +1,14 @@
+<%_ if (reactive) { _%>
+    return <%= entityInstance %><%= viaService ? 'Service.delete' : 'Repository.deleteById' %>(id)
+<%_ if (!viaService && searchEngineElasticsearch) { %>
+        .then(<%= entityInstance %>SearchRepository.deleteById(id))
+<%_ } -%>
+<%_ if (!fromResource) { -%>
+    ;
+<%_ } _%>
+<%_ } else { _%>
+    <%= entityInstance %><%= viaService ? 'Service.delete' : 'Repository.deleteById' %>(id);
+<%_ if (!viaService && searchEngineElasticsearch) { _%>
+    <%= entityInstance %>SearchRepository.deleteFromIndexById(id);
+<%_ } _%>
+<%_ } _%>

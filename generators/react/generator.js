@@ -1,6 +1,5 @@
 import BaseApplicationGenerator from 'generator-jhipster/generators/base-application';
 import { files, unwantedFiles } from './files-react.js';
-import { kebabCase } from 'lodash-es';
 import { createNeedleCallback } from 'generator-jhipster/generators/base/support';
 
 export default class extends BaseApplicationGenerator {
@@ -75,8 +74,8 @@ export default class extends BaseApplicationGenerator {
     this.jhipsterConfig.entities.forEach(entity => {
       unwantedFiles?.entityFiles.forEach(item => {
         let file = `${application.clientSrcDir}${item}`
-          .replace('_entityFolder_', kebabCase(entity))
-          .replace('_entityFile_', kebabCase(entity));
+          .replace('_entityFolder_', this._.kebabCase(entity))
+          .replace('_entityFile_', this._.kebabCase(entity));
         realUnwantedFiles.push(file);
       });
     });
