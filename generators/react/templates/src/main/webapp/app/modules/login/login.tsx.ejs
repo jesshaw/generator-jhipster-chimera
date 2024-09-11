@@ -27,9 +27,12 @@ export const Login = () => {
     navigate('/');
   };
 
-  const { from } = pageLocation.state || { from: { pathname: '/', search: pageLocation.search } };
+  let searchParams = new URLSearchParams(location.search);
+  const redirectUrl = searchParams.get('r');
+  searchParams.delete('r');
+
   if (isAuthenticated) {
-    return <Navigate to={from} replace />;
+    return <Navigate to={{ pathname: redirectUrl ?? '/', search: `?${searchParams.toString()}` }} replace />;
   }
   return (
     <FullPageLayout>
