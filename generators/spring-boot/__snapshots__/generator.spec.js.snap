@@ -350,6 +350,9 @@ exports[`SubGenerator spring-boot of chimera JHipster blueprint > run > should s
   "src/main/resources/config/liquibase/data/user_authority.csv": {
     "stateCleared": "modified",
   },
+  "src/main/resources/config/liquibase/fake-data/resource.csv": {
+    "stateCleared": "modified",
+  },
   "src/main/resources/config/liquibase/master.xml": {
     "stateCleared": "modified",
   },
