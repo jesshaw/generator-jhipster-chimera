@@ -794,6 +794,18 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/modules/administration/user-management/user-management.tsx": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/modules/dashboard/chart/bar.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/dashboard/chart/line.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/dashboard/chart/pie.tsx": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/modules/dashboard/e-commerce.tsx": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/modules/home/home.css": {
     "stateCleared": "modified",
   },
@@ -1251,6 +1263,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/i18n/en/configuration.json": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/i18n/en/dashboards.json": {
     "stateCleared": "modified",
   },
   "src/main/webapp/i18n/en/error.json": {

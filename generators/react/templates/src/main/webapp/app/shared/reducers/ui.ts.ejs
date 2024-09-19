@@ -25,7 +25,7 @@ export const MenuItemsData = {
   ...EntitiesMenuData,
   homeMenuItem: { icon: 'pi pi-home', labelKey: 'global.menu.home', url: '/' }, // label为空不显示文本显示图片
   dashboardMenuItem: { label: 'DASHBOARDS', labelKey: 'global.menu.dashboards.title' },
-  ecommerceMenuItem: { label: 'E-Commerce', labelKey: 'global.menu.dashboards.ecommerce', url: '/' },
+  ecommerceMenuItem: { label: 'E-Commerce', labelKey: 'global.menu.dashboards.ecommerce', url: '/e-commerce' },
   bankingMenuItem: { label: 'Banking', labelKey: 'global.menu.dashboards.banking', url: '/' },
 
   accountMenuItem: { label: 'Account', labelKey: 'global.menu.account.main' },

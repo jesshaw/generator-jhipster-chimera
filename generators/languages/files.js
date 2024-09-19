@@ -19,7 +19,7 @@ export const clientI18nFiles = {
     {
       from: context => `${JAVA_WEBAPP_SOURCES_DIR}/i18n/${context.lang}/`,
       to: context => `${context.clientSrcDir}/i18n/${context.lang}/`,
-      templates: ['global.json', 'home.json', 'primeReact.json'],
+      templates: ['dashboards.json', 'global.json', 'home.json', 'primeReact.json'],
     },
   ],
 };

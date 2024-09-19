@@ -1040,6 +1040,9 @@ exports[`SubGenerator client of chimera JHipster blueprint > run > should succee
   "src/main/webapp/i18n/en/configuration.json": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/i18n/en/dashboards.json": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/i18n/en/error.json": {
     "stateCleared": "modified",
   },
