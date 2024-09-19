@@ -29,6 +29,12 @@
         "sbs": true,
         "written": true
       },
+      "maven": {
+        "command": false,
+        "priorities": ["postWriting"],
+        "sbs": true,
+        "written": true
+      },
       "react": {
         "command": false,
         "priorities": ["writing"],
