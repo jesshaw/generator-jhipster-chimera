@@ -4,8 +4,7 @@ import React from 'react';
 import Logo from '../logo';
 import SideMenu from './side-menu';
 import { Translate } from 'react-jhipster';
-import { getSidebarMenusData } from 'app/shared/reducers/ui';
-import { IHeaderProps } from '../header/header';
+import { getSidebarMenusData, IHeaderProps } from 'app/shared/reducers/ui';
 
 const Sidebar = (props: IHeaderProps) => {  
   const sidebar = getSidebarMenusData(props);

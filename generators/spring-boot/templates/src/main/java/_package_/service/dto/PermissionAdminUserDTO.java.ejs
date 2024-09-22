@@ -1,0 +1,55 @@
+package <%= packageName %>.service.dto;
+
+import <%= packageName %>.domain.Authority;
+import <%= packageName %>.domain.User;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+
+/**
+ * A DTO representing a user, with only the public attributes.
+ */
+public class PermissionAdminUserDto  extends AdminUserDto {
+
+    public PermissionAdminUserDto() {}
+
+    public PermissionAdminUserDto(User user) {
+        this.setId(user.getId());
+        this.setLogin(user.getLogin());
+        this.setFirstName(user.getFirstName());
+        this.setLastName(user.getLastName());
+        this.setEmail(user.getEmail());
+        this.setActivated(user.isActivated());
+  <%_ if (!databaseTypeCassandra) { _%>
+        this.setImageUrl(user.getImageUrl());
+  <%_ } _%>
+        this.setLangKey(user.getLangKey());
+  <%_ if (generateSpringAuditor) { _%>
+        this.setCreatedBy(user.getCreatedBy());
+        this.setCreatedDate(user.getCreatedDate());
+        this.setLastModifiedBy(user.getLastModifiedBy());
+        this.setLastModifiedDate(user.getLastModifiedDate());
+  <%_ } _%>
+  <%_ if (databaseTypeMongodb || databaseTypeNeo4j || databaseTypeSql) { _%>
+        this.setAuthorities(user.getAuthorities().stream()
+          .map(Authority::getName).collect(Collectors.toSet())
+        );
+
+  <%_ } else { _%>
+        this.setAuthorities(user.getAuthorities());
+  <%_ } _%>
+    }
+
+    private Map<String, String> resources;
+
+    public Map<String, String> getResources() {
+        return resources;
+    }
+
+    public void setResources(Map<String, String> resources) {
+        this.resources = resources;
+    }
+
+}

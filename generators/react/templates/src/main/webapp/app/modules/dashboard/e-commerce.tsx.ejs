@@ -4,8 +4,15 @@ import Line, { ILine } from 'app/modules/dashboard/chart/line';
 import Bar, { IBar } from 'app/modules/dashboard/chart/bar';
 import Pie, { IPie } from 'app/modules/dashboard/chart/pie';
 import { TranslatorContext, translate } from 'react-jhipster';
+import { useAppDispatch } from 'app/config/store';
+import { MenuItemsData, setBreadItems } from 'app/shared/reducers/ui';
 
 const ECommerce = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setBreadItems([MenuItemsData.homeMenuItem, MenuItemsData.ecommerceMenuItem]));
+  }, []);
+  
   const [salesData, setSalesData] = useState<ILine>({
     name: translate('dashboards.sales.title'),
     value: '70',

@@ -13,6 +13,7 @@ export const files = {
         'security/CustomUserDetails.java',
         'security/PermissionConstants.java',
         'security/ResourceConstants.java',
+        'service/dto/PermissionAdminUserDTO.java',
       ],
     },
   ],

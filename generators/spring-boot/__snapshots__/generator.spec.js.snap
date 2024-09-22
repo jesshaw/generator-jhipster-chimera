@@ -248,6 +248,9 @@ exports[`SubGenerator spring-boot of chimera JHipster blueprint > run > should s
   "src/main/java/com/mycompany/myapp/service/dto/PasswordChangeDTO.java": {
     "stateCleared": "modified",
   },
+  "src/main/java/com/mycompany/myapp/service/dto/PermissionAdminUserDTO.java": {
+    "stateCleared": "modified",
+  },
   "src/main/java/com/mycompany/myapp/service/dto/UserDTO.java": {
     "stateCleared": "modified",
   },

@@ -53,12 +53,14 @@ export const getSidebarMenusData = (props: IHeaderProps) => {
       visable: props.isAuthenticated,
       items: [
         {
-          ...MenuItemsData.ecommerceMenuItem,
-          icon: 'pi pi-fw pi-home',
-        },
-        {
           ...MenuItemsData.bankingMenuItem,
           icon: 'pi pi-fw pi-image',
+          visable: props.isAuthenticated,
+        },
+        {
+          ...MenuItemsData.ecommerceMenuItem,
+          icon: 'pi pi-fw pi-home',
+          visable: props.isAuthenticated,
         },
       ],
     },
@@ -70,14 +72,17 @@ export const getSidebarMenusData = (props: IHeaderProps) => {
         {
           ...MenuItemsData.employeeMenuItem,
           icon: 'pi pi-fw pi-user',
+          visable: !!props.resources[MenuItemsData.employeeMenuItem.label]?.includes('ACCESS'),
         },
         {
           ...MenuItemsData.resourceMenuItem,
           icon: 'pi pi-fw pi-verified',
+          visable: props.isAdmin || !!props.resources[MenuItemsData.resourceMenuItem.label]?.includes('ACCESS'),
         },
         {
           ...MenuItemsData.leadInfoMenuItem,
           icon: 'pi pi-fw pi-comment',
+          visable: !!props.resources[MenuItemsData.leadInfoMenuItem.label]?.includes('ACCESS'),
         },
       ],
     },
@@ -125,8 +130,11 @@ export interface IHeaderProps {
   isAdmin: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
-  isOpenAPIEnabled: boolean;
+  isOpenAPIEnabled: boolean;  
+<%_ if (enableTranslation) { _%>
   currentLocale: string;
+<%_ } _%>
+  resources: any;
 }
 
 export const UISlice = createSlice({

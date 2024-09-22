@@ -14,11 +14,12 @@ export default class extends BaseApplicationGenerator {
           const entityMenuPath = `${application.clientSrcDir}/app/entities/entities-menu-data.ts`;
           const camelCaseEntityName = this._.camelCase(entityName);
           const kebabCaseEntityName = this._.kebabCase(entityName);
+          const upperSnakeCaseEntityName = this._.toUpper(this._.snakeCase(entityName));
           this.editFile(
             entityMenuPath,
             createNeedleCallback({
               needle: 'jhipster-needle-add-entity-to-entities-menu',
-              contentToAdd: `${camelCaseEntityName}MenuItem: { label: '${camelCaseEntityName}', labelKey: 'global.menu.entities.${camelCaseEntityName}', url: '/${kebabCaseEntityName}' },`,
+              contentToAdd: `${camelCaseEntityName}MenuItem: { label: '${upperSnakeCaseEntityName}', labelKey: 'global.menu.entities.${camelCaseEntityName}', url: '/${kebabCaseEntityName}' },`,
               autoIndent: true,
             }),
           );
