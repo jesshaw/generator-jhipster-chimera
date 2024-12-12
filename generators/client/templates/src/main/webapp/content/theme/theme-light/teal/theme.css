@@ -3505,14 +3505,14 @@
     color: #374151;
   }
   .p-datatable .p-sortable-column.p-highlight {
-    background: #0f766e;
+    background: #d6f6f3;
     color: #0f766e;
   }
   .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
     color: #0f766e;
   }
   .p-datatable .p-sortable-column.p-highlight:not(.p-sortable-disabled):hover {
-    background: #0f766e;
+    background: #d6f6f3;
     color: #0f766e;
   }
   .p-datatable .p-sortable-column.p-highlight:not(.p-sortable-disabled):hover .p-sortable-column-icon {

@@ -14,6 +14,7 @@ export const files = {
         'security/PermissionConstants.java',
         'security/ResourceConstants.java',
         'service/dto/PermissionAdminUserDTO.java',
+        'service/LxmQueryService.java',
       ],
     },
   ],
