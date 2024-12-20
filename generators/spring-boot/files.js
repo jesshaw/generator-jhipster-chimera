@@ -9,11 +9,12 @@ export const files = {
       path: `${JAVA_MAIN_SOURCES_DIR}_package_/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
+        'domain/DictionaryEntry.java',
         'security/CustomPermissionEvaluatorService.java',
         'security/CustomUserDetails.java',
         'security/PermissionConstants.java',
         'security/ResourceConstants.java',
-        'service/dto/PermissionAdminUserDTO.java',
+        'service/dto/PermissionAdminUserDto.java',
         'service/LxmQueryService.java',
       ],
     },

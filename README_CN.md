@@ -53,6 +53,11 @@ jhipster --blueprints chimera --skip-jhipster-dependencies
 
 # 本地项目安装到全局
 npm install -g .
+
+# 重新发布指定的版本
+
+TAG='v1.4.0' MSG='Chimera generate entity menus' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+
 ```
 
 ## 开发
@@ -155,6 +160,10 @@ npm run prettier-format & npm run test
 
 
 yarn run prettier-format & yarn run test
+
+## 安装当前版本的包到本地
+
+npm install
 ```
 
 ### Q&A

@@ -46,94 +46,88 @@ export const MenuItemsData = {
 };
 
 export const getSidebarMenusData = (props: IHeaderProps) => {
-  return [
-    {
-      ...MenuItemsData.dashboardMenuItem,
-      expanded: true,
-      visable: props.isAuthenticated,
-      items: [
-        {
-          ...MenuItemsData.bankingMenuItem,
-          icon: 'pi pi-fw pi-image',
-          visable: props.isAuthenticated,
-        },
-        {
-          ...MenuItemsData.ecommerceMenuItem,
-          icon: 'pi pi-fw pi-home',
-          visable: props.isAuthenticated,
-        },
-      ],
-    },
-    {
-      ...MenuItemsData.entitesMenuItem,
-      expanded: true,
-      visable: props.isAuthenticated,
-      items: [
-        {
-          ...MenuItemsData.employeeMenuItem,
-          icon: 'pi pi-fw pi-user',
-          visable: !!props.resources[MenuItemsData.employeeMenuItem.label]?.includes('ACCESS'),
-        },
-        {
-          ...MenuItemsData.resourceMenuItem,
-          icon: 'pi pi-fw pi-verified',
-          visable: props.isAdmin || !!props.resources[MenuItemsData.resourceMenuItem.label]?.includes('ACCESS'),
-        },
-        {
-          ...MenuItemsData.leadInfoMenuItem,
-          icon: 'pi pi-fw pi-comment',
-          visable: !!props.resources[MenuItemsData.leadInfoMenuItem.label]?.includes('ACCESS'),
-        },
-      ],
-    },
-    {
-      ...MenuItemsData.administrationMenuItem,
-      visable: props.isAuthenticated && props.isAdmin,
-      expanded: true,
-      items: [
-        {
-          ...MenuItemsData.userManagementMenuItem,
-          icon: 'pi pi-fw pi-users',
-        },
-        {
-          ...MenuItemsData.metricsMenuItem,
-          icon: 'pi pi-fw pi-gauge',
-        },
-        {
-          ...MenuItemsData.healthMenuItem,
-          icon: 'pi pi-fw pi-heart',
-        },
-        {
-          ...MenuItemsData.configurationMenuItem,
-          icon: 'pi pi-fw pi-cog',
-        },
-        {
-          ...MenuItemsData.logsMenuItem,
-          icon: 'pi pi-fw pi-list',
-        },
-        {
-          ...MenuItemsData.apidocsMenuItem,
-          icon: 'pi pi-fw pi-book',
-          visable: props.isOpenAPIEnabled,
-        },
-        {
-          ...MenuItemsData.databaseMenuItem,
-          icon: 'pi pi-fw pi-database',
-          visable: !props.isInProduction,
-        },
-      ],
-    },
-  ];
+  const dashboardMenus = {
+    ...MenuItemsData.dashboardMenuItem,
+    expanded: true,
+    visable: props.isAuthenticated,
+    items: [
+      {
+        ...MenuItemsData.bankingMenuItem,
+        icon: 'pi pi-fw pi-image',
+        visable: props.isAuthenticated,
+      },
+      {
+        ...MenuItemsData.ecommerceMenuItem,
+        icon: 'pi pi-fw pi-home',
+        visable: props.isAuthenticated,
+      },
+    ],
+  };
+
+  const entitiesMenus = {
+    ...MenuItemsData.entitesMenuItem,
+    expanded: true,
+    visable: props.isAuthenticated,
+    items: [],
+  };
+  for (const [key, value] of Object.entries(EntitiesMenuData)) {
+    // console.log(`Menu item key: ${key}`);
+    if (key != 'entitesMenuItem') {
+      const visable =
+        key == 'resourceMenuItem'
+          ? props.isAdmin || !!props.resources[MenuItemsData.resourceMenuItem.label]?.includes('ACCESS')
+          : !!props.resources[value.label]?.includes('ACCESS');
+      entitiesMenus.items.push({ ...value, icon: 'pi pi-fw pi-verified', visable });
+    }
+  }
+
+  const adminMenus = {
+    ...MenuItemsData.administrationMenuItem,
+    visable: props.isAuthenticated && props.isAdmin,
+    expanded: true,
+    items: [
+      {
+        ...MenuItemsData.userManagementMenuItem,
+        icon: 'pi pi-fw pi-users',
+      },
+      {
+        ...MenuItemsData.metricsMenuItem,
+        icon: 'pi pi-fw pi-gauge',
+      },
+      {
+        ...MenuItemsData.healthMenuItem,
+        icon: 'pi pi-fw pi-heart',
+      },
+      {
+        ...MenuItemsData.configurationMenuItem,
+        icon: 'pi pi-fw pi-cog',
+      },
+      {
+        ...MenuItemsData.logsMenuItem,
+        icon: 'pi pi-fw pi-list',
+      },
+      {
+        ...MenuItemsData.apidocsMenuItem,
+        icon: 'pi pi-fw pi-book',
+        visable: props.isOpenAPIEnabled,
+      },
+      {
+        ...MenuItemsData.databaseMenuItem,
+        icon: 'pi pi-fw pi-database',
+        visable: !props.isInProduction,
+      },
+    ],
+  };
+
+  return [dashboardMenus, entitiesMenus, adminMenus];
 };
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
-  isOpenAPIEnabled: boolean;  
-<%_ if (enableTranslation) { _%>
+  isOpenAPIEnabled: boolean;
   currentLocale: string;
-<%_ } _%>
   resources: any;
 }
 

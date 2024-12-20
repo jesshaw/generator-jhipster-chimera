@@ -605,6 +605,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
   "src/main/webapp/app/entities/admin/authority/update/authority-update.component.ts": {
     "stateCleared": "modified",
   },
+  "src/main/webapp/app/entities/dict/dict.reducer.ts": {
+    "stateCleared": "modified",
+  },
   "src/main/webapp/app/entities/entities-menu-data.ts": {
     "stateCleared": "modified",
   },
@@ -957,6 +960,9 @@ exports[`SubGenerator react of chimera JHipster blueprint > run > should succeed
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/model/admin/authority.model.ts": {
+    "stateCleared": "modified",
+  },
+  "src/main/webapp/app/shared/model/dict.model.ts": {
     "stateCleared": "modified",
   },
   "src/main/webapp/app/shared/pagination/index.ts": {
