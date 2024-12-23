@@ -82,6 +82,7 @@ export const files = {
         'shared/reducers/index.ts',
         'shared/reducers/ui.ts',
         'shared/util/entity-utils.ts',
+        'shared/util/lxm-utils.tsx',
       ],
     },
   ],

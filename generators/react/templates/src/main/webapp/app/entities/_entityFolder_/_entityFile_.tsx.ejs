@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { Button, <% if (searchEngineAny) { %>Input, InputGroup, FormGroup, Form, Row, Col, <% } %>Table } from 'reactstrap';
 import { Toolbar } from 'primereact/toolbar';
-import { DataTable, DataTableStateEvent } from 'primereact/datatable';
+import { DataTable, DataTableFilterMeta, DataTableStateEvent } from 'primereact/datatable';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
@@ -60,6 +60,54 @@ import {
  deleteEntity } from './<%= entityFileName %>.reducer';
 import { I<%= entityReactName %> } from 'app/shared/model/<%= entityFileName %>.model';
 import { MenuItemsData, setBreadItems } from 'app/shared/reducers/ui';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { classNames } from 'primereact/utils';
+import { Slider } from 'primereact/slider';
+import {
+  booleanFilterTemplate,
+  convertFiltersToQueryString,
+  dateFilterTemplate,
+  numericFilterTemplate,
+  LxmColumnProps,
+} from 'app/shared/util/lxm-utils';
+
+const defaultFilters: DataTableFilterMeta = {
+<%_ for (field of fields) {
+  // console.log(field);
+  // console.log('-------------');
+  const fieldType = field.fieldType;
+  const fieldName = field.fieldName;
+  const fieldIsEnum = field.fieldIsEnum;
+_%>
+    
+  <%_ if (fieldName !== primaryKey.name) { _%>
+    <%_ if (field.fieldTypeCharSequence) { _%>
+  "<%= field.fieldName %>" :{ value: null,matchMode: FilterMatchMode.STARTS_WITH },
+    <%_ } else if (field.fieldTypeBoolean) { _%>
+  "<%= field.fieldName %>" :{ value: null,matchMode: FilterMatchMode.EQUALS },
+    <%_ } else if (field.fieldTypeTimed ) { _%>
+  "<%= field.fieldName %>" :{ operator: FilterOperator.AND,
+      constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+    <%_ } else if (field.fieldTypeDuration) { _%>
+  "<%= field.fieldName %>" :{ operator: FilterOperator.AND,
+      constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+    <%_ } else if (field.fieldTypeLocalDate) { _%>
+  "<%= field.fieldName %>" :{ operator: FilterOperator.AND,
+      constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+    <%_ } else if (fieldIsEnum && enableTranslation) { _%>
+
+    <%_ } else if (field.fieldTypeBinary) { _%>
+      <%_
+        // blobFields
+        if (!field.blobContentTypeText) {
+      _%>
+  "<%= field.fieldName %>" :{ value: null, matchMode: FilterMatchMode.STARTS_WITH },  
+      <%_ } _%>
+    <%_ } _%>
+  <%_ } _%>
+  
+<%_ } _%>
+}
 
 export const <%= entityReactName %> = () => {
   const dispatch = useAppDispatch();
@@ -81,6 +129,8 @@ export const <%= entityReactName %> = () => {
   const [sorting, setSorting] = useState(false);
 <%_ } _%>
 
+  const [filters, setFilters] = useState<DataTableFilterMeta>(defaultFilters);
+
   useEffect(() => {
     dispatch(setBreadItems([MenuItemsData.homeMenuItem, MenuItemsData.entitesMenuItem, MenuItemsData.<%= entityInstance %>MenuItem]));
   }, []);
@@ -95,7 +145,7 @@ export const <%= entityReactName %> = () => {
   const updateSuccess = useAppSelector(state => state.<%= entityReactState %>.updateSuccess);
 <%_ } _%>
 
-  const getAllEntities = () => {
+  const getAllEntities = query => {
 <%_ if (searchEngineAny) { _%>
     if (search) {
       dispatch(
@@ -113,6 +163,7 @@ export const <%= entityReactName %> = () => {
     } else {
       dispatch(
         getEntities({
+          query,
   <%_ if (paginationNo) { _%>
           sort: `${sortState.sort},${sortState.order}`,
   <%_ } else { _%>
@@ -126,6 +177,7 @@ export const <%= entityReactName %> = () => {
 <%_ } else { _%>
       dispatch(
         getEntities({
+          query,
   <%_ if (paginationNo) { _%>
           sort: `${sortState.sort},${sortState.order}`,
   <%_ } else { _%>
@@ -224,11 +276,12 @@ export const <%= entityReactName %> = () => {
 
 <%_ if (paginationNo || paginationPagination) { _%>
   const sortEntities = () => {
-    getAllEntities();
+    const queryString = convertFiltersToQueryString(filters);
+    getAllEntities(queryString);
   <%_ if (paginationNo) { _%>
-    const endURL = `?sort=${sortState.sort},${sortState.order}`;
+    const endURL = `?${queryString}&sort=${sortState.sort},${sortState.order}`;
   <%_ } else { _%>
-    const endURL = `?page=${paginationState.activePage}&size=${paginationState.itemsPerPage}&sort=${paginationState.sort},${paginationState.order}`;
+    const endURL = `?${queryString}&page=${paginationState.activePage}&size=${paginationState.itemsPerPage}&sort=${paginationState.sort},${paginationState.order}`;
   <%_ } _%>
     if (pageLocation.search !== endURL) {
       navigate(`${pageLocation.pathname}${endURL}`);
@@ -245,7 +298,7 @@ export const <%= entityReactName %> = () => {
 <%_ } else { _%>
     sortEntities();
 <%_ } _%>
-  }, [<% if (paginationInfiniteScroll) { %>sorting<% } else if (paginationPagination) { %>paginationState.activePage, paginationState.itemsPerPage, paginationState.order, paginationState.sort<% } else { %>sortState.order, sortState.sort<% } %><%_ if (searchEngineAny) { _%>, search<% } %>]);
+  }, [<% if (paginationInfiniteScroll) { %>sorting<% } else if (paginationPagination) { %>paginationState.activePage, paginationState.itemsPerPage, paginationState.order, paginationState.sort<% } else { %>sortState.order, sortState.sort<% } %>, filters<%_ if (searchEngineAny) { _%>, search<% } %>]);
 
 <%_ if (paginationPagination) { _%>
   useEffect(() => {
@@ -300,6 +353,10 @@ export const <%= entityReactName %> = () => {
     });
   };
 <%_ } _%>
+
+const onFilter = (e: DataTableStateEvent) => {
+  setFilters(e.filters);
+};
 
   const handleSyncList = () => {
 <%_ if (paginationNo || paginationPagination) { _%>
@@ -379,7 +436,7 @@ export const <%= entityReactName %> = () => {
     </>
   );
   
-  const allColumns = [
+  const allColumns:LxmColumnProps[] = [
 <%_ for (field of fields) {
   const fieldType = field.fieldType;
   const fieldName = field.fieldName;
@@ -390,19 +447,36 @@ _%>
       headerKey: "<%= `${i18nKeyPrefix}.${field.fieldName}` %>",
       sortable: true,
   <%_ if (fieldName !== primaryKey.name) { _%>
-    <%_ if (field.fieldTypeBoolean) { _%>
+    <%_ if (field.fieldTypeCharSequence) { _%>      
+      filter: true,
+    <%_ } else if (field.fieldTypeBoolean) { _%>      
+      filter: true,
+      filterElement: booleanFilterTemplate,
+      dataType: 'boolean',
       body: rowData => { 
         return <>{rowData.<%= field.fieldName %> ? 'true' : 'false'}</>;
       },
-    <%_ } else if (field.fieldTypeTimed) { _%>
+    <%_ } else if (field.fieldTypeTimed) { _%>      
+      filter: true,
+      dataType: 'date',
+      showFilterOperator: false,
+      filterElement: dateFilterTemplate,
       body: rowData => {
         return rowData.<%= fieldName %> && <TextFormat type="date" value={rowData.<%= fieldName %>} format={APP_DATE_FORMAT} />;
       },
-    <%_ } else if (field.fieldTypeDuration) { _%>
+    <%_ } else if (field.fieldTypeDuration) { _%>      
+      filter: true,
+      dataType: 'date',
+      showFilterOperator: false,
+      filterElement: dateFilterTemplate,
       body: rowData => {
         return rowData.<%= fieldName %> && <DurationFormat value={rowData.<%= fieldName %>} />;
       },
     <%_ } else if (field.fieldTypeLocalDate) { _%>
+      filter: true,
+      dataType: 'date',
+      showFilterOperator: false,
+      filterElement: dateFilterTemplate,
       body: rowData => {
         return rowData.<%= fieldName %> && <TextFormat type="date" value={rowData.<%= fieldName %>} format={APP_LOCAL_DATE_FORMAT} />;
       },
@@ -414,7 +488,7 @@ _%>
       <%_
         // blobFields
         if (!field.blobContentTypeText) {
-      _%>
+      _%>      
       body: rowData => {
         return rowData.<%= fieldName %> && 
         <div>
@@ -630,7 +704,12 @@ _%>
           field={column?.field}
           header={translate(column?.headerKey)}
           body={column?.body ? column.body : undefined}
-          sortable={column?.sortable}
+          sortable={column?.sortable}          
+          filter={column?.filter}
+          dataType={column?.dataType}
+          showFilterOperator={column?.showFilterOperator}
+          showFilterMatchModes={column?.showFilterMatchModes}
+          filterElement={column?.filterElement}
           exportable={column?.exportable}
           style={column?.style}
         />
@@ -657,6 +736,8 @@ _%>
           sortField={paginationState.sort}
           sortOrder={paginationState.order === ASC ? -1 : 1}
           onPage={onPage} //sort by backend
+          filters={filters}
+          onFilter={onFilter}
           lazy          
           loading={loading}
           paginator

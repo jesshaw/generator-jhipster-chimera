@@ -16,10 +16,10 @@
         "--skip-install",
         "--blueprints",
         "chimera",
-        "crm.jdl"
+        "cms.jdl"
       ],
       "console": "integratedTerminal",
-      "cwd": "D:/mywork/github/jesshaw/lxm-crm/"
+      "cwd": "D:/mywork/github/jesshaw/lxm-cms/"
     }
   ]
 }
