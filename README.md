@@ -7,17 +7,43 @@
 
 <!-- [![Integration Test][github-integration-image]][github-integration-url] -->
 
-# Introduction
+## Introduction
 
 This is a [JHipster](https://www.jhipster.tech/) blueprint, that is meant to be used in a JHipster application.
 
-# Prerequisites
+### Basic Features
+
+- [x] 1. Responsive Design for Mobile and Desktop
+- [x] 2. Multilingual Support
+- [x] 3. Multiple Theme Options
+- [x] 4. Adjustable Font Size
+- [x] 5. Light or Dark Appearance Support
+- [x] 6. Conditional Display of Navigation Bar
+- [x] 7. Dashboard - E-commerce Example
+- [x] 8. User Login and Logout
+- [x] 9. User Profile Settings
+- [x] 10. Password Change for Users
+- [x] 11. User Activation and Deactivation
+- [x] 12. Role Assignment for Users
+- [x] 13. Permission Allocation by Role
+- [x] 14. Resource Permission Management
+- [x] 15. CRUD (Create, Read, Update, Delete) Operations on Business Entities
+- [x] 16. Multi-condition Query on Business Lists Based on Attributes
+- [x] 17. Customizable Attribute Display on Business Lists
+- [x] 18. System Resource Monitoring
+- [x] 19. Service Status View
+- [x] 20. Configuration View
+- [x] 21. Log Level Configuration
+- [x] 22. API Documentation
+- [x] 23. Database View
+
+## Prerequisites
 
 As this is a [JHipster](https://www.jhipster.tech/) blueprint, we expect you have JHipster and its related tools already installed:
 
 - [Installing JHipster](https://www.jhipster.tech/installation/)
 
-# Installation
+## Installation
 
 To install or update this blueprint:
 
@@ -25,7 +51,7 @@ To install or update this blueprint:
 npm install -g generator-jhipster-chimera
 ```
 
-# Usage
+## Usage
 
 To use this blueprint, run the below command
 
@@ -41,7 +67,7 @@ jhipster app --blueprints chimera --help
 
 And looking for `(blueprint option: chimera)` like
 
-## Pre-release
+### Pre-release
 
 To use an unreleased version, install it using git.
 
