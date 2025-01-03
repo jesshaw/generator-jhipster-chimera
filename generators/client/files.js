@@ -11,7 +11,7 @@ export const commonFiles = {
         'avatar/avatar-f-4.png',
         'avatar/avatar-f-8.png',
         'avatar/avatar-m-8.png',
-        'logo.png',
+        'favicon.png',
         'logo.png',
         'chamera1-512.png',
         'chamera1-512_head-192.png',
