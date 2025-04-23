@@ -84,7 +84,10 @@ export const <%= entityReactName %>Update = () => {
   const updating = useAppSelector(state => state.<%= entityReactState %>.updating);
   const updateSuccess = useAppSelector(state => state.<%= entityReactState %>.updateSuccess);
   <%_ enumImports.forEach( (importedPath, importedType) => { _%>
-  const <%- this._.lowerFirst(importedType) %>Values = Object.keys(<%- importedType %>);
+  const <%- this._.lowerFirst(importedType) %>Values = Object.keys(<%- importedType %>).map(key=>({
+    code: key === "null" ? "Please select" : key,
+    name: translate('<%- frontendAppName %>.<%- importedType %>.'+key)
+  }));
   <%_ }); _%>
 
   const handleClose = () => {
@@ -224,10 +227,12 @@ export const <%= entityReactName %>Update = () => {
   <%_ } else if (field.fieldIsEnum) { _%>
                     <%- include('react_validators'); %>
                     render={({ field, fieldState }) => ( 
-                      <InputText //no implete fieldIsEnum
+                      <Dropdown
                         id={field.name}
                         {...field}
+                        onChange={e => field.onChange(e.value)}   
                         value={field.value ? field.value : ''}
+                        options={<%= fieldName %>Values} optionLabel="name" optionValue="code"
   <%_ } else if (field.fieldTypeNumeric) { _%>
                     <%- include('react_validators'); %>
                     render={({ field, fieldState }) => (
@@ -295,7 +300,7 @@ export const <%= entityReactName %>Update = () => {
                     control={control}
                     name="<%= relationshipFieldName  %>"
     <%_ if (relationshipRequired) { _%>
-                    rules={{required: { value: true, message: translate('entity.validation.required')}}
+                    rules={{required: { value: true, message: translate('entity.validation.required')}}}
     <%_ } _%>
                     render={({ field, fieldState }) => (
                       <Dropdown
@@ -337,7 +342,7 @@ export const <%= entityReactName %>Update = () => {
                     control={control}
                     name="<%= relationshipFieldName  %>"
     <%_ if (relationshipRequired) { _%>
-                    rules={{required: { value: true, message: translate('entity.validation.required')}}
+                    rules={{required: { value: true, message: translate('entity.validation.required')}}}
     <%_ } _%>
                     render={({ field, fieldState }) => (
                       <MultiSelect  // to do implementation of multi-list functionality

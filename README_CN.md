@@ -82,7 +82,7 @@ npm install -g .
 
 # 重新发布指定的版本
 
-TAG='v1.4.3' MSG='Chimera generate filter for entities' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+TAG='v1.4.5' MSG='Fix the rules of update entity in react' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
 
 ```
 
