@@ -232,7 +232,7 @@ export const <%= entityReactName %>Update = () => {
                         {...field}
                         onChange={e => field.onChange(e.value)}   
                         value={field.value ? field.value : ''}
-                        options={<%= fieldName %>Values} optionLabel="name" optionValue="code"
+                        options={<%= this._.lowerFirst(field.fieldType) %>Values} optionLabel="name" optionValue="code"
   <%_ } else if (field.fieldTypeNumeric) { _%>
                     <%- include('react_validators'); %>
                     render={({ field, fieldState }) => (
