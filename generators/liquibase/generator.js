@@ -24,11 +24,12 @@ export default class extends BaseApplicationGenerator {
               line.push(this._.toUpper(this._.snakeCase(entity.entityClass)));
 
               line.push(op);
+              line.push('ROLE_ADMIN');
               content = content + line.join(';') + '\n';
             });
           }
           this.editFile(entityMenuPath, c => {
-            c = 'id;name;permission\n';
+            c = 'id;name;permission;authority_name\n';
             return c + content;
           });
         };

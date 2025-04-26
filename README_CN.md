@@ -82,7 +82,7 @@ npm install -g .
 
 # 重新发布指定的版本
 
-TAG='v1.4.8' MSG='Fix the multi select bug in react' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+TAG='v1.4.9' MSG='Set defaut role for resource' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
 
 ```
 
