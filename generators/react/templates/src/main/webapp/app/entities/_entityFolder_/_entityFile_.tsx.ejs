@@ -482,7 +482,7 @@ _%>
       },
     <%_ } else if (fieldIsEnum && enableTranslation) { _%>
       body: rowData => {
-        return <Translate contentKey={`<%= frontendAppName %>.<%= fieldType %>.${<%= entityInstance %>.<%= fieldName %>}`} />;
+        return <Translate contentKey={`<%= frontendAppName %>.<%= fieldType %>.${rowData.<%= fieldName %>}`} />;
       },
     <%_ } else if (field.fieldTypeBinary) { _%>
       <%_
