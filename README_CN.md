@@ -42,7 +42,7 @@
 安装jhipster
 
 ```bash
-npm install -g generator-jhipster
+npm install -g generator-jhipster@8.3.0
 ```
 
 ## 安装
