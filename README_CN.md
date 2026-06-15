@@ -50,7 +50,7 @@ jhipster app --blueprints chimera --help
 npm install -g jhipster/generator-jhipster-chimera#main
 jhipster --blueprints chimera --skip-jhipster-dependencies
 
-# 本地项目安装到全局 
+# 本地项目安装到全局
 npm install -g .
 ```
 
@@ -86,55 +86,56 @@ npm install -g .
 
 1. 增加调试任务
 
-    command中指定生成项目路径并连接对应的蓝本
+   command中指定生成项目路径并连接对应的蓝本
 
-    ```json
-    // .vscode/tasks.json
-    {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-        "label": "link generator",
-        "type": "shell",
-        "command": "cd $GENERATOR_PATH/chimera-sample ; npm link generator-jhipster-chimera"
-        }
-    ]
-    }
-    ```
+   ```json
+   // .vscode/tasks.json
+   {
+     // See https://go.microsoft.com/fwlink/?LinkId=733558
+     // for the documentation about the tasks.json format
+     "version": "2.0.0",
+     "tasks": [
+       {
+         "label": "link generator",
+         "type": "shell",
+         "command": "cd $GENERATOR_PATH/chimera-sample ; npm link generator-jhipster-chimera"
+       }
+     ]
+   }
+   ```
 
 1. 启动运行
 
-    program中指定jhipster生成器命令行路径, cwd的路径与tasks.json指定的生成路径一致
+   program中指定jhipster生成器命令行路径, cwd的路径与tasks.json指定的生成路径一致
 
-    ```json
-    // .vscode/launch.json
-    {
-    "version": "0.2.0",
-    "configurations": [
-        {
-        "type": "node",
-        "request": "launch",
-        "name": "lxm chimera blueprint",
-        "preLaunchTask": "link generator",
-        "program": "$NODEJS_HOME/node_modules/generator-jhipster/dist/cli/jhipster.cjs",
-        "args": [        
-            "jdl",
-            // "-d",
-            // "--skip-checks",
-            "--skip-git",
-            "--skip-cache",
-            "--skip-install",
-            "--blueprints", "chimera" ,        
-            "sample.jdl" 
-        ],
-        "console": "integratedTerminal",
-        "cwd": "$GENERATOR_PATH/chimera-sample"
-        }
-    ]
-    }
-    ```
+   ```json
+   // .vscode/launch.json
+   {
+     "version": "0.2.0",
+     "configurations": [
+       {
+         "type": "node",
+         "request": "launch",
+         "name": "lxm chimera blueprint",
+         "preLaunchTask": "link generator",
+         "program": "$NODEJS_HOME/node_modules/generator-jhipster/dist/cli/jhipster.cjs",
+         "args": [
+           "jdl",
+           // "-d",
+           // "--skip-checks",
+           "--skip-git",
+           "--skip-cache",
+           "--skip-install",
+           "--blueprints",
+           "chimera",
+           "sample.jdl"
+         ],
+         "console": "integratedTerminal",
+         "cwd": "$GENERATOR_PATH/chimera-sample"
+       }
+     ]
+   }
+   ```
 
 1. 运行调试
 

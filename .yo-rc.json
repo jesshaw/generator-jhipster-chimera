@@ -1,0 +1,27 @@
+{
+  "generator-jhipster": {
+    "additionalSubGenerators": "",
+    "baseName": "chimera",
+    "cli": true,
+    "defaultCommand": "generate-blueprint",
+    "entities": [],
+    "generators": {
+      "client": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
+      },
+      "languages": {
+        "command": false,
+        "priorities": ["writing", "writingEntities", "postWritingEntities"],
+        "sbs": true,
+        "written": true
+      }
+    },
+    "jhipsterVersion": "9.1.0",
+    "localBlueprint": false,
+    "sampleWritten": true,
+    "subGenerators": ["client", "languages"]
+  }
+}

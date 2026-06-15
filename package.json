@@ -1,0 +1,57 @@
+{
+  "name": "generator-jhipster-chimera",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Description for Chimera",
+  "keywords": [
+    "yeoman-generator",
+    "jhipster-blueprint",
+    "jhipster-8"
+  ],
+  "license": "UNLICENSED",
+  "type": "module",
+  "bin": {
+    "jhipster-chimera": "cli/cli.cts"
+  },
+  "files": [
+    "cli",
+    "generators",
+    "!**/__*",
+    "!**/*.snap",
+    "!**/*.spec.?(c|m)?(j|t)s"
+  ],
+  "scripts": {
+    "ejslint": "ejslint generators/**/*.ejs",
+    "lint": "eslint",
+    "lint-fix": "npm run ejslint && npm run lint -- --fix",
+    "prepare": "husky",
+    "prettier-check": "prettier --check \"{,**/}*.{md,json,yml,html,cjs,mjs,js,cts,mts,ts,tsx,css,scss,vue,java}\"",
+    "prettier-format": "prettier --write \"{,**/}*.{md,json,yml,html,cjs,mjs,js,cts,mts,ts,tsx,css,scss,vue,java}\"",
+    "pretest": "npm run prettier-check && npm run lint && tsc",
+    "test": "vitest run",
+    "update-snapshot": "vitest run --update",
+    "vitest": "vitest"
+  },
+  "dependencies": {
+    "generator-jhipster": "9.1.0"
+  },
+  "devDependencies": {
+    "ejs-lint": "2.0.1",
+    "eslint": "9.39.2",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.5",
+    "globals": "17.6.0",
+    "husky": "9.1.7",
+    "jiti": "2.7.0",
+    "lint-staged": "17.0.5",
+    "prettier": "3.8.3",
+    "prettier-plugin-packagejson": "3.0.2",
+    "typescript": "6.0.3",
+    "vitest": "4.1.7",
+    "yeoman-test": ">=10"
+  },
+  "engines": {
+    "generator-jhipster": "9.1.0",
+    "node": "^22.18.0 || >=24.11.0"
+  }
+}
