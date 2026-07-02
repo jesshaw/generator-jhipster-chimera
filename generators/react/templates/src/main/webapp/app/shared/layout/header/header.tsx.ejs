@@ -1,0 +1,118 @@
+import './header.css';
+
+import React, { useState<% if (enableI18nRTL) { %>, useEffect<% } %> } from 'react';
+import { Translate<% if (enableTranslation) { %>, Storage<% } %> } from 'react-jhipster';
+import {
+  Navbar,
+  Nav,
+  NavbarToggler,
+  Collapse
+} from 'reactstrap';
+import LoadingBar from 'react-redux-loading-bar';
+
+<%_ if (enableTranslation && enableI18nRTL) { _%>
+import { isRTL } from 'app/config/translation';
+<%_ } _%>
+import { Home, Brand } from './header-components';
+import { AdminMenu, EntitiesMenu, AccountMenu<%_ if (enableTranslation) { _%>, LocaleMenu<%_ } _%>} from '../menus';
+<%_ if (enableTranslation) { _%>
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { setLocale } from 'app/shared/reducers/locale';
+<%_ } _%>
+
+import MyProfile from './my-profile';
+import ThemeSelector from '../theme/theme-selector';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { InputText } from 'primereact/inputtext';
+import { IHeaderProps, setMobileLayoutStatus, setStaticLayoutStatus } from 'app/shared/reducers/ui';
+import { toBreadItems } from '../menus/bread-item';
+
+const Header = (props: IHeaderProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+<%_ if (enableI18nRTL) { _%>
+  useEffect(() => document.querySelector('html').setAttribute('dir', isRTL(Storage.session.get('locale')) ? 'rtl' : 'ltr'));
+<%_ } _%>
+
+<%_ if (enableTranslation) { _%>
+  const dispatch = useAppDispatch();
+
+  const handleLocaleChange = event => {
+    const langKey = event.target.value;
+    Storage.session.set('locale', langKey);
+    dispatch(setLocale(langKey));
+  <%_ if (enableI18nRTL) { _%>
+    document.querySelector('html').setAttribute('dir', isRTL(langKey) ? 'rtl' : 'ltr');
+  <%_ } _%>
+  }
+<%_ } _%>
+
+  const renderDevRibbon = () => props.isInProduction === false ? (
+    <div className="ribbon dev">
+<%_ if (enableTranslation) { _%>
+        <Translate contentKey={`global.ribbon.${props.ribbonEnv}`} />
+<%_ } else { _%>
+        Development
+<%_ } _%>
+    </div>
+  ) : null;
+
+  const breadItems = useAppSelector(state => state.ui.breadItems);
+  const mobileLayoutActivated = useAppSelector(state => state.ui.mobileLayoutActivated);
+  const staticLayoutActivated = useAppSelector(state => state.ui.staticLayoutActivated);
+  const handleMenu = () => {
+    dispatch(setStaticLayoutStatus(!staticLayoutActivated));
+    dispatch(setMobileLayoutStatus(!mobileLayoutActivated));
+  };
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
+
+  return (
+    <div id="app-header" className="layout-topbar">
+      <div className="topbar-start">
+        <button type="button" className="topbar-menubutton p-link p-trigger" onClick={() => handleMenu()}>
+          <i className="pi pi-bars" />
+        </button>
+        <div className="topbar-breadcrumb">
+          <BreadCrumb model={toBreadItems(breadItems)} />
+        </div>
+      </div>
+
+      {/* old nav start */}
+      {renderDevRibbon()}
+      <LoadingBar className="loading-bar"/>
+      <Navbar data-cy="navbar" <% if (clientThemeNone || !clientThemeLight) { %>dark<% } else { %>light<% } %> expand="md" fixed="top" className="<%_ if (clientThemeNone) { _%>jh-navbar<%_ } else { _%>bg-<%= clientThemeVariant %><%_ } _%>">
+        <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
+        <Brand />
+        <Collapse isOpen={menuOpen} navbar>
+          <Nav id="header-tabs" className="ms-auto" navbar>
+            {props.isAuthenticated && <Home />}
+            {props.isAuthenticated && <EntitiesMenu />}
+            {props.isAuthenticated && props.isAdmin &&
+            <AdminMenu showOpenAPI={props.isOpenAPIEnabled} <% if (devDatabaseTypeH2Any) { %> showDatabase={!props.isInProduction} <%_ } _%> />}
+          <%_ if (enableTranslation) { _%>
+            <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
+          <%_ } _%>
+            <AccountMenu isAuthenticated={props.isAuthenticated} />
+          </Nav>
+        </Collapse>
+      </Navbar>
+      {/* old nav end */}
+
+      <div className="topbar-end">
+        <div className="topbar-search">
+          <span className="p-input-icon-left">
+            <i className="pi pi-search"></i>
+            <InputText placeholder="Search" />
+          </span>
+        </div>
+        <ThemeSelector currentLocale={props.currentLocale} />
+        <MyProfile />
+      </div>
+    </div>
+  );
+};
+
+export default Header;

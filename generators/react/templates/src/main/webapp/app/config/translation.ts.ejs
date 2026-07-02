@@ -1,0 +1,32 @@
+import { TranslatorContext, Storage } from 'react-jhipster';
+
+import { setLocale } from 'app/shared/reducers/locale';
+
+TranslatorContext.setDefaultLocale('<%= nativeLanguage %>');
+TranslatorContext.setRenderInnerTextForMissingKeys(false);
+
+export const languages: { [key: string]: { name: string } } = {
+  <%_ languagesDefinition.forEach((ln, i) => { _%>
+  '<%= ln.languageTag %>': { name: '<%= ln.displayName %>', rtl: <%= ln.rtl %> },
+  <%_ }); _%>
+  // jhipster-needle-i18n-language-key-pipe - JHipster will add/remove languages in this object
+};
+
+export const languageArray = Object.entries(languages).map(([key, { name }]) => ({
+  key,
+  value: name,
+}));
+
+export const locales = Object.keys(languages).sort();
+
+<%_ if (enableI18nRTL) { _%>
+export const isRTL = (lang: string): boolean => languages[lang] && languages[lang].rtl;
+
+export const setTextDirection = (lang: string) => {
+  document.querySelector('html').setAttribute('dir', isRTL(lang) ? 'rtl' : 'ltr');
+};
+<%_ } _%>
+
+export const registerLocale = store => {
+  store.dispatch(setLocale(Storage.session.get('locale', '<%= nativeLanguage %>')));
+};

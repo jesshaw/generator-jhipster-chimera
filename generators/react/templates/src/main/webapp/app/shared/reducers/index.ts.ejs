@@ -1,0 +1,60 @@
+import { ReducersMapObject, combineReducers } from '@reduxjs/toolkit';
+import { loadingBarReducer as loadingBar } from 'react-redux-loading-bar';
+
+<%_ if (enableTranslation) { _%>
+import locale from './locale';
+<%_ } _%>
+import ui from './ui';
+import authentication from './authentication';
+import applicationProfile from './application-profile';
+
+import administration from 'app/modules/administration/administration.reducer';
+<%_ if (generateUserManagement) { _%>
+import userManagement from 'app/modules/administration/user-management/user-management.reducer';
+<%_ } else if (authenticationTypeOauth2) { _%>
+import userManagement from './user-management';
+<%_ } _%>
+<%_ if (generateUserManagement) { _%>
+import register from 'app/modules/account/register/register.reducer';
+import activate from 'app/modules/account/activate/activate.reducer';
+import password from 'app/modules/account/password/password.reducer';
+import settings from 'app/modules/account/settings/settings.reducer';
+import passwordReset from 'app/modules/account/password-reset/password-reset.reducer';
+  <%_ if (authenticationTypeSession) { _%>
+import sessions from 'app/modules/account/sessions/sessions.reducer';
+  <%_ } _%>
+<%_ } _%>
+<%_ if (applicationTypeMonolith) { _%>
+import entitiesReducers from 'app/entities/reducers';
+<%_ } _%>
+/* jhipster-needle-add-reducer-import - JHipster will add reducer here */
+
+const rootReducer: ReducersMapObject = {
+  authentication,
+<%_ if (enableTranslation) { _%>
+  locale,
+<%_ } _%>
+  applicationProfile,
+  ui,
+  administration,
+<%_ if (generateBuiltInUserEntity) { _%>
+  userManagement,
+<%_ } _%>
+<%_ if (generateUserManagement) { _%>
+  register,
+  activate,
+  passwordReset,
+  password,
+  settings,
+  <%_ if (authenticationTypeSession) { _%>
+  sessions,
+  <%_ } _%>
+<%_ } _%>
+  loadingBar,
+  /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
+<%_ if (applicationTypeMonolith) { _%>
+  ...entitiesReducers,
+<%_ } _%>
+};
+
+export default rootReducer;
