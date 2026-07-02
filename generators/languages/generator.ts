@@ -23,7 +23,7 @@ export default class extends BaseApplicationGenerator {
   get [BaseApplicationGenerator.WRITING_ENTITIES]() {
     return this.asWritingEntitiesTaskGroup({
       // async writingEntitiesTemplateTask() {},
-      
+
       //仅使用模板方式验证后存在问题
       ...writeLocalizationEntityFiles(),
     });

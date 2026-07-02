@@ -6,6 +6,12 @@
     "defaultCommand": "generate-blueprint",
     "entities": [],
     "generators": {
+      "bootstrap-application-base": {
+        "command": false,
+        "priorities": ["preparing"],
+        "sbs": true,
+        "written": true
+      },
       "client": {
         "command": false,
         "priorities": ["writing"],
@@ -17,11 +23,35 @@
         "priorities": ["writing", "writingEntities", "postWritingEntities"],
         "sbs": true,
         "written": true
+      },
+      "liquibase": {
+        "command": false,
+        "priorities": ["writingEntities", "postWritingEntities"],
+        "sbs": true,
+        "written": true
+      },
+      "react": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
+      },
+      "spring-boot": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
+      },
+      "spring-data-relational": {
+        "command": false,
+        "priorities": ["writing"],
+        "sbs": true,
+        "written": true
       }
     },
     "jhipsterVersion": "9.1.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["client", "languages"]
+    "subGenerators": ["bootstrap-application-base", "client", "languages", "liquibase", "react", "spring-boot", "spring-data-relational"]
   }
 }
