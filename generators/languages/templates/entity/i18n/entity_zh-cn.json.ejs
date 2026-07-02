@@ -1,0 +1,62 @@
+{
+    "<%= frontendAppName %>": {
+        "<%= entityTranslationKey %>" : {
+            "home": {
+                "title": "<%= entityClassPluralHumanized  %>",
+                "refreshListLabel": "刷新列表",
+<%_ if (!readOnly) { _%>
+                "createLabel": "创建新<%= entityClassHumanized %>",
+                "createOrEditLabel": "创建或编辑<%= entityClassHumanized %>",
+<%_ } _%>
+<%_ if (searchEngineAny) { _%>
+                "search": "查找<%= entityClassHumanized %>",
+<%_ } _%>
+                "notFound": "未找到<%= entityClassPluralHumanized %>"
+            },
+<%_ if (!microserviceAppName && !readOnly) { _%>
+            "created": "<%= entityClassHumanized %>{{ param }}创建成功",
+            "updated": "<%= entityClassHumanized %>{{ param }}更新成功",
+            "deleted": "<%= entityClassHumanized %>{{ param }}删除成功",
+<%_ } _%>
+<%_ if (!readOnly) { _%>
+            "delete": {
+                "question": "你确定要删除<%= entityClassHumanized %>{{ id }}吗？"
+            },
+<%_ } _%>
+            "detail": {
+                "title": "<%= entityClassHumanized %>"
+            }
+<%_ for (const field of fields) { -%>
+            ,
+            "<%= field.fieldName %>": "<%= !!field.documentation ? field.documentation : field.fieldNameHumanized %>"
+<%_ } -%>
+<% for (const relationship of relationships) { -%>
+            ,
+            "<%= relationship.relationshipName %>": "<%= !!relationship.documentation ? relationship.documentation : relationship.fieldNameHumanized %>"
+<%_ } -%>
+<%_ const fieldsWithDoc = fields.filter(field => field.documentation); -%>
+<%_ if (fieldsWithDoc.length > 0) { -%>
+  <%_ const lastField = fieldsWithDoc[fieldsWithDoc.length - 1]; -%>
+            ,
+            "help": {
+  <%_ for (const field of fieldsWithDoc) { _%>
+                "<%= field.fieldName %>": "<%= !!field.documentation ? field.documentation : field.fieldNameHumanized %>"<% if (field !== lastField) { %>,<% } %>
+  <%_ } _%>
+  <% for (const relationship of relationships) { -%>
+                ,
+                "<%= relationship.relationshipName %>": "<%= !!relationship.documentation ? relationship.documentation : relationship.fieldNameHumanized %>"
+  <%_ } -%>
+            }
+<%_ } _%>
+        }
+    }
+<%_ if (microserviceAppName && !readOnly) { _%>,
+    "<%= microserviceAppName %>": {
+        "<%= entityTranslationKey %>" : {
+            "created": "<%= entityClassHumanized %>{{ param }}创建成功",
+            "updated": "<%= entityClassHumanized %>{{ param }}更新成功",
+            "deleted": "<%= entityClassHumanized %>{{ param }}删除成功"
+        }
+    }
+<%_ } _%>
+}

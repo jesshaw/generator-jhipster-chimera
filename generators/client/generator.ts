@@ -1,7 +1,8 @@
-import BaseApplicationGenerator, { type Features, type Options } from 'generator-jhipster/generators/base-application';
+import BaseApplicationGenerator from 'generator-jhipster/generators/base-application';
+import { commonFiles } from './files.ts';
 
 export default class extends BaseApplicationGenerator {
-  constructor(args?: string[], opts?: Options, features?: Features) {
+  constructor(args, opts, features) {
     super(args, opts, { ...features, sbsBlueprint: true });
   }
 
@@ -10,7 +11,7 @@ export default class extends BaseApplicationGenerator {
       async writingTemplateTask({ application }) {
         await this.writeFiles({
           sections: {
-            files: [{ templates: ['template-file-client'] }],
+            common: commonFiles,
           },
           context: application,
         });

@@ -1,0 +1,63 @@
+{
+    "<%= frontendAppName %>": {
+        "<%= entityTranslationKey %>" : {
+            "home": {
+                "title": "<%= entityClassPluralHumanized %>",
+                "refreshListLabel": "Refresh list",
+<%_ if (!readOnly) { _%>
+                "createLabel": "Create a new <%= entityClassHumanized %>",
+                "createOrEditLabel": "Create or edit a <%= entityClassHumanized %>",
+<%_ } _%>
+<%_ if (searchEngineAny) { _%>
+                "search": "Search for <%= entityClassHumanized %>",
+<%_ } _%>
+                "notFound": "No <%= entityClassPluralHumanized %> found"
+            },
+<%_ if (!microserviceAppName && !readOnly) { _%>
+            "created": "A new <%= entityClassHumanized %> is created with identifier {{ param }}",
+            "updated": "A <%= entityClassHumanized %> is updated with identifier {{ param }}",
+            "deleted": "A <%= entityClassHumanized %> is deleted with identifier {{ param }}",
+<%_ } _%>
+<%_ if (!readOnly) { _%>
+            "delete": {
+                "question": "Are you sure you want to delete <%= entityClassHumanized %> {{ id }}?"
+            },
+<%_ } _%>
+            "detail": {
+                "title": "<%= entityClassHumanized %>"
+            }
+<%_ for (const field of fields) { -%>
+            ,
+            "<%= field.fieldName %>": "<%= field.fieldNameHumanized %>"
+<%_ } -%>
+<% for (const relationship of relationships) { -%>
+            ,
+            "<%= relationship.relationshipName %>": "<%= relationship.relationshipNameHumanized %>"
+<%_ } -%>
+<%_ const fieldsWithDoc = fields.filter(field => field.documentation); -%>
+<%_ if (fieldsWithDoc.length > 0) { -%>
+  <%_ const lastField = fieldsWithDoc[fieldsWithDoc.length - 1]; -%>
+            ,
+            "help": {
+  <%_ for (const field of fieldsWithDoc) { _%>
+                "<%= field.fieldName %>": "<%= field.documentation %>"<% if (field !== lastField) { %>,<% } %>
+  <%_ } _%>
+  <% for (const relationship of relationships) { -%>
+                ,
+                "<%= relationship.relationshipName %>": "<%= relationship.relationshipNameHumanized %>"
+  <%_ } -%>
+            }
+<%_ } _%>
+        }
+    }
+<%_ if (microserviceAppName && !readOnly) { -%>
+    ,
+    "<%= microserviceAppName %>": {
+        "<%= entityTranslationKey %>" : {
+            "created": "A new <%= entityClassHumanized %> is created with identifier {{ param }}",
+            "updated": "A <%= entityClassHumanized %> is updated with identifier {{ param }}",
+            "deleted": "A <%= entityClassHumanized %> is deleted with identifier {{ param }}"
+        }
+    }
+<%_ } _%>
+}

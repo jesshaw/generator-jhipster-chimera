@@ -2,8 +2,11 @@
 {
   "include": [".blueprint/**/*.ts", "./cli", "./generators", "*.ts"],
   "compilerOptions": {
+    "module": "NodeNext", // 或 "Node16"
+    "moduleResolution": "NodeNext", // 或 "Node16"
+
     /* Language and Environment */
-    "target": "ES2025" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "types": ["node"],
 
     /* Modules */
@@ -19,7 +22,7 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "isolatedModules": true /* Ensure that each file can be safely transpiled without relying on other imports. */,
     "rewriteRelativeImportExtensions": true,
-    "erasableSyntaxOnly": true,
+    // "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
 
     /* Type Checking */
