@@ -7,13 +7,12 @@ export default class extends BaseApplicationGenerator {
     super(args, opts, { ...features, sbsBlueprint: true });
   }
 
-
   get [BaseApplicationGenerator.WRITING]() {
     return this.asWritingTaskGroup({
       async writingTemplateTask({ application }) {
         await this.writeFiles({
           sections: files, // 确保 files 是 WriteFileBlock[]
-          context:application,
+          context: application,
         });
       },
     });
@@ -32,9 +31,7 @@ export default class extends BaseApplicationGenerator {
     return this.asPostWritingEntitiesTaskGroup({
       async postWritingEntitiesTemplateTask({ application, entities }) {
         // 过滤需要处理的实体（非内置且需要客户端）
-        const targetEntities = entities.filter(
-          entity => !entity.builtIn && !entity.skipClient
-        );
+        const targetEntities = entities.filter(entity => !entity.builtIn && !entity.skipClient);
 
         // 对每个实体执行菜单添加
         for (const entity of targetEntities) {
@@ -58,7 +55,7 @@ export default class extends BaseApplicationGenerator {
         needle: 'jhipster-needle-add-entity-to-entities-menu',
         contentToAdd: `${camelCaseEntityName}MenuItem: { label: '${upperSnakeCaseEntityName}', labelKey: 'global.menu.entities.${camelCaseEntityName}', url: '/${kebabCaseEntityName}' },`,
         autoIndent: true,
-      })
+      }),
     );
   }
 
@@ -75,9 +72,7 @@ export default class extends BaseApplicationGenerator {
   }
 
   getUnwantedFilesList(application) {
-    const realUnwantedFiles = unwantedFiles?.files.map(item =>
-      `${application.clientSrcDir}${item}`
-    ) || [];
+    const realUnwantedFiles = unwantedFiles?.files.map(item => `${application.clientSrcDir}${item}`) || [];
 
     // 处理实体相关文件
     this.jhipsterConfig.entities.forEach(entity => {

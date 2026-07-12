@@ -15,7 +15,7 @@
 安装jhipster
 
 ```bash
-npm install -g generator-jhipster
+npm install -g generator-jhipster@9.1.0
 ```
 
 ## 安装

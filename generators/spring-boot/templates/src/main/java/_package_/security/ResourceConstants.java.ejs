@@ -1,0 +1,32 @@
+package <%= packageName %>.security;
+
+import <%= packageName %>.domain.DictionaryEntry;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+public final class ResourceConstants {
+    public static final String AUTHORITY = "AUTHORITY";
+    // jhipster-needle-add-entity-to-resource-constants - Jhipster will add entities to the resource constants here
+
+    private ResourceConstants() {}
+
+    protected enum Resource {
+        AUTHORITY(ResourceConstants.AUTHORITY),
+        // jhipster-needle-add-entity-to-resource-enum - Jhipster will add entities to the resource enum here
+
+        private final String name;
+
+        Resource(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static List<DictionaryEntry> getAllResources() {
+        return Arrays.stream(Resource.values()).map(o -> new DictionaryEntry(o.getName(), o.getName())).toList();
+    }
+}

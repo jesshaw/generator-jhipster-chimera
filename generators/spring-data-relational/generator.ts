@@ -8,12 +8,12 @@ export default class extends BaseApplicationGenerator {
   get [BaseApplicationGenerator.WRITING]() {
     return this.asWritingTaskGroup({
       async writingTemplateTask({ application }) {
-        await this.writeFiles({
-          sections: {
-            files: [{ templates: ['template-file-spring-data-relational'] }],
-          },
-          context: application,
-        });
+        // await this.writeFiles({
+        //   sections: {
+        //     files: [{ templates: ['template-file-spring-data-relational'] }],
+        //   },
+        //   context: application,
+        // });
       },
     });
   }

@@ -1,0 +1,51 @@
+<%
+const instanceType = restClass;
+const instanceName = restInstance;
+const returnType = reactive ? 'Mono' : 'Optional'
+const mapOrFlatMap = reactive ? 'flatMap' : 'map'
+const returnPrefix = (isService) ? 'return' : returnType + '<' + instanceType + '> result =';
+const mapper = entityInstance  + 'Mapper';
+_%>
+<%_ if (viaService) { _%>
+  <%_ if (reactive) { _%>
+    Mono<<%= instanceType %>> result = <%= entityInstance %>Service.partialUpdate(<%= instanceName %>);
+  <%_ } else { _%>
+    Optional<<%= instanceType %>> result = <%= entityInstance %>Service.partialUpdate(<%= instanceName %>);
+  <%_ } _%>
+<%_ } else { %>
+<%- returnPrefix %> <%= entityInstance %>Repository.findById(<%= instanceName %>.get<%= primaryKey.nameCapitalized %>())
+  <%_ if (dtoMapstruct || fields.filter(field => !field.id && !field.transient).length > 0) { _%>
+    .map(existing<%= entityClass %> -> {
+  <%_ if (dtoMapstruct) { _%>
+       <%= mapper %>.partialUpdate(existing<%= entityClass %>, <%= instanceName %>);
+  <%_ } else { _%>
+    <%_ for (const field of fields.filter(field => !field.id && !field.transient)) { _%>
+    if (<%= instanceName %>.get<%= field.fieldInJavaBeanMethod %>() != null) {
+        existing<%= entityClass %>.set<%= field.fieldInJavaBeanMethod %>(<%= instanceName %>.get<%= field.fieldInJavaBeanMethod %>());
+    }
+      <%_ if (field.fieldWithContentType) { _%>
+    if (<%= instanceName %>.get<%= field.fieldInJavaBeanMethod %>ContentType() != null) {
+        existing<%= entityClass %>.set<%= field.fieldInJavaBeanMethod %>ContentType(<%= instanceName %>.get<%= field.fieldInJavaBeanMethod %>ContentType());
+    }
+      <%_ } _%>
+    <%_ } %>
+  <% } %>
+    return existing<%= entityClass %>;
+    })
+  <%_ } %>
+  .<%= mapOrFlatMap %>(<%= entityInstance %>Repository::save)
+  <%_ if (searchEngineElasticsearch) { _%>
+    .<%= mapOrFlatMap %>(saved<%= entityClass %> -> {
+    <%_ if(reactive) { %>
+        <%= entityInstance %>SearchRepository.save(saved<%= entityClass %>);
+        return Mono.just(saved<%= entityClass %>);
+    <%_ } else { %>
+        <%= entityInstance %>SearchRepository.index(saved<%= entityClass %>);
+        return saved<%= entityClass %>;
+    <%_ } %>
+      })
+  <%_ } _%>
+  <%_ if (dtoMapstruct) { _%>
+   .map(<%= mapper %>::toDto)
+  <%_ } _%>;
+<%_ } %>
