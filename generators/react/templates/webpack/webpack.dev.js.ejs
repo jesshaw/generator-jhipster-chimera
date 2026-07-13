@@ -54,6 +54,10 @@ module.exports = async (options) => webpackMerge(await commonConfig({ env: ENV }
             options: { url: false },
           },
           {
+            loader: 'sass-loader',
+            options: { implementation: sass }
+          },
+          {
             loader: 'postcss-loader',
 <%_ if (enableI18nRTL) { _%>
             options: {
@@ -62,10 +66,6 @@ module.exports = async (options) => webpackMerge(await commonConfig({ env: ENV }
               },
             },
 <%_ } _%>
-          },
-          {
-            loader: 'sass-loader',
-            options: { implementation: sass }
           }
         ]
       }

@@ -144,13 +144,31 @@ npm install -g .
 先切换目录，否则会跟当前目录混在一起，引起混乱
 
 ```bash
+
 cd text-lxm && jhipster --blueprints lxm jdl sample.jdl
 
+cd ../lxm-ims/ && jhipster jdl --blueprints chimera --skip-git --skip-install ims.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-git --skip-install  crm.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.4-SNAPSHOT --skip-git --skip-cache --skip-install  crm.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install  crm.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-fake-data --skip-db-changelog --skip-git --skip-cache --skip-install  crm.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install --skip-fake-data --skip-db-changelog  crm.jdl
+
+```
+
 ## 单元测试
+
 npm test
 
 ## 格式化后运行测试
+
 npm run prettier-format & npm run test
+
 ```
 
 ### Q&A
@@ -248,3 +266,4 @@ npm run prettier-format & npm run test
 #### 最新版有什么参考示例？
 
 https://github.com/jhipster/generator-jhipster-micronaut
+```
