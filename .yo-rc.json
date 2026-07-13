@@ -42,7 +42,13 @@
         "sbs": true,
         "written": true
       },
-      "spring-data-relational": {
+      "spring-boot/generators/data-relational": {
+        "command": false,
+        "priorities": ["writingEntities"],
+        "sbs": true,
+        "written": true
+      },
+      "spring-boot/generators/jwt": {
         "command": false,
         "priorities": ["writing"],
         "sbs": true,
@@ -52,6 +58,6 @@
     "jhipsterVersion": "9.1.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["bootstrap-application-base", "client", "languages", "liquibase", "react", "spring-boot", "spring-data-relational"]
+    "subGenerators": ["bootstrap-application-base", "client", "languages", "liquibase", "react", "spring-boot"]
   }
 }

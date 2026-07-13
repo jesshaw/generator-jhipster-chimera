@@ -6,11 +6,11 @@ import type Generator from './generator.js';
 
 const helpers = createTestHelpers<Generator>({
   importMeta: import.meta,
-  defaultGenerator: 'jhipster-chimera:spring-data-relational',
+  defaultGenerator: 'jhipster-chimera:spring-boot/generators/jwt',
 });
 const result = typedResult<Generator>();
 
-describe('SubGenerator spring-data-relational of chimera JHipster blueprint', () => {
+describe('SubGenerator spring-boot/generators/jwt of chimera JHipster blueprint', () => {
   describe('run', () => {
     beforeAll(async function () {
       await helpers

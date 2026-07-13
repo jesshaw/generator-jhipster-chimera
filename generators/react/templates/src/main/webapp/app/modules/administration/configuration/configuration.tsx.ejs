@@ -70,7 +70,7 @@ export const ConfigurationPage = () => {
         <tbody>
           {configProps.contexts
             ? (reversePrefix
-                ? Object.values(getContextList(configProps.contexts)).sort((p1, p2) => p1['prefix'].localeCompare(p2['prefix']))
+                ? Object.values(getContextList(configProps.contexts)).sort((p1: any, p2: any) => p1.prefix.localeCompare(p2.prefix))
                 : Object.values(getContextList(configProps.contexts))
               )
                 .filter(propsFilterFn)
