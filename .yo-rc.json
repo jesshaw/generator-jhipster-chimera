@@ -18,7 +18,7 @@
         "sbs": true,
         "written": true
       },
-      "languages": {
+      "client/generators/i18n": {
         "command": false,
         "priorities": ["writing", "writingEntities", "postWritingEntities"],
         "sbs": true,
@@ -58,6 +58,6 @@
     "jhipsterVersion": "9.1.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["bootstrap-application-base", "client", "languages", "liquibase", "react", "spring-boot"]
+    "subGenerators": ["bootstrap-application-base", "client", "liquibase", "react", "spring-boot"]
   }
 }
