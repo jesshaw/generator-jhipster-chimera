@@ -3,7 +3,7 @@ import { clientRootTemplatesBlock, clientApplicationTemplatesBlock } from 'gener
 export const files = {
   common: [
     clientRootTemplatesBlock({
-      templates: ['package.json', 'postcss.config.js', 'tailwind.config.js', 'webpack/webpack.common.js', 'webpack/webpack.dev.js'],
+      templates: ['package.json', 'postcss.config.cjs', 'tailwind.config.js', 'tsconfig.json', 'webpack/webpack.common.js', 'webpack/webpack.dev.js'],
     }),
   ],
   reactApp: [

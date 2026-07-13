@@ -57,7 +57,7 @@ return merge(
         path.resolve(__dirname, `webpack.${development ? 'dev' : 'prod'}.js`),
         path.resolve(__dirname, 'environment.js'),
         path.resolve(__dirname, 'utils.js'),
-        path.resolve(__dirname, '../postcss.config.js'),
+        path.resolve(__dirname, '../postcss.config.cjs'),
         path.resolve(__dirname, '../tsconfig.json')
       ],
     },
@@ -108,13 +108,7 @@ return merge(
       VERSION: JSON.stringify(environment.VERSION),
       SERVER_API_URL: JSON.stringify(environment.SERVER_API_URL),
     }),
-    new ESLintPlugin({
-      baseConfig: {
-        parserOptions: {
-          project: ['../tsconfig.json'],
-        },
-      },
-    }),
+    new ESLintPlugin({}),
     new ForkTsCheckerWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
