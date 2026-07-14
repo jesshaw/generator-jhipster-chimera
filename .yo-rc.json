@@ -3,6 +3,7 @@
     "additionalSubGenerators": "",
     "baseName": "chimera",
     "cli": true,
+    "defaultCommand": "generate-blueprint",
     "entities": [],
     "generators": {
       "bootstrap-application-base": {
@@ -17,7 +18,7 @@
         "sbs": true,
         "written": true
       },
-      "languages": {
+      "client/generators/i18n": {
         "command": false,
         "priorities": ["writing", "writingEntities", "postWritingEntities"],
         "sbs": true,
@@ -26,12 +27,6 @@
       "liquibase": {
         "command": false,
         "priorities": ["writingEntities", "postWritingEntities"],
-        "sbs": true,
-        "written": true
-      },
-      "maven": {
-        "command": false,
-        "priorities": ["postWriting"],
         "sbs": true,
         "written": true
       },
@@ -47,16 +42,22 @@
         "sbs": true,
         "written": true
       },
-      "spring-data-relational": {
+      "spring-boot/generators/data-relational": {
+        "command": false,
+        "priorities": ["writingEntities"],
+        "sbs": true,
+        "written": true
+      },
+      "spring-boot/generators/jwt": {
         "command": false,
         "priorities": ["writing"],
         "sbs": true,
         "written": true
       }
     },
-    "jhipsterVersion": "8.3.0",
+    "jhipsterVersion": "9.1.0",
     "localBlueprint": false,
     "sampleWritten": true,
-    "subGenerators": ["bootstrap-application-base", "client", "languages", "react", "liquibase"]
+    "subGenerators": ["bootstrap-application-base", "client", "liquibase", "react", "spring-boot"]
   }
 }

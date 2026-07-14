@@ -279,7 +279,7 @@ export const <%= entityReactName %>Update = () => {
 
 <%_ for (const rel of persistableRelationships) {
     const otherEntityPkName = rel.otherEntity.primaryKey && rel.otherEntity.primaryKey.name || 'id';
-    const otherEntityNamePlural = rel.otherEntityNamePlural;
+    const otherEntityNamePlural = rel.otherEntity.entityInstancePlural;
     const relationshipName = rel.relationshipName;
     const relationshipNameHumanized = rel.relationshipNameHumanized;
     const relationshipFieldName = rel.relationshipFieldName;

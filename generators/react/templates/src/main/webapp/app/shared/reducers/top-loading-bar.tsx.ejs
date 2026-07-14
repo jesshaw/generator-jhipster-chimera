@@ -1,0 +1,23 @@
+import React, { useEffect, useRef } from 'react';
+import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
+
+import { useAppSelector } from 'app/config/store';
+
+const TopLoadingBar = () => {
+  const ref = useRef<LoadingBarRef>(null);
+  const loadCount = useAppSelector(state => state.loadingBar.count);
+  const previousCount = useRef(0);
+
+  useEffect(() => {
+    if (loadCount > 0 && previousCount.current === 0) {
+      ref.current?.continuousStart();
+    } else if (loadCount === 0 && previousCount.current > 0) {
+      ref.current?.complete();
+    }
+    previousCount.current = loadCount;
+  }, [loadCount]);
+
+  return <LoadingBar ref={ref} color="#3B82F6" height={3} shadow />;
+};
+
+export default TopLoadingBar;

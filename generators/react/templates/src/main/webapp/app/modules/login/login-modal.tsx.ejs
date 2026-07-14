@@ -33,7 +33,7 @@ const LoginModal = (props: ILoginModalProps) => {
   const { loginError, handleClose } = props;
 
   const handleLoginSubmit = e => {
-    handleSubmit(login)(e);
+    handleSubmit(login as any)(e);
   };
 
   return (

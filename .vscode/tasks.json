@@ -6,7 +6,7 @@
     {
       "label": "link generator",
       "type": "shell",
-      "command": "cd D:/mywork/github/jesshaw/lxm-crm ; npm link generator-jhipster-chimera"
+      "command": "cd D:/mywork/github/jesshaw/lxm-ims ; npm link generator-jhipster-chimera"
     }
   ]
 }

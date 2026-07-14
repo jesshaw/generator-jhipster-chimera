@@ -1,0 +1,30 @@
+<%#
+ Copyright 2024 the original author or authors from the chimera project.
+ corePlugins: { preflight: false } -- Disabled Tailwind CSS's base styles to use PrimeReact's base style.
+-%>
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es2024",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "rootDir": "./<%- this.relativeDir(clientRootDir, clientSrcDir) %>app",
+    "outDir": "<%- this.relativeDir(clientRootDir, clientDistDir) %>app",
+    "lib": ["dom", "es2024"],
+    "types": ["webpack-env"],
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+        "app/*": ["./<%- this.relativeDir(clientRootDir, clientSrcDir) %>app/*"]
+    },
+    "importHelpers": true,
+    "strictNullChecks": false
+  },
+  "include": ["<%- this.relativeDir(clientRootDir, clientSrcDir) %>app"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "vitest.config.ts"]
+}

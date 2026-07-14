@@ -42,7 +42,11 @@
 安装jhipster
 
 ```bash
+<<<<<<< HEAD
 npm install -g generator-jhipster@8.3.0
+=======
+npm install -g generator-jhipster@9.1.0
+>>>>>>> 2.1.x
 ```
 
 ## 安装
@@ -176,21 +180,28 @@ TAG='v1.4.10' MSG='Modify the enum view in the entity list' && git push -d origi
 先切换目录，否则会跟当前目录混在一起，引起混乱
 
 ```bash
-cd text-lxm && jhipster --blueprints lxm jdl sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-git --skip-install sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-git --skip-install  sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.4-SNAPSHOT --skip-git --skip-cache --skip-install  sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install  sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-fake-data --skip-db-changelog --skip-git --skip-cache --skip-install  sample.jdl
+
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install --skip-fake-data --skip-db-changelog  sample.jdl
+
+```
 
 ## 单元测试
+
 npm test
 
 ## 格式化后运行测试
+
 npm run prettier-format & npm run test
-
-
-yarn run prettier-format & yarn run test
-
-## 安装当前版本的包到本地
-
-npm install
-```
 
 ### Q&A
 

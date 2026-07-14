@@ -8,18 +8,27 @@ import org.springframework.security.core.userdetails.User;
 
 public class CustomUserDetails extends User {
 
+    private Long id;
+
     private Set<Resource> resources;
 
     public CustomUserDetails(
+        Long id,
         String username,
         String password,
         Collection<? extends GrantedAuthority> authorities,
         Set<Resource> resources
     ) {
         super(username, password, authorities);
+
+        this.id = id;
         this.resources = resources;
     }
 
+    public Long getId() {
+        return id;
+    }
+    
     public Set<Resource> getResources() {
         return resources;
     }

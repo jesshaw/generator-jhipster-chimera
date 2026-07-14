@@ -43,7 +43,7 @@ As this is a [JHipster](https://www.jhipster.tech/) blueprint, we expect you hav
 
 - [Installing JHipster](https://www.jhipster.tech/installation/)
 
-## Installation
+# Installation
 
 To install or update this blueprint:
 
@@ -51,23 +51,23 @@ To install or update this blueprint:
 npm install -g generator-jhipster-chimera
 ```
 
-## Usage
+# Usage
 
 To use this blueprint, run the below command
 
 ```bash
-jhipster --blueprints chimera
+jhipster-chimera
 ```
 
 You can look for updated chimera blueprint specific options by running
 
 ```bash
-jhipster app --blueprints chimera --help
+jhipster-chimera app --help
 ```
 
 And looking for `(blueprint option: chimera)` like
 
-### Pre-release
+## Pre-release
 
 To use an unreleased version, install it using git.
 
@@ -78,7 +78,7 @@ jhipster --blueprints chimera --skip-jhipster-dependencies
 
 [npm-image]: https://img.shields.io/npm/v/generator-jhipster-chimera.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-chimera
-[github-generator-image]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
-[github-generator-url]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml
-[github-integration-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml/badge.svg
-[github-integration-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/integration.yml
+[github-generator-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
+[github-generator-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/generator.yml
+[github-samples-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/samples.yml/badge.svg
+[github-samples-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/samples.yml

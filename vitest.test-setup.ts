@@ -1,6 +1,8 @@
-import { vi } from 'vitest';
+import { fileURLToPath } from 'node:url';
+
 import { defineDefaults } from 'generator-jhipster/testing';
 
-defineDefaults({
-  mockFactory: () => vi.fn(),
+await defineDefaults({
+  blueprint: 'generator-jhipster-chimera',
+  blueprintPackagePath: fileURLToPath(new URL('./', import.meta.url)),
 });

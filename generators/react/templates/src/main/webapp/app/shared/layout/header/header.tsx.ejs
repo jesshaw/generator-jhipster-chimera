@@ -8,7 +8,8 @@ import {
   NavbarToggler,
   Collapse
 } from 'reactstrap';
-import LoadingBar from 'react-redux-loading-bar';
+
+import TopLoadingBar from 'app/shared/reducers/top-loading-bar';
 
 <%_ if (enableTranslation && enableI18nRTL) { _%>
 import { isRTL } from 'app/config/translation';
@@ -82,7 +83,7 @@ const Header = (props: IHeaderProps) => {
 
       {/* old nav start */}
       {renderDevRibbon()}
-      <LoadingBar className="loading-bar"/>
+      <TopLoadingBar />
       <Navbar data-cy="navbar" <% if (clientThemeNone || !clientThemeLight) { %>dark<% } else { %>light<% } %> expand="md" fixed="top" className="<%_ if (clientThemeNone) { _%>jh-navbar<%_ } else { _%>bg-<%= clientThemeVariant %><%_ } _%>">
         <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
         <Brand />

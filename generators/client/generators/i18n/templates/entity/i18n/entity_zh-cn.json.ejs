@@ -1,0 +1,60 @@
+<%#
+ Copyright 2013-2026 the original author or authors from the JHipster project.
+-%>
+<%_ const fieldsWithDocumentation = fields.filter(field => field.documentation); _%>
+{
+    "<%- frontendAppName %>": {
+        "<%- entityTranslationKey %>" : {
+            "home": {
+                "title": "<%- entityNamePluralHumanized %>",
+                "refreshListLabel": "刷新",
+<%_ if (!readOnly) { _%>
+                "createLabel": "创建新 <%- entityNameHumanized %>",
+                "createOrEditLabel": "创建或编辑 <%- entityNameHumanized %>",
+<%_ } _%>
+<%_ if (locals.searchEngineAny) { _%>
+                "search": "查找 <%- entityNameHumanized %>",
+<%_ } _%>
+                "notFound": "未找到 <%- entityNamePluralHumanized %>"
+            },
+<%_ if (!microserviceAppName && !readOnly) { _%>
+            "created": "<%- entityNameHumanized %> {{ param }} 创建成功",
+            "updated": "<%- entityNameHumanized %> {{ param }} 更新成功",
+            "deleted": "<%- entityNameHumanized %> {{ param }} 删除成功",
+<%_ } _%>
+<%_ if (!readOnly) { _%>
+            "delete": {
+                "question": "你确定要删除 <%- entityNameHumanized %> {{ id }} 吗？"
+            },
+<%_ } _%>
+            "detail": {
+                "title": "<%- entityNameHumanized %>"
+            }
+<%_ for (const field of fields) { _%>,
+            "<%- field.fieldName %>": "<%- field.fieldNameHumanized %>"
+<%_ } _%>
+<%_ for (const relationship of relationships) { _%>,
+            "<%- relationship.relationshipName %>": "<%- !!relationship.documentation ? relationship.documentation : relationship.relationshipNameHumanized %>"
+<%_ } _%>
+<%_ if (fieldsWithDocumentation.length > 0) { _%>,
+            "help": {
+  <%_ for (const [key, field] of Object.entries(fieldsWithDocumentation)) { _%>
+                "<%- field.fieldName %>": "<%- field.documentation %>"<%- key < fieldsWithDocumentation.length - 1 ? ',' : '' %>
+  <%_ } _%>
+  <%_ for (const relationship of relationships) { _%>,
+                "<%- relationship.relationshipName %>": "<%- !!relationship.documentation ? relationship.documentation : relationship.relationshipNameHumanized %>"
+  <%_ } _%>
+            }
+<%_ } _%>
+        }
+    }
+<%_ if (microserviceAppName && !readOnly) { _%>,
+    "<%- microserviceAppName %>": {
+        "<%- entityTranslationKey %>" : {
+            "created": "<%- entityNameHumanized %> {{ param }} 创建成功",
+            "updated": "<%- entityNameHumanized %> {{ param }} 更新成功",
+            "deleted": "<%- entityNameHumanized %> {{ param }} 删除成功"
+        }
+    }
+<%_ } _%>
+}
