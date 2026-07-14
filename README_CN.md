@@ -145,19 +145,17 @@ npm install -g .
 
 ```bash
 
-cd text-lxm && jhipster --blueprints lxm jdl sample.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-git --skip-install sample.jdl
 
-cd ../lxm-ims/ && jhipster jdl --blueprints chimera --skip-git --skip-install ims.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-git --skip-install  sample.jdl
 
-jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-git --skip-install  crm.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.4-SNAPSHOT --skip-git --skip-cache --skip-install  sample.jdl
 
-jhipster jdl --blueprints chimera --project-version 1.1.4-SNAPSHOT --skip-git --skip-cache --skip-install  crm.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install  sample.jdl
 
-jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install  crm.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-fake-data --skip-db-changelog --skip-git --skip-cache --skip-install  sample.jdl
 
-jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-fake-data --skip-db-changelog --skip-git --skip-cache --skip-install  crm.jdl
-
-jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install --skip-fake-data --skip-db-changelog  crm.jdl
+jhipster jdl --blueprints chimera --project-version 1.1.7-SNAPSHOT --skip-server --skip-git --skip-cache --skip-install --skip-fake-data --skip-db-changelog  sample.jdl
 
 ```
 
