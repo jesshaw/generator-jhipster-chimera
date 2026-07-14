@@ -42,11 +42,7 @@
 安装jhipster
 
 ```bash
-<<<<<<< HEAD
-npm install -g generator-jhipster@8.3.0
-=======
 npm install -g generator-jhipster@9.1.0
->>>>>>> 2.1.x
 ```
 
 ## 安装
@@ -86,7 +82,7 @@ npm install -g .
 
 # 重新发布指定的版本
 
-TAG='v1.4.10' MSG='Modify the enum view in the entity list' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+TAG='v2.1.1' MSG='Adapt for Jhipster 9.1.0' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
 
 ```
 
