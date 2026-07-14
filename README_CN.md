@@ -1,4 +1,4 @@
-# 凯米拉项目产生器
+# 凯米拉生成器
 
 [![NPM 版本][npm-image]][npm-url]
 [![产生器][github-generator-image]][github-generator-url]
@@ -343,3 +343,8 @@ https://github.com/jhipster/jhipster-dotnetcore/blob/main/generators/blazor/gene
   </profiles>
 </project>
 ```
+
+[npm-image]: https://img.shields.io/npm/v/generator-jhipster-chimera.svg
+[npm-url]: https://npmjs.org/package/generator-jhipster-chimera
+[github-generator-image]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
+[github-generator-url]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml

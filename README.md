@@ -78,7 +78,5 @@ jhipster --blueprints chimera --skip-jhipster-dependencies
 
 [npm-image]: https://img.shields.io/npm/v/generator-jhipster-chimera.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-chimera
-[github-generator-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
-[github-generator-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/generator.yml
-[github-samples-image]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/samples.yml/badge.svg
-[github-samples-url]: https://github.com/jhipster/generator-jhipster-chimera/actions/workflows/samples.yml
+[github-generator-image]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml/badge.svg
+[github-generator-url]: https://github.com/jesshaw/generator-jhipster-chimera/actions/workflows/generator.yml
