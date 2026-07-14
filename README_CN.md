@@ -82,7 +82,7 @@ npm install -g .
 
 # 重新发布指定的版本
 
-TAG='v2.1.6' MSG='Adapt for Jhipster 9.1.0' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+TAG='v2.1.8' MSG='Adapt for Jhipster 9.1.0' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
 
 ```
 

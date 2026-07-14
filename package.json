@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-chimera",
-  "version": "2.1.6",
+  "version": "2.1.8",
   "private": false,
   "description": "Description for Chimera",
   "keywords": [
@@ -8,7 +8,7 @@
     "jhipster-blueprint",
     "jhipster-8"
   ],
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "jhipster-chimera": "cli/cli.cts"
