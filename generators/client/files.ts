@@ -4,21 +4,15 @@ export const commonFiles = [
   {
     ...clientSrcTemplatesBlock({
       transform: false,
-      relativePath: 'content/images/',
       templates: [
-        'avatar/amyelsner.png',
-        'avatar/avatar-f-4.png',
-        'avatar/avatar-f-8.png',
-        'avatar/avatar-m-8.png',
-        'favicon.png',
-        'logo.png',
-        'chamera1-512.png',
-        'chamera1-512_head-192.png',
-      ],
-    }),
-    ...clientSrcTemplatesBlock({
-      transform: false,
-      templates: [
+        'content/images/avatar/amyelsner.png',
+        'content/images/avatar/avatar-f-4.png',
+        'content/images/avatar/avatar-f-8.png',
+        'content/images/avatar/avatar-m-8.png',
+        'content/images/favicon.png',
+        'content/images/logo.png',
+        'content/images/chamera1-512.png',
+        'content/images/chamera1-512_head-192.png',
         'content/theme/theme-dark/amber/fonts/Inter-italic.var.woff2',
         'content/theme/theme-dark/amber/fonts/Inter-roman.var.woff2',
         'content/theme/theme-dark/amber/theme.css',

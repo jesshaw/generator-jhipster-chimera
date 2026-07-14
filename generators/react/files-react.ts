@@ -87,6 +87,7 @@ export const files = {
         'shared/model/dict.model.ts',
         'shared/model/admin/authority.model.ts',
         'shared/reducers/index.ts',
+        'shared/reducers/top-loading-bar.tsx',
         'shared/reducers/ui.ts',
         'shared/util/entity-utils.ts',
         'shared/util/lxm-utils.tsx',
