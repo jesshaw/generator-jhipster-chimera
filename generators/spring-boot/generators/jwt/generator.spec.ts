@@ -6,7 +6,7 @@ import type Generator from './generator.js';
 
 const helpers = createTestHelpers<Generator>({
   importMeta: import.meta,
-  defaultGenerator: 'jhipster-chimera:spring-boot/generators/jwt',
+  defaultGenerator: 'jhipster:spring-boot:jwt',
 });
 const result = typedResult<Generator>();
 

@@ -31,7 +31,7 @@ export default class extends BaseApplicationGenerator {
         let csvContent = 'id;name;permission;authority_name\n';
 
         for (const entity of processEntities) {
-          const entityName = this._.toUpper(this._.snakeCase(entity.entityClass));
+          const entityName = this._.toUpper(this._.snakeCase(entity.name));
           for (const op of operations) {
             const line = [lineNumber++, entityName, op, 'ROLE_ADMIN'];
             csvContent += line.join(';') + '\n';

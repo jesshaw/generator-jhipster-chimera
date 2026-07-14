@@ -1,4 +1,5 @@
-import BaseApplicationGenerator, { type Features, type Options } from '../../../base-generator.ts';
+import BaseApplicationGenerator from '../../../base-generator.ts';
+import type { Features, Options } from 'generator-jhipster/generators/base-application';
 
 export default class extends BaseApplicationGenerator {
   constructor(args?: string[], opts?: Options, features?: Features) {
@@ -7,7 +8,7 @@ export default class extends BaseApplicationGenerator {
 
   get [BaseApplicationGenerator.WRITING]() {
     return this.asWritingTaskGroup({
-      async writingTemplateTask({ application }) {
+      async writingTemplateTask({ application: _application }) {
         // await this.writeFiles({
         //   sections: {
         //     files: [{ templates: ['template-file-spring-boot/generators/jwt'] }],

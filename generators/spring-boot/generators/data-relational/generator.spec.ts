@@ -6,7 +6,7 @@ import type Generator from './generator.js';
 
 const helpers = createTestHelpers<Generator>({
   importMeta: import.meta,
-  defaultGenerator: 'jhipster-chimera:spring-boot/generators/data-relational',
+  defaultGenerator: 'jhipster-chimera:spring-boot:data-relational',
 });
 const result = typedResult<Generator>();
 

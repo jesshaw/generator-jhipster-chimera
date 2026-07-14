@@ -75,7 +75,7 @@ export default class extends BaseApplicationGenerator {
     const realUnwantedFiles = unwantedFiles?.files.map(item => `${application.clientSrcDir}${item}`) || [];
 
     // 处理实体相关文件
-    this.jhipsterConfig.entities.forEach(entity => {
+    (this.jhipsterConfig.entities ?? []).forEach(entity => {
       unwantedFiles?.entityFiles.forEach(item => {
         let file = `${application.clientSrcDir}${item}`
           .replace('_entityFolder_', this._.kebabCase(entity))

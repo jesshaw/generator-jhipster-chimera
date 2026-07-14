@@ -1,6 +1,11 @@
 import { JAVA_WEBAPP_SOURCES_DIR } from 'generator-jhipster';
 import { startCase } from 'lodash-es';
 
+type GeneratorWithLogAndWriteFiles = {
+  log(message: string): void;
+  writeFiles(options: { sections: any; context: any }): Promise<string[]>;
+};
+
 export const entityClientI18nFiles = {
   entityBaseFiles: [
     {
@@ -26,7 +31,7 @@ export const clientI18nFiles = {
 
 export function writeLocalizationEntityFiles() {
   return {
-    async writeLocalizationEntityFiles({ application, entities }) {
+    async writeLocalizationEntityFiles(this: GeneratorWithLogAndWriteFiles, { application, entities }) {
       this.log('---------lxm writeLocalizationEntityFiles----------');
       if (application.skipClient) return;
       const entitiesToWriteTranslationFor = entities.filter(entity => !entity.skipClient && !entity.builtInUser);
@@ -83,7 +88,7 @@ export function writeLocalizationEntityFiles() {
 
 export function writeLocalizationEntityMenu() {
   return {
-    async writeLocalizationEntityMenu({ application, entities, source }) {
+    async writeLocalizationEntityMenu(this: GeneratorWithLogAndWriteFiles, { application, entities, source }) {
       this.log('---------lxm writeLocalizationEntityMenu----------');
       if (application.skipClient) return;
       const languagesToApply = [...new Set([application.nativeLanguage, 'en'])];
@@ -106,7 +111,7 @@ export function writeLocalizationEntityMenu() {
 
 export function writeAppInfo() {
   return {
-    async writeAppInfo({ application }) {
+    async writeAppInfo(this: GeneratorWithLogAndWriteFiles, { application }) {
       if (application.skipClient) return;
       const languagesToApply = [...new Set([application.nativeLanguage, 'en'])];
       await Promise.all(
