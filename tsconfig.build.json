@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json", // 继承原配置用于类型检查
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "module": "commonjs", // ✅ 生成 ESM 格式
+    "target": "ES2022", // Node 22/24 完全支持
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "erasableSyntaxOnly": false, // ❌ 关闭
+    "verbatimModuleSyntax": false,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": false
+  },
+  "include": ["cli/**/*.ts", "cli/**/*.cts", "generators/**/*.ts", "*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/__*", "vitest.test-setup.ts", "vitest.config.ts", "test/**/*"]
+}

@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-chimera",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "private": false,
   "description": "Description for Chimera",
   "keywords": [
@@ -9,22 +9,19 @@
     "jhipster-8"
   ],
   "license": "MIT",
-  "type": "module",
   "bin": {
-    "jhipster-chimera": "cli/cli.cts"
+    "jhipster-chimera": "dist/cli/cli.js"
   },
   "files": [
-    "cli",
-    "generators",
-    "!**/__*",
-    "!**/*.snap",
-    "!**/*.spec.?(c|m)?(j|t)s"
+    "dist"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json && copyfiles -u 1 \"generators/**/*.{ejs,ico,png,jpg,jpeg,svg,webp,css,woff2,java}\" dist/generators/",
     "ejslint": "ejslint generators/**/*.ejs",
     "lint": "eslint",
     "lint-fix": "npm run ejslint && npm run lint -- --fix",
     "prepare": "husky",
+    "prepublishOnly": "npm run build",
     "prettier-check": "prettier --check \"{,**/}*.{md,json,yml,html,cjs,mjs,js,cts,mts,ts,tsx,css,scss,vue,java}\"",
     "prettier-format": "prettier --write \"{,**/}*.{md,json,yml,html,cjs,mjs,js,cts,mts,ts,tsx,css,scss,vue,java}\"",
     "pretest": "npm run prettier-check && npm run lint && tsc",
@@ -36,6 +33,7 @@
     "generator-jhipster": "9.1.0"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
     "ejs-lint": "2.0.1",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
@@ -53,5 +51,11 @@
   "engines": {
     "generator-jhipster": "9.1.0",
     "node": "^22.18.0 || >=24.11.0"
+  },
+  "export": {
+    "./generators/*": {
+      "types": "./dist/types/generators/*/index.d.ts",
+      "import": "./dist/generators/*/index.js"
+    }
   }
 }

@@ -82,7 +82,7 @@ npm install -g .
 
 # 重新发布指定的版本
 
-TAG='v2.1.8' MSG='Adapt for Jhipster 9.1.0' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
+TAG='v2.1.9' MSG='Fix build bug for Jhipster 9.1.0' && git push -d origin "${TAG}" && git tag -d "${TAG}" && git tag "${TAG}" -m "${MSG}" && git push origin "${TAG}"
 
 ```
 
@@ -176,6 +176,12 @@ TAG='v2.1.8' MSG='Adapt for Jhipster 9.1.0' && git push -d origin "${TAG}" && gi
 先切换目录，否则会跟当前目录混在一起，引起混乱
 
 ```bash
+rm -rf dist          # 清理旧输出
+npm run build        # 现在会编译 TS 并复制模板文件
+npm link             # 重新链接
+cd 你的测试项目
+npm link generator-jhipster-chimera
+jhipster jdl ...    # 再次执行
 
 jhipster jdl --blueprints chimera --project-version 1.1.0-SNAPSHOT --skip-git --skip-install sample.jdl
 
