@@ -74,11 +74,17 @@ jhipster app --blueprints chimera --help
 要使用未发布的版本，请使用 git 安装它。
 
 ```bash
-npm install -g jhipster/generator-jhipster-chimera#main
-jhipster --blueprints chimera --skip-jhipster-dependencies
+npm install
+npm run build
+# 把当前项目链接到全局
+npm link
 
-# 本地项目安装到全局
-npm install -g .
+# 验证是否安装成功
+npm list | grep generator-jhipster-chimera
+npm list | grep generator-jhipster-chimera
+
+# 项目上链接在.vscode/tasks.json中定义
+npm link generator-jhipster-chimera
 
 # 重新发布指定的版本
 

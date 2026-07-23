@@ -5,6 +5,7 @@
     /* Language and Environment */
     "target": "ES2025" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "types": ["node"],
+    "sourceMap": true,
 
     /* Modules */
     "rootDir": "./" /* Specify the root folder within your source files. */,

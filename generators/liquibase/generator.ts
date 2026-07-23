@@ -26,7 +26,7 @@ export default class extends BaseApplicationGenerator {
 
         // 直接编辑 CSV 文件
         const csvPath = `${application.srcMainResources}/config/liquibase/fake-data/resource.csv`;
-        const operations = ['ACCESS', 'DELETE', 'EDIT', 'EXPORT', 'IMPORT', 'LIST', 'MASSUPDATE', 'VIEW'];
+        const operations = ['ACCESS', 'READ', 'EDIT', 'IMPORT', 'EXPORT', 'DELETE'];
         let lineNumber = 1;
         let csvContent = 'id;name;permission;authority_name\n';
 

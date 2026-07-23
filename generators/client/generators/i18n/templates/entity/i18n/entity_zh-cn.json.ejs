@@ -6,29 +6,29 @@
     "<%- frontendAppName %>": {
         "<%- entityTranslationKey %>" : {
             "home": {
-                "title": "<%- entityNamePluralHumanized %>",
+                "title": "<%- entityApiDescription %>",
                 "refreshListLabel": "刷新",
 <%_ if (!readOnly) { _%>
-                "createLabel": "创建新 <%- entityNameHumanized %>",
-                "createOrEditLabel": "创建或编辑 <%- entityNameHumanized %>",
+                "createLabel": "创建新 <%- entityApiDescription %>",
+                "createOrEditLabel": "创建或编辑 <%- entityApiDescription %>",
 <%_ } _%>
 <%_ if (locals.searchEngineAny) { _%>
-                "search": "查找 <%- entityNameHumanized %>",
+                "search": "查找 <%- entityApiDescription %>",
 <%_ } _%>
-                "notFound": "未找到 <%- entityNamePluralHumanized %>"
+                "notFound": "未找到 <%- entityApiDescription %>"
             },
 <%_ if (!microserviceAppName && !readOnly) { _%>
-            "created": "<%- entityNameHumanized %> {{ param }} 创建成功",
-            "updated": "<%- entityNameHumanized %> {{ param }} 更新成功",
-            "deleted": "<%- entityNameHumanized %> {{ param }} 删除成功",
+            "created": "<%- entityApiDescription %> {{ param }} 创建成功",
+            "updated": "<%- entityApiDescription %> {{ param }} 更新成功",
+            "deleted": "<%- entityApiDescription %> {{ param }} 删除成功",
 <%_ } _%>
 <%_ if (!readOnly) { _%>
             "delete": {
-                "question": "你确定要删除 <%- entityNameHumanized %> {{ id }} 吗？"
+                "question": "你确定要删除 <%- entityApiDescription %> {{ id }} 吗？"
             },
 <%_ } _%>
             "detail": {
-                "title": "<%- entityNameHumanized %>"
+                "title": "<%- entityApiDescription %>"
             }
 <%_ for (const field of fields) { _%>,
             "<%- field.fieldName %>": "<%- field.fieldNameHumanized %>"
@@ -51,9 +51,9 @@
 <%_ if (microserviceAppName && !readOnly) { _%>,
     "<%- microserviceAppName %>": {
         "<%- entityTranslationKey %>" : {
-            "created": "<%- entityNameHumanized %> {{ param }} 创建成功",
-            "updated": "<%- entityNameHumanized %> {{ param }} 更新成功",
-            "deleted": "<%- entityNameHumanized %> {{ param }} 删除成功"
+            "created": "<%- entityApiDescription %> {{ param }} 创建成功",
+            "updated": "<%- entityApiDescription %> {{ param }} 更新成功",
+            "deleted": "<%- entityApiDescription %> {{ param }} 删除成功"
         }
     }
 <%_ } _%>
